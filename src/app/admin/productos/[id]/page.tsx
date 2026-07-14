@@ -32,8 +32,8 @@ export default function EditProductPage({ params }: EditProductPageProps) {
 
   useEffect(() => {
     params.then(({ id }) => {
-      if (id === "nuevo") {
-        router.replace("/admin/productos/nuevo");
+      if (id === "nuevo" || id === "crear") {
+        router.replace("/admin/productos/crear");
         return;
       }
       setProductId(id);

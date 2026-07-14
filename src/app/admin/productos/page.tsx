@@ -82,7 +82,7 @@ export default function AdminProducts() {
         <h2 className="text-2xl font-semibold text-gray-800">
           Gestión de Productos
         </h2>
-        <Link href="/admin/productos/nuevo" className="btn-primary text-xs">
+        <Link href="/admin/productos/crear" className="btn-primary text-xs">
           <Plus size={16} className="mr-2" />
           Nuevo Producto
         </Link>
