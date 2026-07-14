@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: #ffffff;
+  --color-foreground: #111111;
+  --color-cream: #faf8f5;
+  --color-nude: #f5e6e0;
+  --color-rose: #c4a0a0;
+  --color-blush: #e8d5d5;
+  --color-charcoal: #2d2d2d;
+  --color-gold: #b8956a;
+
+  --font-serif: "Playfair Display", "Didot", "Georgia", serif;
+  --font-sans: "Montserrat", "Inter", system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: var(--color-nude);
+    color: var(--color-foreground);
+  }
+}
+
+@layer components {
+  .heading-serif {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-8 py-3 bg-foreground text-background font-sans text-sm tracking-widest uppercase transition-all duration-300 hover:bg-charcoal;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center px-8 py-3 border border-foreground text-foreground font-sans text-sm tracking-widest uppercase transition-all duration-300 hover:bg-foreground hover:text-background;
+  }
+
+  .btn-whatsapp {
+    @apply inline-flex items-center justify-center px-8 py-3 bg-green-600 text-white font-sans text-sm tracking-widest uppercase transition-all duration-300 hover:bg-green-700;
+  }
+
+  .section-padding {
+    @apply px-4 sm:px-6 lg:px-8 py-16 lg:py-24;
+  }
+
+  .container mx-auto {
+    max-width: 1400px;
+  }
+
+  .admin-card {
+    @apply bg-white rounded-lg border border-gray-200 p-6 shadow-sm;
+  }
+
+  .admin-input {
+    @apply w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-foreground/20 focus:border-foreground transition-colors;
+  }
+
+  .admin-label {
+    @apply block text-sm font-medium text-gray-700 mb-1.5;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out forwards;
+  }
+
+  .animate-fade-in-delay {
+    animation: fadeIn 0.6s ease-out 0.2s forwards;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-rose);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-charcoal);
+}
