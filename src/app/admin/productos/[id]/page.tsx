@@ -32,6 +32,10 @@ export default function EditProductPage({ params }: EditProductPageProps) {
 
   useEffect(() => {
     params.then(({ id }) => {
+      if (id === "nuevo") {
+        router.replace("/admin/productos/nuevo");
+        return;
+      }
       setProductId(id);
       Promise.all([
         fetch(`/api/productos/${id}`).then((r) => r.json()),
