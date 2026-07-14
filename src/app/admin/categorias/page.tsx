@@ -1,7 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Plus, Edit, Trash2, Loader2, X } from "lucide-react";
+import {
+  Plus,
+  Edit,
+  Trash2,
+  Loader2,
+  X,
+  Upload,
+} from "lucide-react";
 import { Category } from "@/lib/types";
 import { generateSlug } from "@/lib/utils";
 
@@ -10,7 +17,8 @@ export default function AdminCategories() {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [form, setForm] = useState({ name: "", description: "" });
+  const [uploading, setUploading] = useState(false);
+  const [form, setForm] = useState({ name: "", description: "", image: "" });
 
   useEffect(() => {
     fetch("/api/categorias")
@@ -20,6 +28,33 @@ export default function AdminCategories() {
         setLoading(false);
       });
   }, []);
+
+  const resetForm = () => {
+    setForm({ name: "", description: "", image: "" });
+    setEditingId(null);
+    setShowForm(false);
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("bucket", "products");
+
+    try {
+      const res = await fetch("/api/upload", { method: "POST", body: formData });
+      const data = await res.json();
+      if (data.url) {
+        setForm((prev) => ({ ...prev, image: data.url }));
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+    setUploading(false);
+  };
 
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,13 +66,13 @@ export default function AdminCategories() {
           name: form.name,
           slug: generateSlug(form.name),
           description: form.description,
+          image: form.image,
           sort_order: categories.length + 1,
         }),
       });
       const newCat = await res.json();
       setCategories((prev) => [...prev, newCat]);
-      setForm({ name: "", description: "" });
-      setShowForm(false);
+      resetForm();
     } catch {
       alert("Error al crear categoría");
     }
@@ -54,22 +89,25 @@ export default function AdminCategories() {
           name: form.name,
           slug: generateSlug(form.name),
           description: form.description,
+          image: form.image,
         }),
       });
       const updated = await res.json();
       setCategories((prev) =>
         prev.map((c) => (c.id === editingId ? updated : c))
       );
-      setForm({ name: "", description: "" });
-      setEditingId(null);
-      setShowForm(false);
+      resetForm();
     } catch {
       alert("Error al actualizar");
     }
   };
 
   const startEdit = (cat: Category) => {
-    setForm({ name: cat.name, description: cat.description });
+    setForm({
+      name: cat.name,
+      description: cat.description || "",
+      image: cat.image || "",
+    });
     setEditingId(cat.id);
     setShowForm(true);
   };
@@ -100,8 +138,7 @@ export default function AdminCategories() {
         </h2>
         <button
           onClick={() => {
-            setForm({ name: "", description: "" });
-            setEditingId(null);
+            resetForm();
             setShowForm(!showForm);
           }}
           className="btn-primary text-xs"
@@ -123,15 +160,13 @@ export default function AdminCategories() {
             </h3>
             <button
               type="button"
-              onClick={() => {
-                setShowForm(false);
-                setEditingId(null);
-              }}
+              onClick={resetForm}
               className="p-1 hover:bg-gray-100 rounded"
             >
               <X size={18} />
             </button>
           </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
               <label className="admin-label">Nombre</label>
@@ -155,16 +190,58 @@ export default function AdminCategories() {
               />
             </div>
           </div>
+
+          {/* Image Upload */}
+          <div className="mb-4">
+            <label className="admin-label">Imagen de la Categoría</label>
+            {form.image ? (
+              <div className="relative inline-block">
+                <img
+                  src={form.image}
+                  alt="Preview"
+                  className="w-full max-h-48 object-cover rounded-lg"
+                />
+                <button
+                  type="button"
+                  onClick={() => setForm({ ...form, image: "" })}
+                  className="absolute top-2 right-2 bg-red-500 text-white p-1.5 rounded-full hover:bg-red-600"
+                >
+                  <X size={14} />
+                </button>
+              </div>
+            ) : (
+              <label className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-gray-400 transition-colors cursor-pointer block">
+                {uploading ? (
+                  <Loader2
+                    size={32}
+                    className="mx-auto animate-spin text-gray-400 mb-2"
+                  />
+                ) : (
+                  <Upload size={32} className="mx-auto text-gray-400 mb-2" />
+                )}
+                <p className="text-sm text-gray-600">
+                  {uploading ? "Subiendo..." : "Hacé clic para subir imagen"}
+                </p>
+                <p className="text-xs text-gray-400 mt-1">
+                  JPG, PNG o WEBP. Máx 5MB
+                </p>
+                <input
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  onChange={handleImageUpload}
+                  className="hidden"
+                />
+              </label>
+            )}
+          </div>
+
           <div className="flex gap-3">
             <button type="submit" className="btn-primary text-xs">
               {editingId ? "Guardar Cambios" : "Crear Categoría"}
             </button>
             <button
               type="button"
-              onClick={() => {
-                setShowForm(false);
-                setEditingId(null);
-              }}
+              onClick={resetForm}
               className="btn-outline text-xs"
             >
               Cancelar
@@ -195,17 +272,24 @@ export default function AdminCategories() {
               </div>
             </div>
 
-            <div className="aspect-[4/3] bg-gradient-to-br from-nude to-blush rounded-lg mb-3 flex items-center justify-center">
-              <span className="heading-serif text-3xl text-foreground/10">
-                {category.name.charAt(0)}
-              </span>
-            </div>
+            {category.image ? (
+              <img
+                src={category.image}
+                alt={category.name}
+                className="w-full aspect-[4/3] object-cover rounded-lg mb-3"
+              />
+            ) : (
+              <div className="aspect-[4/3] bg-gradient-to-br from-nude to-blush rounded-lg mb-3 flex items-center justify-center">
+                <span className="heading-serif text-3xl text-foreground/10">
+                  {category.name.charAt(0)}
+                </span>
+              </div>
+            )}
 
             <h4 className="font-medium text-gray-800">{category.name}</h4>
             <p className="text-xs text-gray-500 mt-1 line-clamp-2">
               {category.description}
             </p>
-            <p className="text-xs text-gray-400 mt-2">Slug: /{category.slug}</p>
           </div>
         ))}
       </div>

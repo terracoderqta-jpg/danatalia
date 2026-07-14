@@ -25,11 +25,19 @@ export function CategorySection({ categories }: CategorySectionProps) {
               href={`/catalogo?cat=${category.slug}`}
               className="group relative aspect-[3/4] overflow-hidden bg-nude"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-nude via-blush to-rose/30 flex items-center justify-center">
-                <span className="heading-serif text-5xl md:text-6xl text-foreground/5">
-                  {category.name.charAt(0)}
-                </span>
-              </div>
+              {category.image ? (
+                <img
+                  src={category.image}
+                  alt={category.name}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+              ) : (
+                <div className="absolute inset-0 bg-gradient-to-br from-nude via-blush to-rose/30 flex items-center justify-center">
+                  <span className="heading-serif text-5xl md:text-6xl text-foreground/5">
+                    {category.name.charAt(0)}
+                  </span>
+                </div>
+              )}
 
               {/* Hover overlay */}
               <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/20 transition-all duration-500" />
