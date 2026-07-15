@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
     // Generate unique filename
     const ext = file.name.split(".").pop();
     const filename = `${Date.now()}-${Math.random().toString(36).substring(7)}.${ext}`;
-    const filepath = `${bucket}/${filename}`;
+    const filepath = filename;
 
     // Convert File to ArrayBuffer
     const arrayBuffer = await file.arrayBuffer();
