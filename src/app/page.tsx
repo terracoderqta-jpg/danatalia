@@ -4,6 +4,8 @@ import { BrandSection } from "@/components/BrandSection";
 import { ProductCard } from "@/components/ProductCard";
 import { getBanners, getCategories, getProducts } from "@/lib/queries";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const [banners, categories, featuredProducts] = await Promise.all([
     getBanners(),
