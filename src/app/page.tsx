@@ -16,6 +16,9 @@ export default async function Home() {
       {/* Hero Slider */}
       <HeroSlider banners={banners} />
 
+      {/* Categories */}
+      <CategorySection categories={categories} />
+
       {/* Featured Products */}
       <section className="section-padding">
         <div className="max-w-7xl mx-auto">
@@ -43,9 +46,6 @@ export default async function Home() {
           )}
         </div>
       </section>
-
-      {/* Categories */}
-      <CategorySection categories={categories} />
 
       {/* Brand Story */}
       <BrandSection />
