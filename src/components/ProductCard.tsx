@@ -26,7 +26,7 @@ export function ProductCard({ product }: ProductCardProps) {
         )}
 
         {/* Hover overlay */}
-        <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/10 transition-all duration-500" />
+        <div className="absolute inset-0 bg-rose/0 group-hover:bg-rose/5 transition-all duration-500" />
 
         {/* Quick view label */}
         <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -36,7 +36,7 @@ export function ProductCard({ product }: ProductCardProps) {
         </div>
 
         {product.featured && (
-          <div className="absolute top-3 left-3 bg-foreground text-white px-3 py-1 text-[10px] tracking-[0.15em] uppercase">
+          <div className="absolute top-3 left-3 bg-rose text-white px-3 py-1 text-[10px] tracking-[0.15em] uppercase">
             Destacado
           </div>
         )}

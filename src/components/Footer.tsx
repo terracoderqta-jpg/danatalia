@@ -15,7 +15,7 @@ export function Footer() {
   if (isAdminRoute) return null;
 
   return (
-    <footer className="bg-foreground text-white">
+    <footer className="bg-[#faf6f6] border-t border-rose/15 text-foreground">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Brand */}
@@ -28,7 +28,7 @@ export function Footer() {
               className="h-14 w-auto mb-6"
               unoptimized
             />
-            <p className="text-white/60 text-sm leading-relaxed max-w-xs">
+            <p className="text-foreground/75 text-sm leading-relaxed max-w-xs">
               Lencería fina y trajes de baño de diseño propio. Cada pieza está
               pensada para hacer sentir única a quien la lleva.
             </p>
@@ -36,7 +36,7 @@ export function Footer() {
 
           {/* Navigation */}
           <div>
-            <h4 className="text-xs tracking-[0.2em] uppercase mb-6 font-medium">
+            <h4 className="text-xs tracking-[0.2em] uppercase mb-6 font-medium text-foreground/80">
               Navegación
             </h4>
             <ul className="space-y-3">
@@ -49,7 +49,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-white/60 hover:text-white text-sm transition-colors"
+                    className="text-foreground/60 hover:text-rose text-sm transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -60,21 +60,21 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="text-xs tracking-[0.2em] uppercase mb-6 font-medium">
+            <h4 className="text-xs tracking-[0.2em] uppercase mb-6 font-medium text-foreground/80">
               Contacto
             </h4>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
-                <MapPin size={16} className="text-white/40 mt-0.5 shrink-0" />
-                <span className="text-white/60 text-sm">
+                <MapPin size={16} className="text-rose mt-0.5 shrink-0" />
+                <span className="text-foreground/75 text-sm">
                   Belgrano al 700, Reconquista
                   <br />
                   Santa Fe, Argentina
                 </span>
               </li>
               <li className="flex items-start gap-3">
-                <Clock size={16} className="text-white/40 mt-0.5 shrink-0" />
-                <span className="text-white/60 text-sm">
+                <Clock size={16} className="text-rose mt-0.5 shrink-0" />
+                <span className="text-foreground/75 text-sm">
                   Lun a Vie: 9:00 - 19:00
                   <br />
                   Sáb: 9:00 - 14:00
@@ -85,7 +85,7 @@ export function Footer() {
                   href="https://www.instagram.com/danatalia.lenceria"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-white/60 hover:text-white text-sm transition-colors"
+                  className="flex items-center gap-2 text-foreground/60 hover:text-rose text-sm transition-colors"
                 >
                   <svg
                     width="16"
@@ -109,13 +109,13 @@ export function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="mt-16 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-white/40 text-xs">
+        <div className="mt-16 pt-8 border-t border-rose/15 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-foreground/50 text-xs">
             &copy; {new Date().getFullYear()} Dana Talía Lencería & Bikinis.
             Todos los derechos reservados.
           </p>
-          <p className="text-white/40 text-xs flex items-center gap-1">
-            Hecho con <Heart size={12} className="text-rose" /> en Reconquista
+          <p className="text-foreground/50 text-xs flex items-center gap-1">
+            Hecho con <Heart size={12} className="fill-rose text-rose" /> en Reconquista
           </p>
         </div>
       </div>

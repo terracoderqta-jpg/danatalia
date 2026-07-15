@@ -59,7 +59,7 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-xs tracking-[0.2em] uppercase text-foreground/70 hover:text-foreground transition-colors duration-300 font-medium"
+                className="text-xs tracking-[0.2em] uppercase text-foreground/70 hover:text-rose transition-colors duration-300 font-medium"
               >
                 {link.label}
               </Link>
@@ -85,7 +85,7 @@ export function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setIsOpen(false)}
-                  className="block py-3 text-sm tracking-[0.15em] uppercase text-foreground/70 hover:text-foreground transition-colors"
+                  className="block py-3 text-sm tracking-[0.15em] uppercase text-foreground/70 hover:text-rose transition-colors"
                 >
                   {link.label}
                 </Link>

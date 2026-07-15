@@ -40,7 +40,7 @@ export function CategorySection({ categories }: CategorySectionProps) {
               )}
 
               {/* Hover overlay */}
-              <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/20 transition-all duration-500" />
+              <div className="absolute inset-0 bg-rose/0 group-hover:bg-rose/10 transition-all duration-500" />
 
               {/* Label */}
               <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 bg-gradient-to-t from-black/50 to-transparent">

@@ -46,7 +46,7 @@ export function ImageGallery({ images, productName }: ImageGalleryProps) {
               onClick={() => setSelectedIndex(idx)}
               className={`aspect-square overflow-hidden rounded cursor-pointer transition-all duration-200 ${
                 selectedIndex === idx
-                  ? "ring-2 ring-foreground ring-offset-2"
+                  ? "ring-2 ring-rose ring-offset-2"
                   : "opacity-60 hover:opacity-100"
               }`}
             >

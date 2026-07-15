@@ -66,13 +66,13 @@ export default async function ProductPage({ params }: ProductPageProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 text-xs tracking-wider text-foreground/40 mb-8">
-          <Link href="/" className="hover:text-foreground transition-colors">
+          <Link href="/" className="hover:text-rose transition-colors">
             Inicio
           </Link>
           <span>/</span>
           <Link
             href="/catalogo"
-            className="hover:text-foreground transition-colors"
+            className="hover:text-rose transition-colors"
           >
             Catálogo
           </Link>
@@ -81,7 +81,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             <>
               <Link
                 href={`/catalogo?cat=${category.slug}`}
-                className="hover:text-foreground transition-colors"
+                className="hover:text-rose transition-colors"
               >
                 {category.name}
               </Link>
@@ -126,7 +126,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                   {sizes.map((size: string) => (
                     <span
                       key={size}
-                      className="px-4 py-2 border border-foreground/20 text-sm hover:border-foreground transition-colors cursor-pointer"
+                      className="px-4 py-2 border border-foreground/20 text-sm hover:border-rose hover:text-rose transition-colors cursor-pointer"
                     >
                       {size}
                     </span>
@@ -144,7 +144,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                   {colors.map((color: string) => (
                     <span
                       key={color}
-                      className="px-4 py-2 border border-foreground/20 text-sm"
+                      className="px-4 py-2 border border-foreground/20 text-sm hover:border-rose hover:text-rose transition-colors"
                     >
                       {color}
                     </span>

@@ -41,11 +41,11 @@
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center px-8 py-3 bg-foreground text-background font-sans text-sm tracking-widest uppercase transition-all duration-300 hover:bg-charcoal;
+    @apply inline-flex items-center justify-center px-8 py-3 bg-rose text-white font-sans text-sm tracking-widest uppercase transition-all duration-300 hover:bg-rose/90;
   }
 
   .btn-outline {
-    @apply inline-flex items-center justify-center px-8 py-3 border border-foreground text-foreground font-sans text-sm tracking-widest uppercase transition-all duration-300 hover:bg-foreground hover:text-background;
+    @apply inline-flex items-center justify-center px-8 py-3 border border-rose text-rose font-sans text-sm tracking-widest uppercase transition-all duration-300 hover:bg-rose hover:text-white;
   }
 
   .btn-whatsapp {

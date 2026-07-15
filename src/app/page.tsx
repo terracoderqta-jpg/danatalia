@@ -53,15 +53,15 @@ export default async function Home() {
       <BrandSection />
 
       {/* CTA Section */}
-      <section className="section-padding bg-foreground text-white text-center">
+      <section className="section-padding bg-[#faf6f6] border-y border-rose/15 text-center">
         <div className="max-w-2xl mx-auto">
-          <p className="text-xs tracking-[0.3em] uppercase text-white/40 mb-3">
+          <p className="text-xs tracking-[0.3em] uppercase text-rose mb-3">
             Atención Personalizada
           </p>
-          <h2 className="heading-serif text-3xl md:text-4xl mb-6">
+          <h2 className="heading-serif text-3xl md:text-4xl mb-6 text-foreground">
             ¿Tenés alguna consulta?
           </h2>
-          <p className="text-white/60 mb-8 leading-relaxed">
+          <p className="text-foreground/70 mb-8 leading-relaxed">
             Escribinos por WhatsApp y te asesoramos sobre talles, disponibilidad
             y envíos a todo el país.
           </p>
@@ -69,7 +69,7 @@ export default async function Home() {
             href="https://wa.me/5493482555555?text=Hola!%20Me%20gustaría%20hacer%20una%20consulta"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary bg-white text-foreground hover:bg-white/90"
+            className="btn-primary"
           >
             Chateá con Nosotros
           </a>

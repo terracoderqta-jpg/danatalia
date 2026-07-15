@@ -32,8 +32,8 @@ export function ProductGrid({
           onClick={() => setActiveCategory("all")}
           className={`px-5 py-2 text-xs tracking-[0.15em] uppercase transition-all duration-300 border ${
             activeCategory === "all"
-              ? "bg-foreground text-white border-foreground"
-              : "bg-transparent text-foreground/60 border-foreground/20 hover:border-foreground/40"
+              ? "bg-rose text-white border-rose"
+              : "bg-transparent text-foreground/60 border-foreground/20 hover:border-rose/40 hover:text-rose"
           }`}
         >
           Todos
@@ -44,8 +44,8 @@ export function ProductGrid({
             onClick={() => setActiveCategory(cat.id)}
             className={`px-5 py-2 text-xs tracking-[0.15em] uppercase transition-all duration-300 border ${
               activeCategory === cat.id
-                ? "bg-foreground text-white border-foreground"
-                : "bg-transparent text-foreground/60 border-foreground/20 hover:border-foreground/40"
+                ? "bg-rose text-white border-rose"
+                : "bg-transparent text-foreground/60 border-foreground/20 hover:border-rose/40 hover:text-rose"
             }`}
           >
             {cat.name}
