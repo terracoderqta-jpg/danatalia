@@ -136,7 +136,6 @@ export default function EditProductPage({ params }: EditProductPageProps) {
     try {
       const productData = {
         name: form.name,
-        slug: generateSlug(form.name),
         description: form.description,
         category_id: form.category_id,
         price: Number(form.price),
@@ -247,6 +246,7 @@ export default function EditProductPage({ params }: EditProductPageProps) {
                       className="admin-input"
                       required
                     />
+                    <p className="text-[10px] text-gray-500 mt-1">Poner 0 para "Consultar"</p>
                   </div>
                 </div>
 

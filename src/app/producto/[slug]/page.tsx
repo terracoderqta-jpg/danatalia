@@ -106,7 +106,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             </h1>
 
             <p className="text-2xl text-foreground/80 mb-6">
-              {formatPrice(product.price)}
+              {product.price > 0 ? formatPrice(product.price) : "Consultar precio"}
             </p>
 
             {product.description && (

@@ -49,7 +49,9 @@ export function ProductCard({ product }: ProductCardProps) {
         <h3 className="heading-serif text-lg mb-1 group-hover:text-rose transition-colors">
           {product.name}
         </h3>
-        <p className="text-sm text-foreground/60">{formatPrice(product.price)}</p>
+        <p className="text-sm text-foreground/60">
+          {product.price > 0 ? formatPrice(product.price) : "Consultar precio"}
+        </p>
       </div>
     </Link>
   );

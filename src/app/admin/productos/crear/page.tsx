@@ -263,6 +263,7 @@ export default function NewProductPage() {
                         className="admin-input"
                         required
                       />
+                      <p className="text-[10px] text-gray-500 mt-1">Poner 0 para "Consultar"</p>
                     </div>
                   </div>
 
