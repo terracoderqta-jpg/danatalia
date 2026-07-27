@@ -161,7 +161,7 @@ export function WholesaleCalculator() {
             ))}
 
             <a
-              href="https://wa.me/5493482555555?text=Hola!%20Me%20interesa%20ser%20revendedora%20mayorista"
+              href="https://wa.me/5493482312433?text=Hola!%20Me%20interesa%20ser%20revendedora%20mayorista"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-dorado mt-4"

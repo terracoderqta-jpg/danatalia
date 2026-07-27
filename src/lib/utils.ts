@@ -25,5 +25,5 @@ export function getWhatsAppLink(productName: string): string {
   const message = encodeURIComponent(
     `Hola! Me interesa el producto "${productName}". ¿Podrían darme más información?`
   );
-  return `https://wa.me/5493482555555?text=${message}`;
+  return `https://wa.me/5493482312433?text=${message}`;
 }

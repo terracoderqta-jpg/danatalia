@@ -29,7 +29,7 @@ export function ContactForm() {
     msg += `Tipo de compra: ${form.type}\n`;
     msg += `Mensaje: ${form.message}`;
     const encoded = encodeURIComponent(msg);
-    window.open(`https://wa.me/5493482555555?text=${encoded}`, "_blank");
+    window.open(`https://wa.me/5493482312433?text=${encoded}`, "_blank");
     setSubmitted(true);
   };
 
@@ -57,7 +57,7 @@ export function ContactForm() {
                 </div>
                 <div>
                   <p className="text-xs text-piedra/40">WhatsApp</p>
-                  <p className="text-sm font-medium text-piedra">+54 9 3482 55-5555</p>
+                  <p className="text-sm font-medium text-piedra">+54 9 3482 31-2433</p>
                 </div>
               </div>
               <div className="flex items-center gap-4">

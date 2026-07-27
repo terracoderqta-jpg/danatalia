@@ -444,7 +444,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     });
     msg += `\n*TOTAL ESTIMADO: ${formatPrice(cartTotal)}*`;
     const encoded = encodeURIComponent(msg);
-    window.open(`https://wa.me/5493482555555?text=${encoded}`, "_blank");
+    window.open(`https://wa.me/5493482312433?text=${encoded}`, "_blank");
   }, [state.cart, state.mode, cartTotal]);
 
   return (

@@ -102,7 +102,7 @@ export function QuickViewModal() {
               </button>
 
               <a
-                href={`https://wa.me/5493482555555?text=${encodeURIComponent(
+                href={`https://wa.me/5493482312433?text=${encodeURIComponent(
                   `Hola! Me interesa el producto "${product.name}". ¿Podrían darme más información?`
                 )}`}
                 target="_blank"

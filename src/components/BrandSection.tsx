@@ -54,7 +54,7 @@ export function BrandSection() {
                 Seguinos en Instagram
               </a>
               <a
-                href="https://wa.me/5493482555555"
+                href="https://wa.me/5493482312433"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-outline"
