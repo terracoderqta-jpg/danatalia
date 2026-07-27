@@ -1,99 +1,133 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import Image from "next/image";
+import { useState } from "react";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import Link from "next/link";
+import { useStore } from "@/lib/store";
+import { Search, ShoppingBag, Menu, X } from "lucide-react";
 
-const navLinks = [
-  { href: "/", label: "Inicio" },
-  { href: "/catalogo", label: "Catálogo" },
-  { href: "/catalogo?cat=conjuntos", label: "Lencería" },
-  { href: "/catalogo?cat=bikinis", label: "Bikinis" },
+const NAV_LINKS = [
+  { href: "/#cosmetica", label: "Cosmética" },
+  { href: "/#lenceria", label: "Lencería" },
+  { href: "/#mayorista", label: "Mayorista" },
+  { href: "/#contacto", label: "Contacto" },
 ];
 
+function PriceToggleComponent() {
+  const { state, dispatch } = useStore();
+  return (
+    <div className="price-toggle">
+      <button
+        onClick={() => dispatch({ type: "SET_MODE", payload: "minorista" })}
+        className={state.mode === "minorista" ? "price-toggle-active" : "price-toggle-inactive"}
+      >
+        Minorista
+      </button>
+      <button
+        onClick={() => dispatch({ type: "SET_MODE", payload: "mayorista" })}
+        className={state.mode === "mayorista" ? "price-toggle-active" : "price-toggle-inactive"}
+      >
+        Mayorista
+      </button>
+    </div>
+  );
+}
+
 export function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const { dispatch, cartCount } = useStore();
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const isAdmin = pathname.startsWith("/admin") || pathname === "/login";
 
-  // Hide navbar on admin and login pages
-  const isAdminRoute =
-    pathname.startsWith("/admin") || pathname === "/login";
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  if (isAdminRoute) return null;
+  if (isAdmin) return null;
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled || isOpen
-          ? "bg-white/95 backdrop-blur-md shadow-sm"
-          : "bg-transparent"
-      }`}
-    >
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+    <header className="glass sticky top-0 z-30">
+      <div className="container-site mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 shrink-0">
-            <Image
-              src="/logo.png"
-              alt="Dana Talía"
-              width={200}
-              height={60}
-              className="h-14 w-auto"
-              priority
-              unoptimized
-            />
+          <Link href="/" className="flex items-center gap-2">
+            <div className="w-10 h-10 bg-terracota rounded-xl flex items-center justify-center">
+              <span className="heading-serif text-white text-lg">DT</span>
+            </div>
+            <div className="hidden sm:block">
+              <p className="heading-serif text-lg text-piedra leading-none">Dana Talía</p>
+              <p className="text-[9px] uppercase tracking-[0.2em] text-piedra/40">Cosmética & Lencería</p>
+            </div>
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-10">
-            {navLinks.map((link) => (
+          <nav className="hidden lg:flex items-center gap-8">
+            {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-xs tracking-[0.2em] uppercase text-foreground/70 hover:text-rose transition-colors duration-300 font-medium"
+                className="text-sm text-piedra/60 hover:text-terracota transition-colors duration-300 font-medium"
               >
                 {link.label}
               </Link>
             ))}
-          </div>
+          </nav>
 
-          {/* Mobile toggle */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 text-foreground"
-            aria-label="Menú"
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          {/* Right */}
+          <div className="flex items-center gap-3">
+            <div className="hidden md:block">
+              <PriceToggleComponent />
+            </div>
+            <button
+              onClick={() => dispatch({ type: "SET_SEARCH_OPEN", payload: true })}
+              className="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-cream transition-colors"
+            >
+              <Search size={18} className="text-piedra/60" />
+            </button>
+            <button
+              onClick={() => dispatch({ type: "TOGGLE_CART" })}
+              className="relative w-10 h-10 flex items-center justify-center rounded-xl hover:bg-cream transition-colors"
+            >
+              <ShoppingBag size={18} className="text-piedra/60" />
+              {cartCount > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 w-5 h-5 bg-terracota text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                  {cartCount}
+                </span>
+              )}
+            </button>
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="lg:hidden w-10 h-10 flex items-center justify-center rounded-xl hover:bg-cream transition-colors"
+            >
+              {mobileOpen ? <X size={18} /> : <Menu size={18} />}
+            </button>
+          </div>
         </div>
 
-        {/* Mobile Menu */}
-        {isOpen && (
-          <div className="md:hidden animate-fade-in">
-            <div className="py-6 space-y-1 border-t border-gray-100">
-              {navLinks.map((link) => (
+        {/* Mobile Nav */}
+        {mobileOpen && (
+          <div className="lg:hidden pb-4 border-t border-nude/30 pt-4">
+            <div className="md:hidden mb-4 flex justify-center">
+              <PriceToggleComponent />
+            </div>
+            <nav className="flex flex-col gap-2">
+              {NAV_LINKS.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  onClick={() => setIsOpen(false)}
-                  className="block py-3 text-sm tracking-[0.15em] uppercase text-foreground/70 hover:text-rose transition-colors"
+                  onClick={() => setMobileOpen(false)}
+                  className="px-4 py-2.5 rounded-xl text-sm text-piedra/60 hover:bg-cream hover:text-terracota transition-colors font-medium"
                 >
                   {link.label}
                 </Link>
               ))}
-            </div>
+              <Link
+                href="/catalogo"
+                onClick={() => setMobileOpen(false)}
+                className="px-4 py-2.5 rounded-xl text-sm text-piedra/60 hover:bg-cream hover:text-terracota transition-colors font-medium"
+              >
+                Ver Catálogo Completo
+              </Link>
+            </nav>
           </div>
         )}
-      </nav>
+      </div>
     </header>
   );
 }

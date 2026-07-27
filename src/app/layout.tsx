@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Montserrat } from "next/font/google";
+import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { StoreProvider } from "@/lib/store";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -11,30 +12,25 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
+const jakarta = Plus_Jakarta_Sans({
+  variable: "--font-jakarta",
   subsets: ["latin"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Dana Talía | Lencería & Bikinis",
+  title: "Dana Talía | Cosmética, Lencería & Bikinis",
   description:
-    "Lencería fina y trajes de baño de diseño propio. Diseños exclusivos con el sello Dana Talía. Reconquista, Santa Fe.",
+    "Cosmética botánica cruelty free, lencería fina y trajes de baño de diseño propio. Envíos a todo el país. Opciones mayoristas disponibles.",
   keywords: [
-    "lencería",
-    "bikinis",
-    "ropa interior",
-    "trajes de baño",
-    "diseño propio",
-    "Dana Talía",
-    "Reconquista",
-    "Santa Fe",
+    "cosmética", "skincare", "maquillaje", "perfumes", "lencería",
+    "bikinis", "ropa interior", "mayorista", "Dana Talía",
+    "Reconquista", "Santa Fe", "cruelty free",
   ],
   openGraph: {
-    title: "Dana Talía | Lencería & Bikinis",
+    title: "Dana Talía | Cosmética, Lencería & Bikinis",
     description:
-      "Lencería fina y trajes de baño de diseño propio. Diseños exclusivos con el sello Dana Talía.",
+      "Cosmética botánica cruelty free, lencería fina y trajes de baño de diseño propio.",
     type: "website",
     locale: "es_AR",
   },
@@ -46,12 +42,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`${playfair.variable} ${montserrat.variable}`}>
+    <html lang="es" className={`${playfair.variable} ${jakarta.variable}`}>
       <body className="min-h-screen flex flex-col antialiased">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <WhatsAppButton />
+        <StoreProvider>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <WhatsAppButton />
+        </StoreProvider>
       </body>
     </html>
   );
