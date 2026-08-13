@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useStore } from "@/lib/store";
+import Image from "next/image";
 import { Search, X } from "lucide-react";
 
 export function SearchModal() {
@@ -82,9 +83,11 @@ export function SearchModal() {
               }}
               className="w-full flex items-center gap-3 px-6 py-3 hover:bg-cream transition-colors text-left"
             >
-              <img
+              <Image
                 src={product.image}
                 alt={product.name}
+                width={40}
+                height={40}
                 className="w-10 h-10 rounded-xl object-cover"
               />
               <div className="flex-1 min-w-0">

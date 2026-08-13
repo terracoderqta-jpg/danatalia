@@ -1,7 +1,6 @@
 import { TopBar } from "@/components/store/TopBar";
 import { HeroBanner } from "@/components/store/HeroBanner";
 import { CosmeticaGrid } from "@/components/store/CosmeticaGrid";
-import { LenceriaShowcase } from "@/components/store/LenceriaShowcase";
 import { WholesaleCalculator } from "@/components/store/WholesaleCalculator";
 import { Testimonials } from "@/components/store/Testimonials";
 import { ContactForm } from "@/components/store/ContactForm";
@@ -15,7 +14,6 @@ export default function Home() {
       <TopBar />
       <HeroBanner />
       <CosmeticaGrid />
-      <LenceriaShowcase />
       <WholesaleCalculator />
       <Testimonials />
       <ContactForm />

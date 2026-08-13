@@ -19,18 +19,18 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Dana Talía | Cosmética, Lencería & Bikinis",
+  title: "Dana Talía | Cosmética Natural & Botánica",
   description:
-    "Cosmética botánica cruelty free, lencería fina y trajes de baño de diseño propio. Envíos a todo el país. Opciones mayoristas disponibles.",
+    "Cosmética botánica cruelty free, skincare, maquillaje y fragancias de diseño propio. Envíos a todo el país. Opciones mayoristas disponibles.",
   keywords: [
-    "cosmética", "skincare", "maquillaje", "perfumes", "lencería",
-    "bikinis", "ropa interior", "mayorista", "Dana Talía",
+    "cosmética", "skincare", "maquillaje", "perfumes",
+    "mayorista", "Dana Talía",
     "Reconquista", "Santa Fe", "cruelty free",
   ],
   openGraph: {
-    title: "Dana Talía | Cosmética, Lencería & Bikinis",
+    title: "Dana Talía | Cosmética Natural & Botánica",
     description:
-      "Cosmética botánica cruelty free, lencería fina y trajes de baño de diseño propio.",
+      "Cosmética botánica cruelty free, skincare, maquillaje y fragancias de diseño propio.",
     type: "website",
     locale: "es_AR",
   },

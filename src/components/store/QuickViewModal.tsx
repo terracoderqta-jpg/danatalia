@@ -1,10 +1,11 @@
 "use client";
 
 import { useStore } from "@/lib/store";
+import Image from "next/image";
 import { X, ShoppingCart, Star } from "lucide-react";
 
 export function QuickViewModal() {
-  const { state, dispatch, getPrice, getNumericPrice } = useStore();
+  const { state, dispatch, getPrice } = useStore();
   const product = state.quickViewProduct;
 
   if (!product) return null;
@@ -37,9 +38,11 @@ export function QuickViewModal() {
           <div className="grid grid-cols-1 md:grid-cols-2">
             {/* Image */}
             <div className="relative">
-              <img
+              <Image
                 src={product.image}
                 alt={product.name}
+                width={600}
+                height={600}
                 className="w-full h-64 md:h-full object-cover rounded-t-3xl md:rounded-l-3xl md:rounded-tr-none"
               />
               <button

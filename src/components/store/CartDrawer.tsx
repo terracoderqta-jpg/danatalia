@@ -1,6 +1,7 @@
 "use client";
 
 import { useStore } from "@/lib/store";
+import Image from "next/image";
 import { X, Plus, Minus, Trash2, MessageCircle } from "lucide-react";
 
 export function CartDrawer() {
@@ -49,9 +50,11 @@ export function CartDrawer() {
                   className="flex gap-3 bg-cream rounded-2xl p-3"
                 >
                   {item.image && (
-                    <img
+                    <Image
                       src={item.image}
                       alt={item.name}
+                      width={64}
+                      height={64}
                       className="w-16 h-16 rounded-xl object-cover flex-shrink-0"
                     />
                   )}

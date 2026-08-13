@@ -2,18 +2,9 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
 import { MapPin, Clock, Heart } from "lucide-react";
 
 export function Footer() {
-  const pathname = usePathname();
-
-  // Hide footer on admin and login pages
-  const isAdminRoute =
-    pathname.startsWith("/admin") || pathname === "/login";
-
-  if (isAdminRoute) return null;
-
   return (
     <footer className="bg-[#faf6f6] border-t border-rose/15 text-foreground">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -29,8 +20,8 @@ export function Footer() {
               unoptimized
             />
             <p className="text-foreground/75 text-sm leading-relaxed max-w-xs">
-              Lencería fina y trajes de baño de diseño propio. Cada pieza está
-              pensada para hacer sentir única a quien la lleva.
+              Cosmética botánica cruelty free. Fórmulas con ingredientes naturales
+              pensadas para realzar tu belleza sin comprometer el planeta.
             </p>
           </div>
 
@@ -42,9 +33,9 @@ export function Footer() {
             <ul className="space-y-3">
               {[
                 { href: "/", label: "Inicio" },
-                { href: "/catalogo", label: "Catálogo" },
-                { href: "/catalogo?cat=conjuntos", label: "Lencería" },
-                { href: "/catalogo?cat=bikinis", label: "Bikinis" },
+                { href: "/#cosmetica", label: "Cosmética" },
+                { href: "/#mayorista", label: "Mayorista" },
+                { href: "/#contacto", label: "Contacto" },
               ].map((link) => (
                 <li key={link.href}>
                   <Link
@@ -111,12 +102,22 @@ export function Footer() {
         {/* Bottom */}
         <div className="mt-16 pt-8 border-t border-rose/15 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-foreground/50 text-xs">
-            &copy; {new Date().getFullYear()} Dana Talía Lencería & Bikinis.
+            &copy; {new Date().getFullYear()} Dana Talía Cosmética.
             Todos los derechos reservados.
           </p>
-          <p className="text-foreground/50 text-xs flex items-center gap-1">
-            Hecho con <Heart size={12} className="fill-rose text-rose" /> en Reconquista
-          </p>
+          <div className="flex items-center gap-4">
+            <p className="text-foreground/50 text-xs flex items-center gap-1">
+              Hecho con <Heart size={12} className="fill-rose text-rose" /> en Reconquista
+            </p>
+            <a
+              href="/admin"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground/50 hover:text-rose text-xs transition-colors"
+            >
+              Admin
+            </a>
+          </div>
         </div>
       </div>
     </footer>

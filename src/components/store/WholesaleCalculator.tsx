@@ -8,7 +8,7 @@ const CATEGORIES = [
   { label: "Skincare", margin: 2.8 },
   { label: "Maquillaje", margin: 2.5 },
   { label: "Perfumes", margin: 2.2 },
-  { label: "Lencería", margin: 2.4 },
+  { label: "Sets", margin: 2.4 },
   { label: "Mix Mayorista", margin: 2.5 },
 ];
 

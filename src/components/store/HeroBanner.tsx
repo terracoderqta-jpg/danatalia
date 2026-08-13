@@ -1,6 +1,7 @@
 "use client";
 
 import { useStore } from "@/lib/store";
+import Image from "next/image";
 
 export function HeroBanner() {
   const { dispatch } = useStore();
@@ -71,9 +72,11 @@ export function HeroBanner() {
           {/* Hero Image / Card */}
           <div className="relative animate-fade-in-delay">
             <div className="relative z-10 rounded-3xl overflow-hidden shadow-2xl shadow-terracota/10">
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800&h=900&fit=crop"
                 alt="Cosméticos Dana Talía"
+                width={800}
+                height={900}
                 className="w-full h-[500px] lg:h-[600px] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-piedra/60 via-transparent to-transparent" />

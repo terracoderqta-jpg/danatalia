@@ -1,14 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useStore } from "@/lib/store";
 import { Search, ShoppingBag, Menu, X } from "lucide-react";
 
 const NAV_LINKS = [
   { href: "/#cosmetica", label: "Cosmética" },
-  { href: "/#lenceria", label: "Lencería" },
   { href: "/#mayorista", label: "Mayorista" },
   { href: "/#contacto", label: "Contacto" },
 ];
@@ -34,12 +32,8 @@ function PriceToggleComponent() {
 }
 
 export function Navbar() {
-  const pathname = usePathname();
   const { dispatch, cartCount } = useStore();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const isAdmin = pathname.startsWith("/admin") || pathname === "/login";
-
-  if (isAdmin) return null;
 
   return (
     <header className="glass sticky top-0 z-30">
@@ -52,7 +46,7 @@ export function Navbar() {
             </div>
             <div className="hidden sm:block">
               <p className="heading-serif text-lg text-piedra leading-none">Dana Talía</p>
-              <p className="text-[9px] uppercase tracking-[0.2em] text-piedra/40">Cosmética & Lencería</p>
+              <p className="text-[9px] uppercase tracking-[0.2em] text-piedra/40">Cosmética Natural</p>
             </div>
           </Link>
 
@@ -117,13 +111,6 @@ export function Navbar() {
                   {link.label}
                 </Link>
               ))}
-              <Link
-                href="/catalogo"
-                onClick={() => setMobileOpen(false)}
-                className="px-4 py-2.5 rounded-xl text-sm text-piedra/60 hover:bg-cream hover:text-terracota transition-colors font-medium"
-              >
-                Ver Catálogo Completo
-              </Link>
             </nav>
           </div>
         )}

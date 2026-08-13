@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useStore, COSMETIC_PRODUCTS, type CosmeticCategory } from "@/lib/store";
+import Image from "next/image";
 import { Star, ShoppingCart, Eye } from "lucide-react";
 
 const TABS: { key: CosmeticCategory; label: string }[] = [
@@ -29,7 +30,7 @@ function StarRating({ rating }: { rating: number }) {
 
 export function CosmeticaGrid() {
   const [activeTab, setActiveTab] = useState<CosmeticCategory>("todos");
-  const { state, dispatch, getPrice, getNumericPrice } = useStore();
+  const { state, dispatch, getPrice } = useStore();
 
   const filtered =
     activeTab === "todos"
@@ -51,7 +52,6 @@ export function CosmeticaGrid() {
   };
 
   const openQuickView = (product: typeof COSMETIC_PRODUCTS[0]) => {
-    const price = state.mode === "mayorista" ? product.wholesalePrice : product.price;
     dispatch({
       type: "SET_QUICK_VIEW",
       payload: {
@@ -108,9 +108,11 @@ export function CosmeticaGrid() {
           {filtered.map((product) => (
             <div key={product.id} className="card-product">
               <div className="relative aspect-square overflow-hidden">
-                <img
+                <Image
                   src={product.image}
                   alt={product.name}
+                  width={600}
+                  height={600}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
                 {/* Badges */}

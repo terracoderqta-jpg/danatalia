@@ -5,7 +5,7 @@ import { Send, Phone, MapPin, AtSign } from "lucide-react";
 
 const PURCHASE_TYPES = [
   "Cosméticos Mayorista",
-  "Lencería Mayorista",
+  "Sets Mayorista",
   "Mix Mayorista",
   "Minorista",
 ];
