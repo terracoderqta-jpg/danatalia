@@ -4,13 +4,36 @@ import { useState } from "react";
 import { useStore, COSMETIC_PRODUCTS, type CosmeticCategory } from "@/lib/store";
 import Image from "next/image";
 import { Star, ShoppingCart, Eye } from "lucide-react";
-import categoriasData from "@/data/categorias.json";
+import { EditLink } from "@/components/EditLink";
 
 interface Categoria {
   key: CosmeticCategory;
   label: string;
   image: string;
 }
+
+// Cada categoría es un archivo en src/data/categorias/*.json
+
+interface JsonContext {
+  keys: () => string[];
+  (id: string): unknown;
+}
+
+// @ts-expect-error - require.context es una API de webpack disponible en el bundle de Next.js
+const categoriasContext: JsonContext = require.context(
+  "../../data/categorias",
+  false,
+  /\.json$/
+);
+const CATEGORY_ORDER: Record<string, number> = {
+  skincare: 1,
+  maquillaje: 2,
+  perfumes: 3,
+  sets: 4,
+};
+const categorias: Categoria[] = (categoriasContext.keys() as string[])
+  .map((k) => categoriasContext(k) as Categoria)
+  .sort((a, b) => (CATEGORY_ORDER[a.key] ?? 99) - (CATEGORY_ORDER[b.key] ?? 99));
 
 function StarRating({ rating }: { rating: number }) {
   return (
@@ -30,8 +53,6 @@ function StarRating({ rating }: { rating: number }) {
 export function CosmeticaGrid() {
   const [activeTab, setActiveTab] = useState<CosmeticCategory>("todos");
   const { state, dispatch, getPrice } = useStore();
-
-  const categorias = categoriasData.items as Categoria[];
 
   const filtered =
     activeTab === "todos"
@@ -92,27 +113,32 @@ export function CosmeticaGrid() {
           {categorias.map((cat) => {
             const active = activeTab === cat.key;
             return (
-              <button
-                key={cat.key}
-                onClick={() => setActiveTab(active ? "todos" : cat.key)}
-                className={`group relative aspect-square rounded-3xl overflow-hidden transition-all duration-300 ${
-                  active
-                    ? "ring-4 ring-terracota shadow-xl shadow-terracota/20"
-                    : "hover:shadow-lg"
-                }`}
-              >
-                <Image
-                  src={cat.image}
-                  alt={cat.label}
-                  width={600}
-                  height={600}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              <div key={cat.key} className="relative">
+                <button
+                  onClick={() => setActiveTab(active ? "todos" : cat.key)}
+                  className={`group relative aspect-square rounded-3xl overflow-hidden w-full transition-all duration-300 ${
+                    active
+                      ? "ring-4 ring-terracota shadow-xl shadow-terracota/20"
+                      : "hover:shadow-lg"
+                  }`}
+                >
+                  <Image
+                    src={cat.image}
+                    alt={cat.label}
+                    width={600}
+                    height={600}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-piedra/80 via-piedra/10 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4 text-left">
+                    <p className="heading-serif text-lg md:text-xl text-white">{cat.label}</p>
+                  </div>
+                </button>
+                <EditLink
+                  href={`/admin/#/collections/categorias/entries/${cat.key}`}
+                  className="absolute top-3 right-3"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-piedra/80 via-piedra/10 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-4 text-left">
-                  <p className="heading-serif text-lg md:text-xl text-white">{cat.label}</p>
-                </div>
-              </button>
+              </div>
             );
           })}
         </div>
@@ -172,6 +198,10 @@ export function CosmeticaGrid() {
                 >
                   <Eye size={16} />
                 </button>
+                <EditLink
+                  href={`/admin/#/collections/productos/entries/${product.slug}`}
+                  className="absolute bottom-3 right-3"
+                />
               </div>
 
               <div className="p-4">

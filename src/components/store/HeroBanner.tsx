@@ -3,6 +3,7 @@
 import { useStore } from "@/lib/store";
 import Image from "next/image";
 import banner from "@/data/banner.json";
+import { EditLink } from "@/components/EditLink";
 
 export function HeroBanner() {
   const { dispatch } = useStore();
@@ -12,6 +13,8 @@ export function HeroBanner() {
       {/* Decorative elements */}
       <div className="absolute top-20 right-10 w-72 h-72 bg-terracota/5 rounded-full blur-3xl" />
       <div className="absolute bottom-20 left-10 w-96 h-96 bg-dorado/5 rounded-full blur-3xl" />
+
+      <EditLink href="/admin/#/collections/banner" className="absolute top-6 right-6 z-30" />
 
       <div className="container-site mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">

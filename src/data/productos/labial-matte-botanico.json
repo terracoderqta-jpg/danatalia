@@ -1,0 +1,12 @@
+{
+  "id": "cos-5",
+  "name": "Labial Matte Botánico",
+  "slug": "labial-matte-botanico",
+  "description": "Labial de larga duración con fórmula enriquecida con aceites vegetales. Colores intensos sin resecar los labios.",
+  "price": 3900,
+  "wholesalePrice": 2262,
+  "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=600&h=600&fit=crop",
+  "cosmeticCategory": "maquillaje",
+  "rating": 4.7,
+  "crueltyFree": true
+}

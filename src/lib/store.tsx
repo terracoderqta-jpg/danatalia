@@ -8,7 +8,6 @@ import {
   type ReactNode,
 } from "react";
 import { formatPrice } from "./utils";
-import productosData from "@/data/productos.json";
 
 // ============================================
 // TYPES
@@ -74,8 +73,29 @@ type StoreAction =
 // ============================================
 // COSMETIC PRODUCTS (editables desde /admin - Decap CMS)
 // ============================================
+// Cada producto es un archivo en src/data/productos/*.json
 
-export const COSMETIC_PRODUCTS: CosmeticProduct[] = productosData.items as CosmeticProduct[];
+interface JsonContext {
+  keys: () => string[];
+  (id: string): unknown;
+}
+
+// @ts-expect-error - require.context es una API de webpack disponible en el bundle de Next.js
+const productosContext: JsonContext = require.context(
+  "../data/productos",
+  false,
+  /\.json$/
+);
+
+export const COSMETIC_PRODUCTS: CosmeticProduct[] = (
+  productosContext.keys() as string[]
+)
+  .map((k) => productosContext(k) as CosmeticProduct)
+  .sort(
+    (a, b) =>
+      (parseInt((a.id || "0").replace(/\D/g, ""), 10) || 0) -
+      (parseInt((b.id || "0").replace(/\D/g, ""), 10) || 0)
+  );
 
 // ============================================
 // REDUCER

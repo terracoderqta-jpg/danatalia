@@ -87,49 +87,43 @@ collections:
   - name: "categorias"
     label: "Categorías"
     label_singular: "Categoría"
-    files:
-      - name: "categorias_data"
-        label: "Categorías de la página principal"
-        file: "src/data/categorias.json"
-        editor:
-          preview: false
-        fields:
-          - label: "Categorías"
-            name: "items"
-            widget: "list"
-            summary: "{{fields.label}}"
-            collapsed: false
-            fields:
-              - { label: "Clave interna", name: "key", widget: "select", options: ["skincare", "maquillaje", "perfumes", "sets"], hint: "Debe coincidir con la categoría de los productos." }
-              - { label: "Nombre", name: "label", widget: "string" }
-              - { label: "Foto de la categoría", name: "image", widget: "image", choose_url: true }
+    folder: "src/data/categorias"
+    create: false
+    identifier_field: "key"
+    format: "json"
+    extension: "json"
+    slug: "{{key}}"
+    summary: "{{label}}"
+    editor:
+      preview: false
+    fields:
+      - { label: "Clave interna", name: "key", widget: "select", options: ["skincare", "maquillaje", "perfumes", "sets"], hint: "Debe coincidir con la categoría de los productos." }
+      - { label: "Nombre", name: "label", widget: "string" }
+      - { label: "Foto de la categoría", name: "image", widget: "image", choose_url: true }
 
   # ============ PRODUCTOS ============
   - name: "productos"
     label: "Productos"
     label_singular: "Producto"
-    files:
-      - name: "catalogo"
-        label: "Catálogo de productos (página principal)"
-        file: "src/data/productos.json"
-        description: "Edita los productos que se muestran en la página principal: foto, precios, nombre, descripción y etiqueta. Los cambios se publican solos al guardar."
-        editor:
-          preview: false
-        fields:
-          - label: "Productos (15)"
-            name: "items"
-            widget: "list"
-            summary: "{{fields.name}} — Minorista ${{fields.price}} / Mayorista ${{fields.wholesalePrice}}"
-            collapsed: false
-            fields:
-              - { label: "Foto del producto", name: "image", widget: "image", choose_url: true, hint: "Subí una foto desde tu compu o pegá un link." }
-              - { label: "Nombre", name: "name", widget: "string" }
-              - { label: "Precio minorista ($ ARS)", name: "price", widget: "number", value_type: "int", min: 0 }
-              - { label: "Precio mayorista ($ ARS)", name: "wholesalePrice", widget: "number", value_type: "int", min: 0 }
-              - { label: "Categoría", name: "cosmeticCategory", widget: "select", options: ["skincare", "maquillaje", "perfumes", "sets"] }
-              - { label: "Etiqueta (opcional)", name: "badge", widget: "string", hint: "Ej: 'Más Vendido', 'Nuevo', 'Exclusivo'. Dejalo vacío si no querés.", required: false }
-              - { label: "Descripción", name: "description", widget: "text", required: false }
-              - { label: "Puntaje", name: "rating", widget: "number", value_type: "float", min: 0, max: 5, step: 0.1, default: 4.5, required: false }
-              - { label: "Cruelty Free", name: "crueltyFree", widget: "boolean", default: true }
-              - { label: "ID interno", name: "id", widget: "string", hint: "No lo cambies, se usa para el carrito.", required: false }
-              - { label: "Slug", name: "slug", widget: "string", hint: "URL amigable del producto.", required: false }
+    folder: "src/data/productos"
+    create: true
+    identifier_field: "id"
+    format: "json"
+    extension: "json"
+    slug: "{{slug}}"
+    summary: "{{name}} — Minorista ${{price}} / Mayorista ${{wholesalePrice}}"
+    description: "Edita foto, precios, nombre y descripción de cada producto. Los cambios se publican solos al guardar."
+    editor:
+      preview: false
+    fields:
+      - { label: "Foto del producto", name: "image", widget: "image", choose_url: true, hint: "Subí una foto desde tu compu o pegá un link." }
+      - { label: "Nombre", name: "name", widget: "string" }
+      - { label: "Slug", name: "slug", widget: "string", hint: "URL amigable del producto (sin espacios, en minúsculas)." }
+      - { label: "Precio minorista ($ ARS)", name: "price", widget: "number", value_type: "int", min: 0 }
+      - { label: "Precio mayorista ($ ARS)", name: "wholesalePrice", widget: "number", value_type: "int", min: 0 }
+      - { label: "Categoría", name: "cosmeticCategory", widget: "select", options: ["skincare", "maquillaje", "perfumes", "sets"] }
+      - { label: "Etiqueta (opcional)", name: "badge", widget: "string", hint: "Ej: 'Más Vendido', 'Nuevo', 'Exclusivo'. Dejalo vacío si no querés.", required: false }
+      - { label: "Descripción", name: "description", widget: "text", required: false }
+      - { label: "Puntaje", name: "rating", widget: "number", value_type: "float", min: 0, max: 5, step: 0.1, default: 4.5, required: false }
+      - { label: "Cruelty Free", name: "crueltyFree", widget: "boolean", default: true }
+      - { label: "ID interno", name: "id", widget: "string", hint: "No lo cambies, se usa para el carrito.", required: false }
