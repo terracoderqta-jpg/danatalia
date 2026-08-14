@@ -105,11 +105,7 @@ export function HeroBanner() {
             </div>
 
             {/* Floating card (opcional: si se vacía en el panel, no se muestra) */}
-            {Array.isArray(banner.floatingCard)
-              ? banner.floatingCard[0] && (
-                  <FloatingCardItem card={banner.floatingCard[0]} />
-                )
-              : banner.floatingCard?.title && <FloatingCardItem card={banner.floatingCard} />}
+            {banner.floatingCard?.[0] && <FloatingCardItem card={banner.floatingCard[0]} />}
 
             {/* Second floating badge */}
             <div className="absolute -top-4 -right-4 bg-dorado text-white rounded-2xl px-4 py-2 shadow-lg z-20">

@@ -15,11 +15,13 @@
     "name": "Bruma Floral Dana",
     "description": "Fragancia exclusiva con notas de peonía y jazmín"
   },
-  "floatingCard": {
-    "title": "Mayorista",
-    "subtitle": "Hasta 42% OFF",
-    "emoji": "🌿"
-  },
+  "floatingCard": [
+    {
+      "title": "Mayorista",
+      "subtitle": "Hasta 42% OFF",
+      "emoji": "🌿"
+    }
+  ],
   "floatingBadge": "Envío 24/48h",
   "stats": [
     { "value": "+500", "label": "Clientes" },
