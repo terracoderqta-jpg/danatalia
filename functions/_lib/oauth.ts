@@ -10,6 +10,12 @@ function callbackUri(origin: string): string {
   return `${origin}/api/auth/callback?provider=github`;
 }
 
+function isGithub(request: Request) {
+  const url = new URL(request.url);
+  const provider = url.searchParams.get("provider");
+  return provider === null || provider === "" || provider === "github";
+}
+
 export function buildAuthorizationUrl(env: Env, origin: string) {
   const repoIsPrivate = env.GITHUB_REPO_PRIVATE === "1";
   const scope = repoIsPrivate ? "repo,user" : "public_repo,user";
@@ -48,12 +54,11 @@ export interface Env {
 }
 
 export async function handleAuth(request: Request, env: Env) {
-  const url = new URL(request.url);
-  const provider = url.searchParams.get("provider");
-  if (provider !== "github") {
+  if (!isGithub(request)) {
     return new Response("Invalid provider", { status: 400 });
   }
 
+  const url = new URL(request.url);
   const origin = url.origin;
   const authorizationUri = buildAuthorizationUrl(env, origin);
 
@@ -61,12 +66,11 @@ export async function handleAuth(request: Request, env: Env) {
 }
 
 export async function handleCallback(request: Request, env: Env) {
-  const url = new URL(request.url);
-  const provider = url.searchParams.get("provider");
-  if (provider !== "github") {
+  if (!isGithub(request)) {
     return new Response("Invalid provider", { status: 400 });
   }
 
+  const url = new URL(request.url);
   const code = url.searchParams.get("code");
   if (!code) {
     return new Response("Missing code", { status: 400 });
