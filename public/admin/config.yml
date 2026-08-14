@@ -32,42 +32,38 @@ collections:
           - label: "Barra superior"
             name: "topBar"
             widget: "object"
-            required: true
             fields:
-              - { label: "Texto", name: "text", widget: "string", required: true }
-              - { label: "Texto destacado", name: "highlight", widget: "string", required: true }
-          - { label: "Etiqueta 1", name: "badge1", widget: "string", required: true }
-          - { label: "Etiqueta 2", name: "badge2", widget: "string", required: true }
-          - { label: "Título (primera parte)", name: "title", widget: "string", required: true }
-          - { label: "Título (palabras en terracota)", name: "titleHighlight", widget: "string", required: true }
-          - { label: "Subtítulo", name: "subtitle", widget: "text", required: true }
-          - { label: "Foto principal del banner", name: "heroImage", widget: "image", choose_url: true, required: true }
-          - { label: "Texto alternativo de la foto", name: "heroImageAlt", widget: "string", required: true }
+              - { label: "Texto", name: "text", widget: "string" }
+              - { label: "Texto destacado", name: "highlight", widget: "string" }
+          - { label: "Etiqueta 1", name: "badge1", widget: "string" }
+          - { label: "Etiqueta 2", name: "badge2", widget: "string" }
+          - { label: "Título (primera parte)", name: "title", widget: "string" }
+          - { label: "Título (palabras en terracota)", name: "titleHighlight", widget: "string" }
+          - { label: "Subtítulo", name: "subtitle", widget: "text" }
+          - { label: "Foto principal del banner", name: "heroImage", widget: "image", choose_url: true }
+          - { label: "Texto alternativo de la foto", name: "heroImageAlt", widget: "string", required: false }
           - label: "Tarjeta destacada (sobre la foto)"
             name: "featured"
             widget: "object"
-            required: true
             fields:
-              - { label: "Etiqueta", name: "label", widget: "string", required: true }
-              - { label: "Nombre del producto", name: "name", widget: "string", required: true }
-              - { label: "Descripción", name: "description", widget: "string", required: true }
+              - { label: "Etiqueta", name: "label", widget: "string" }
+              - { label: "Nombre del producto", name: "name", widget: "string" }
+              - { label: "Descripción", name: "description", widget: "string" }
           - label: "Tarjeta flotante"
             name: "floatingCard"
             widget: "object"
-            required: true
             fields:
-              - { label: "Título", name: "title", widget: "string", required: true }
-              - { label: "Subtítulo", name: "subtitle", widget: "string", required: true }
-              - { label: "Emoji", name: "emoji", widget: "string", required: true }
-          - { label: "Sello flotante (arriba a la derecha)", name: "floatingBadge", widget: "string", required: true }
+              - { label: "Título", name: "title", widget: "string" }
+              - { label: "Subtítulo", name: "subtitle", widget: "string" }
+              - { label: "Emoji", name: "emoji", widget: "string" }
+          - { label: "Sello flotante (arriba a la derecha)", name: "floatingBadge", widget: "string" }
           - label: "Estadísticas"
             name: "stats"
             widget: "list"
-            required: true
             summary: "{{fields.value}} {{fields.label}}"
             fields:
-              - { label: "Valor", name: "value", widget: "string", required: true }
-              - { label: "Etiqueta", name: "label", widget: "string", required: true }
+              - { label: "Valor", name: "value", widget: "string" }
+              - { label: "Etiqueta", name: "label", widget: "string" }
 
   # ============ CATEGORÍAS ============
   - name: "categorias"
@@ -83,9 +79,9 @@ collections:
     editor:
       preview: false
     fields:
-      - { label: "Clave interna", name: "key", widget: "select", options: ["skincare", "maquillaje", "perfumes", "sets"], required: true, hint: "Debe coincidir con la categoría de los productos." }
-      - { label: "Nombre", name: "label", widget: "string", required: true }
-      - { label: "Foto de la categoría", name: "image", widget: "image", choose_url: true, required: true }
+      - { label: "Clave interna", name: "key", widget: "select", options: ["skincare", "maquillaje", "perfumes", "sets"], hint: "Debe coincidir con la categoría de los productos." }
+      - { label: "Nombre", name: "label", widget: "string" }
+      - { label: "Foto de la categoría", name: "image", widget: "image", choose_url: true }
 
   # ============ PRODUCTOS ============
   - name: "productos"
@@ -102,14 +98,14 @@ collections:
     editor:
       preview: false
     fields:
-      - { label: "Foto del producto", name: "image", widget: "image", choose_url: true, required: true, hint: "Subí una foto desde tu compu o pegá un link." }
-      - { label: "Nombre", name: "name", widget: "string", required: true }
-      - { label: "Slug", name: "slug", widget: "string", required: true, hint: "URL amigable del producto (sin espacios, en minúsculas)." }
-      - { label: "Precio minorista ($ ARS)", name: "price", widget: "number", value_type: "int", min: 0, required: true }
-      - { label: "Precio mayorista ($ ARS)", name: "wholesalePrice", widget: "number", value_type: "int", min: 0, required: true }
-      - { label: "Categoría", name: "cosmeticCategory", widget: "select", options: ["skincare", "maquillaje", "perfumes", "sets"], required: true }
-      - { label: "Etiqueta (opcional)", name: "badge", widget: "string", required: false, hint: "Ej: 'Más Vendido', 'Nuevo', 'Exclusivo'. Dejalo vacío si no querés." }
+      - { label: "Foto del producto", name: "image", widget: "image", choose_url: true, hint: "Subí una foto desde tu compu o pegá un link." }
+      - { label: "Nombre", name: "name", widget: "string" }
+      - { label: "Slug", name: "slug", widget: "string", hint: "URL amigable del producto (sin espacios, en minúsculas)." }
+      - { label: "Precio minorista ($ ARS)", name: "price", widget: "number", value_type: "int", min: 0 }
+      - { label: "Precio mayorista ($ ARS)", name: "wholesalePrice", widget: "number", value_type: "int", min: 0 }
+      - { label: "Categoría", name: "cosmeticCategory", widget: "select", options: ["skincare", "maquillaje", "perfumes", "sets"] }
+      - { label: "Etiqueta (opcional)", name: "badge", widget: "string", hint: "Ej: 'Más Vendido', 'Nuevo', 'Exclusivo'. Dejalo vacío si no querés.", required: false }
       - { label: "Descripción", name: "description", widget: "text", required: false }
       - { label: "Puntaje", name: "rating", widget: "number", value_type: "float", min: 0, max: 5, step: 0.1, default: 4.5, required: false }
       - { label: "Cruelty Free", name: "crueltyFree", widget: "boolean", default: true }
-      - { label: "ID interno", name: "id", widget: "string", required: false, hint: "No lo cambies, se usa para el carrito." }
+      - { label: "ID interno", name: "id", widget: "string", hint: "No lo cambies, se usa para el carrito.", required: false }
