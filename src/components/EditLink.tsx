@@ -13,13 +13,16 @@ declare global {
   }
 }
 
+// El widget de Netlify Identity crea usuarios "invitados" anónimos en cada
+// página, por eso no alcanza con ver si hay un usuario: solo cuentan los
+// usuarios reales (con email) o la sesión que guarda el panel de Decap CMS.
 function hasSession(): boolean {
   if (typeof window === "undefined") return false;
-  const identity = window.netlifyIdentity;
-  if (identity && identity.currentUser()) return true;
   try {
+    const identity = window.netlifyIdentity;
+    const user = identity?.currentUser?.();
+    if (user && (user as { email?: string }).email) return true;
     if (localStorage.getItem("netlify-cms-user")) return true;
-    if (localStorage.getItem("netlify-identity-user")) return true;
   } catch {
     /* ignore */
   }
