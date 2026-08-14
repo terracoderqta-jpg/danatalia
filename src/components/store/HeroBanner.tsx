@@ -2,6 +2,7 @@
 
 import { useStore } from "@/lib/store";
 import Image from "next/image";
+import banner from "@/data/banner.json";
 
 export function HeroBanner() {
   const { dispatch } = useStore();
@@ -17,19 +18,17 @@ export function HeroBanner() {
           {/* Text */}
           <div className="animate-fade-in">
             <div className="flex items-center gap-3 mb-6">
-              <span className="badge-green">Cruelty Free</span>
-              <span className="badge-outline">Despacho 24/48h</span>
+              <span className="badge-green">{banner.badge1}</span>
+              <span className="badge-outline">{banner.badge2}</span>
             </div>
 
             <h1 className="heading-serif text-5xl md:text-6xl lg:text-7xl text-piedra mb-6 leading-tight">
-              Belleza Natural,{" "}
-              <span className="text-terracota">Fórmulas Botánicas</span>
+              {banner.title}{" "}
+              <span className="text-terracota">{banner.titleHighlight}</span>
             </h1>
 
             <p className="text-lg text-piedra/60 mb-8 max-w-lg leading-relaxed">
-              Descubrí nuestra línea de cosméticos con ingredientes naturales.
-              Skincare, maquillaje y fragancias diseñados para realzar tu belleza
-              sin comprometer el planeta.
+              {banner.subtitle}
             </p>
 
             <div className="flex flex-wrap gap-4">
@@ -52,20 +51,15 @@ export function HeroBanner() {
 
             {/* Trust badges */}
             <div className="flex items-center gap-6 mt-10 pt-8 border-t border-piedra/10">
-              <div className="text-center">
-                <p className="heading-serif text-2xl text-terracota">+500</p>
-                <p className="text-xs text-piedra/50 uppercase tracking-wider">Clientes</p>
-              </div>
-              <div className="w-px h-10 bg-piedra/10" />
-              <div className="text-center">
-                <p className="heading-serif text-2xl text-terracota">+50</p>
-                <p className="text-xs text-piedra/50 uppercase tracking-wider">Revendedoras</p>
-              </div>
-              <div className="w-px h-10 bg-piedra/10" />
-              <div className="text-center">
-                <p className="heading-serif text-2xl text-terracota">100%</p>
-                <p className="text-xs text-piedra/50 uppercase tracking-wider">Cruelty Free</p>
-              </div>
+              {banner.stats.map((stat, i) => (
+                <div key={i} className="flex items-center gap-6">
+                  {i > 0 && <div className="w-px h-10 bg-piedra/10" />}
+                  <div className="text-center">
+                    <p className="heading-serif text-2xl text-terracota">{stat.value}</p>
+                    <p className="text-xs text-piedra/50 uppercase tracking-wider">{stat.label}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -73,17 +67,17 @@ export function HeroBanner() {
           <div className="relative animate-fade-in-delay">
             <div className="relative z-10 rounded-3xl overflow-hidden shadow-2xl shadow-terracota/10">
               <Image
-                src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800&h=900&fit=crop"
-                alt="Cosméticos Dana Talía"
+                src={banner.heroImage}
+                alt={banner.heroImageAlt}
                 width={800}
                 height={900}
                 className="w-full h-[500px] lg:h-[600px] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-piedra/60 via-transparent to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-8">
-                <p className="text-white/80 text-sm uppercase tracking-widest mb-2">Nueva Colección</p>
-                <h3 className="heading-serif text-3xl text-white mb-3">Bruma Floral Dana</h3>
-                <p className="text-white/70 text-sm">Fragancia exclusiva con notas de peonía y jazmín</p>
+                <p className="text-white/80 text-sm uppercase tracking-widest mb-2">{banner.featured.label}</p>
+                <h3 className="heading-serif text-3xl text-white mb-3">{banner.featured.name}</h3>
+                <p className="text-white/70 text-sm">{banner.featured.description}</p>
               </div>
             </div>
 
@@ -91,18 +85,18 @@ export function HeroBanner() {
             <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl p-4 shadow-xl z-20 animate-float">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 bg-terracota/10 rounded-xl flex items-center justify-center">
-                  <span className="text-2xl">🌿</span>
+                  <span className="text-2xl">{banner.floatingCard.emoji}</span>
                 </div>
                 <div>
-                  <p className="font-semibold text-sm text-piedra">Mayorista</p>
-                  <p className="text-xs text-piedra/50">Hasta 42% OFF</p>
+                  <p className="font-semibold text-sm text-piedra">{banner.floatingCard.title}</p>
+                  <p className="text-xs text-piedra/50">{banner.floatingCard.subtitle}</p>
                 </div>
               </div>
             </div>
 
             {/* Second floating badge */}
             <div className="absolute -top-4 -right-4 bg-dorado text-white rounded-2xl px-4 py-2 shadow-lg z-20">
-              <p className="text-xs font-bold uppercase tracking-wider">Envío 24/48h</p>
+              <p className="text-xs font-bold uppercase tracking-wider">{banner.floatingBadge}</p>
             </div>
           </div>
         </div>

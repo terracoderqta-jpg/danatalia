@@ -18,6 +18,93 @@ display_url: https://danatalia.netlify.app
 logo_url: /logo.png
 
 collections:
+  # ============ BANNER ============
+  - name: "banner"
+    label: "Banner principal"
+    label_singular: "Banner"
+    files:
+      - name: "banner_data"
+        label: "Contenido del banner"
+        file: "src/data/banner.json"
+        editor:
+          preview: false
+        fields:
+          - label: "Barra superior"
+            name: "topBar"
+            widget: "object"
+            fields:
+              - { label: "Texto", name: "text", widget: "string" }
+              - { label: "Texto destacado", name: "highlight", widget: "string" }
+          - label: "Etiqueta 1"
+            name: "badge1"
+            widget: "string"
+          - label: "Etiqueta 2"
+            name: "badge2"
+            widget: "string"
+          - label: "Título (primera parte)"
+            name: "title"
+            widget: "string"
+          - label: "Título (palabras en terracota)"
+            name: "titleHighlight"
+            widget: "string"
+          - label: "Subtítulo"
+            name: "subtitle"
+            widget: "text"
+          - label: "Foto principal del banner"
+            name: "heroImage"
+            widget: "image"
+            choose_url: true
+          - label: "Texto alternativo de la foto"
+            name: "heroImageAlt"
+            widget: "string"
+            required: false
+          - label: "Tarjeta destacada (sobre la foto)"
+            name: "featured"
+            widget: "object"
+            fields:
+              - { label: "Etiqueta", name: "label", widget: "string" }
+              - { label: "Nombre del producto", name: "name", widget: "string" }
+              - { label: "Descripción", name: "description", widget: "string" }
+          - label: "Tarjeta flotante"
+            name: "floatingCard"
+            widget: "object"
+            fields:
+              - { label: "Título", name: "title", widget: "string" }
+              - { label: "Subtítulo", name: "subtitle", widget: "string" }
+              - { label: "Emoji", name: "emoji", widget: "string" }
+          - label: "Sello flotante (arriba a la derecha)"
+            name: "floatingBadge"
+            widget: "string"
+          - label: "Estadísticas"
+            name: "stats"
+            widget: "list"
+            summary: "{{fields.value}} {{fields.label}}"
+            fields:
+              - { label: "Valor", name: "value", widget: "string" }
+              - { label: "Etiqueta", name: "label", widget: "string" }
+
+  # ============ CATEGORÍAS ============
+  - name: "categorias"
+    label: "Categorías"
+    label_singular: "Categoría"
+    files:
+      - name: "categorias_data"
+        label: "Categorías de la página principal"
+        file: "src/data/categorias.json"
+        editor:
+          preview: false
+        fields:
+          - label: "Categorías"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.label}}"
+            collapsed: false
+            fields:
+              - { label: "Clave interna", name: "key", widget: "select", options: ["skincare", "maquillaje", "perfumes", "sets"], hint: "Debe coincidir con la categoría de los productos." }
+              - { label: "Nombre", name: "label", widget: "string" }
+              - { label: "Foto de la categoría", name: "image", widget: "image", choose_url: true }
+
+  # ============ PRODUCTOS ============
   - name: "productos"
     label: "Productos"
     label_singular: "Producto"

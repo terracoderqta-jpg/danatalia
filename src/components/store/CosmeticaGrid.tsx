@@ -4,14 +4,13 @@ import { useState } from "react";
 import { useStore, COSMETIC_PRODUCTS, type CosmeticCategory } from "@/lib/store";
 import Image from "next/image";
 import { Star, ShoppingCart, Eye } from "lucide-react";
+import categoriasData from "@/data/categorias.json";
 
-const TABS: { key: CosmeticCategory; label: string }[] = [
-  { key: "todos", label: "Todos" },
-  { key: "skincare", label: "Skincare" },
-  { key: "maquillaje", label: "Maquillaje" },
-  { key: "perfumes", label: "Perfumes & Brumas" },
-  { key: "sets", label: "Sets Mayoristas" },
-];
+interface Categoria {
+  key: CosmeticCategory;
+  label: string;
+  image: string;
+}
 
 function StarRating({ rating }: { rating: number }) {
   return (
@@ -31,6 +30,8 @@ function StarRating({ rating }: { rating: number }) {
 export function CosmeticaGrid() {
   const [activeTab, setActiveTab] = useState<CosmeticCategory>("todos");
   const { state, dispatch, getPrice } = useStore();
+
+  const categorias = categoriasData.items as Categoria[];
 
   const filtered =
     activeTab === "todos"
@@ -86,19 +87,59 @@ export function CosmeticaGrid() {
           </p>
         </div>
 
-        {/* Tabs */}
+        {/* Categorías con imagen */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12">
+          {categorias.map((cat) => {
+            const active = activeTab === cat.key;
+            return (
+              <button
+                key={cat.key}
+                onClick={() => setActiveTab(active ? "todos" : cat.key)}
+                className={`group relative aspect-square rounded-3xl overflow-hidden transition-all duration-300 ${
+                  active
+                    ? "ring-4 ring-terracota shadow-xl shadow-terracota/20"
+                    : "hover:shadow-lg"
+                }`}
+              >
+                <Image
+                  src={cat.image}
+                  alt={cat.label}
+                  width={600}
+                  height={600}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-piedra/80 via-piedra/10 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-4 text-left">
+                  <p className="heading-serif text-lg md:text-xl text-white">{cat.label}</p>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Filtro activo */}
         <div className="flex flex-wrap justify-center gap-2 mb-12">
-          {TABS.map((tab) => (
+          <button
+            onClick={() => setActiveTab("todos")}
+            className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
+              activeTab === "todos"
+                ? "bg-terracota text-white shadow-lg shadow-terracota/20"
+                : "bg-cream-dark text-piedra/60 hover:bg-nude hover:text-piedra"
+            }`}
+          >
+            Ver todos
+          </button>
+          {categorias.map((cat) => (
             <button
-              key={tab.key}
-              onClick={() => setActiveTab(tab.key)}
+              key={cat.key}
+              onClick={() => setActiveTab(cat.key)}
               className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
-                activeTab === tab.key
+                activeTab === cat.key
                   ? "bg-terracota text-white shadow-lg shadow-terracota/20"
                   : "bg-cream-dark text-piedra/60 hover:bg-nude hover:text-piedra"
               }`}
             >
-              {tab.label}
+              {cat.label}
             </button>
           ))}
         </div>

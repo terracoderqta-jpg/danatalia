@@ -1,0 +1,29 @@
+{
+  "topBar": {
+    "text": "Envíos a todo el país",
+    "highlight": "Atención para revendedores mayoristas"
+  },
+  "badge1": "Cruelty Free",
+  "badge2": "Despacho 24/48h",
+  "title": "Belleza Natural,",
+  "titleHighlight": "Fórmulas Botánicas",
+  "subtitle": "Descubrí nuestra línea de cosméticos con ingredientes naturales. Skincare, maquillaje y fragancias diseñados para realzar tu belleza sin comprometer el planeta.",
+  "heroImage": "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800&h=900&fit=crop",
+  "heroImageAlt": "Cosméticos Dana Talía",
+  "featured": {
+    "label": "Nueva Colección",
+    "name": "Bruma Floral Dana",
+    "description": "Fragancia exclusiva con notas de peonía y jazmín"
+  },
+  "floatingCard": {
+    "title": "Mayorista",
+    "subtitle": "Hasta 42% OFF",
+    "emoji": "🌿"
+  },
+  "floatingBadge": "Envío 24/48h",
+  "stats": [
+    { "value": "+500", "label": "Clientes" },
+    { "value": "+50", "label": "Revendedoras" },
+    { "value": "100%", "label": "Cruelty Free" }
+  ]
+}
