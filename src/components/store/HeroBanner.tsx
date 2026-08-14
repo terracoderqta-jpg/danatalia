@@ -5,6 +5,26 @@ import Image from "next/image";
 import banner from "@/data/banner.json";
 import { EditLink } from "@/components/EditLink";
 
+function FloatingCardItem({
+  card,
+}: {
+  card: { title?: string; subtitle?: string; emoji?: string };
+}) {
+  return (
+    <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl p-4 shadow-xl z-20 animate-float">
+      <div className="flex items-center gap-3">
+        <div className="w-12 h-12 bg-terracota/10 rounded-xl flex items-center justify-center">
+          <span className="text-2xl">{card.emoji}</span>
+        </div>
+        <div>
+          <p className="font-semibold text-sm text-piedra">{card.title}</p>
+          <p className="text-xs text-piedra/50">{card.subtitle}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function HeroBanner() {
   const { dispatch } = useStore();
 
@@ -84,18 +104,12 @@ export function HeroBanner() {
               </div>
             </div>
 
-            {/* Floating card */}
-            <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl p-4 shadow-xl z-20 animate-float">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-terracota/10 rounded-xl flex items-center justify-center">
-                  <span className="text-2xl">{banner.floatingCard.emoji}</span>
-                </div>
-                <div>
-                  <p className="font-semibold text-sm text-piedra">{banner.floatingCard.title}</p>
-                  <p className="text-xs text-piedra/50">{banner.floatingCard.subtitle}</p>
-                </div>
-              </div>
-            </div>
+            {/* Floating card (opcional: si se vacía en el panel, no se muestra) */}
+            {Array.isArray(banner.floatingCard)
+              ? banner.floatingCard[0] && (
+                  <FloatingCardItem card={banner.floatingCard[0]} />
+                )
+              : banner.floatingCard?.title && <FloatingCardItem card={banner.floatingCard} />}
 
             {/* Second floating badge */}
             <div className="absolute -top-4 -right-4 bg-dorado text-white rounded-2xl px-4 py-2 shadow-lg z-20">

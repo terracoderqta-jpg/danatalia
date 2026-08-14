@@ -51,7 +51,11 @@ collections:
               - { label: "Descripción", name: "description", widget: "string" }
           - label: "Tarjeta flotante"
             name: "floatingCard"
-            widget: "object"
+            widget: "list"
+            min: 0
+            max: 1
+            summary: "{{fields.title}}"
+            hint: "Se muestra una tarjeta flotante sobre el banner. Para ocultarla, presioná el botón para vaciarla (si no hay elementos, no aparece)."
             fields:
               - { label: "Título", name: "title", widget: "string" }
               - { label: "Subtítulo", name: "subtitle", widget: "string" }
