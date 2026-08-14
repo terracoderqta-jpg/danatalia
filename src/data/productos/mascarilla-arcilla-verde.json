@@ -1,4 +1,4 @@
-{
+﻿{
   "id": "cos-13",
   "name": "Mascarilla de Arcilla Verde",
   "slug": "mascarilla-arcilla-verde",
@@ -6,7 +6,7 @@
   "price": 4200,
   "wholesalePrice": 2436,
   "image": "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=600&h=600&fit=crop",
-  "cosmeticCategory": "skincare",
+  "cosmeticCategory": "cremas",
   "rating": 4.5,
   "crueltyFree": true
 }

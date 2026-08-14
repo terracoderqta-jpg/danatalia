@@ -1,4 +1,4 @@
-{
+﻿{
   "id": "cos-6",
   "name": "Base Glow Natural",
   "slug": "base-glow-natural",
@@ -6,7 +6,7 @@
   "price": 7600,
   "wholesalePrice": 4408,
   "image": "https://images.unsplash.com/photo-1631214524020-7e18db9a8f92?w=600&h=600&fit=crop",
-  "cosmeticCategory": "maquillaje",
+  "cosmeticCategory": "cremas",
   "rating": 4.4,
   "crueltyFree": true
 }

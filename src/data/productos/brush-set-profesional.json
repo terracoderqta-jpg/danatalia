@@ -1,4 +1,4 @@
-{
+﻿{
   "id": "cos-14",
   "name": "Brush Set Profesional",
   "slug": "brush-set-profesional",
@@ -6,7 +6,7 @@
   "price": 15800,
   "wholesalePrice": 9164,
   "image": "https://images.unsplash.com/photo-1522338140-7f3a68a4a21b?w=600&h=600&fit=crop",
-  "cosmeticCategory": "maquillaje",
+  "cosmeticCategory": "cremas",
   "rating": 4.7,
   "crueltyFree": true
 }

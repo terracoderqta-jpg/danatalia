@@ -1,4 +1,4 @@
-{
+﻿{
   "id": "cos-10",
   "name": "Kit Skincare Completo",
   "slug": "kit-skincare-completo",
@@ -6,7 +6,7 @@
   "price": 22900,
   "wholesalePrice": 13282,
   "image": "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600&h=600&fit=crop",
-  "cosmeticCategory": "sets",
+  "cosmeticCategory": "ropa-interior",
   "badge": "Ahorro 30%",
   "rating": 4.9,
   "crueltyFree": true

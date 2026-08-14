@@ -26,10 +26,9 @@ const categoriasContext: JsonContext = require.context(
   /\.json$/
 );
 const CATEGORY_ORDER: Record<string, number> = {
-  skincare: 1,
-  maquillaje: 2,
-  perfumes: 3,
-  sets: 4,
+  cremas: 1,
+  perfumes: 2,
+  "ropa-interior": 3,
 };
 const categorias: Categoria[] = (categoriasContext.keys() as string[])
   .map((k) => categoriasContext(k) as Categoria)

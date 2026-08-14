@@ -1,4 +1,4 @@
-{
+﻿{
   "id": "cos-1",
   "name": "Sérum Vitamina C Bright",
   "slug": "serum-vitamina-c",
@@ -6,7 +6,7 @@
   "price": 8500,
   "wholesalePrice": 4930,
   "image": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=600&h=600&fit=crop",
-  "cosmeticCategory": "skincare",
+  "cosmeticCategory": "cremas",
   "badge": "Más Vendido",
   "rating": 4.8,
   "crueltyFree": true
