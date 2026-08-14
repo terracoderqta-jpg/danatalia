@@ -5,6 +5,192 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex" />
     <title>Administración | Dana Talía</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --dt-cream: #fdf8f6;
+        --dt-cream-dark: #f5efe9;
+        --dt-nude: #f5e6e0;
+        --dt-rose: #c4a0a0;
+        --dt-terracota: #be543b;
+        --dt-terracota-light: #d4735c;
+        --dt-piedra: #1c1917;
+      }
+
+      /* Fondo general y tipografía base */
+      .nc-background,
+      .nc-page-container,
+      .nc-appMain-container,
+      .nc-collectionPage-container,
+      .nc-controlPane-container,
+      .nc-settingsPage-container {
+        background: var(--dt-cream) !important;
+        font-family: "Plus Jakarta Sans", sans-serif !important;
+      }
+
+      body {
+        font-family: "Plus Jakarta Sans", sans-serif !important;
+      }
+
+      /* Encabezado superior */
+      .nc-header {
+        background: var(--dt-piedra) !important;
+        border-bottom: 3px solid var(--dt-terracota) !important;
+      }
+      .nc-headerLink__Title,
+      .nc-headerLink,
+      .nc-header-link,
+      .nc-toolbar-title {
+        font-family: "Playfair Display", serif !important;
+        color: #fff !important;
+        letter-spacing: 0.02em;
+      }
+
+      /* Barra lateral */
+      .nc-sidebar-container,
+      .nc-sideNav-container {
+        background: var(--dt-cream-dark) !important;
+      }
+      .nc-sideNav-link,
+      .nc-sideNav-link__text {
+        color: var(--dt-piedra) !important;
+      }
+      .nc-sideNav-link--active,
+      .nc-sideNav-link:hover {
+        background: var(--dt-nude) !important;
+        color: var(--dt-terracota) !important;
+      }
+      .nc-collectionPage-topbar {
+        border-bottom: 1px solid var(--dt-nude) !important;
+      }
+
+      /* Títulos y etiquetas */
+      h1, h2, h3, h4,
+      .nc-entryCardTitle,
+      .nc-collectionPage-title,
+      .nc-fieldLabel,
+      .nc-controlPane-label,
+      .nc-sectionLabel {
+        font-family: "Playfair Display", serif !important;
+        color: var(--dt-piedra) !important;
+      }
+      .nc-fieldLabel,
+      .nc-controlPane-label {
+        font-family: "Plus Jakarta Sans", sans-serif !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.02em;
+        text-transform: none !important;
+        font-size: 0.8rem !important;
+        color: var(--dt-piedra) !important;
+      }
+
+      /* Tarjetas de entradas */
+      .nc-entryCard-container,
+      .nc-cardMain,
+      .nc-card {
+        background: #fff !important;
+        border: 1px solid var(--dt-nude) !important;
+        border-radius: 16px !important;
+        box-shadow: 0 4px 16px rgba(28, 25, 23, 0.06) !important;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+      }
+      .nc-entryCard-container:hover,
+      .nc-card:hover {
+        border-color: var(--dt-terracota) !important;
+        box-shadow: 0 8px 24px rgba(190, 84, 59, 0.14) !important;
+      }
+
+      /* Botones */
+      .nc-button,
+      .nc-primaryButton,
+      .nc-btn--primary,
+      .nc-toolbar-save,
+      .nc-collectionToolbar-last {
+        background: var(--dt-terracota) !important;
+        color: #fff !important;
+        border: none !important;
+        border-radius: 12px !important;
+        font-family: "Plus Jakarta Sans", sans-serif !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.03em;
+      }
+      .nc-button:hover,
+      .nc-primaryButton:hover,
+      .nc-toolbar-save:hover {
+        background: var(--dt-terracota-light) !important;
+      }
+      .nc-button--gray, .nc-secondaryButton {
+        background: transparent !important;
+        border: 1px solid var(--dt-rose) !important;
+        color: var(--dt-terracota) !important;
+      }
+
+      /* Campos de formulario */
+      .nc-controlPane-container input,
+      .nc-controlPane-container textarea,
+      .nc-controlPane-container select,
+      .nc-widget input,
+      .nc-widget textarea,
+      .nc-widget select {
+        font-family: "Plus Jakarta Sans", sans-serif !important;
+        border: 1px solid var(--dt-rose) !important;
+        border-radius: 10px !important;
+        background: #fff !important;
+        color: var(--dt-piedra) !important;
+        padding: 8px 12px !important;
+      }
+      .nc-controlPane-container input:focus,
+      .nc-controlPane-container textarea:focus,
+      .nc-controlPane-container select:focus {
+        outline: none !important;
+        border-color: var(--dt-terracota) !important;
+        box-shadow: 0 0 0 3px rgba(190, 84, 59, 0.18) !important;
+      }
+
+      /* Imágenes: borde suave */
+      .nc-imageControl-image {
+        border-radius: 12px !important;
+        border: 1px solid var(--dt-nude) !important;
+      }
+
+      /* Enlaces (config / crear nuevo) */
+      a, .nc-link {
+        color: var(--dt-terracota) !important;
+      }
+
+      /* Página de login */
+      .nc-auth-page,
+      .nc-authPage-container,
+      .nc-loginBody {
+        background: linear-gradient(160deg, var(--dt-cream) 0%, var(--dt-nude) 100%) !important;
+      }
+      .nc-loginButton {
+        background: var(--dt-terracota) !important;
+        color: #fff !important;
+        border: none !important;
+        border-radius: 12px !important;
+        font-family: "Plus Jakarta Sans", sans-serif !important;
+        font-weight: 600 !important;
+      }
+      .nc-loginButton:hover {
+        background: var(--dt-terracota-light) !important;
+      }
+      .nc-loginBox, .nc-loginCard {
+        background: #fff !important;
+        border-radius: 20px !important;
+        box-shadow: 0 16px 48px rgba(28, 25, 23, 0.12) !important;
+      }
+
+      /* Modal / media library */
+      .nc-modal {
+        border-radius: 16px !important;
+      }
+    </style>
   </head>
   <body>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
