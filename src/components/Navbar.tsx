@@ -8,7 +8,6 @@ import { LogoutButton } from "@/components/LogoutButton";
 
 const NAV_LINKS = [
   { href: "/#cosmetica", label: "Cosmética" },
-  { href: "/#mayorista", label: "Mayorista" },
   { href: "/#contacto", label: "Contacto" },
 ];
 

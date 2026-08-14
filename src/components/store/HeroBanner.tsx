@@ -62,10 +62,7 @@ export function HeroBanner() {
                 Explorar Cosméticos
               </a>
               <button
-                onClick={() => {
-                  dispatch({ type: "SET_MODE", payload: "mayorista" });
-                  document.getElementById("mayorista")?.scrollIntoView({ behavior: "smooth" });
-                }}
+                onClick={() => dispatch({ type: "SET_MODE", payload: "mayorista" })}
                 className="btn-dorado"
               >
                 Comprar al Por Mayor

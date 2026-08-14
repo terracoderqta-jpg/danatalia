@@ -34,7 +34,6 @@ export function Footer() {
               {[
                 { href: "/", label: "Inicio" },
                 { href: "/#cosmetica", label: "Cosmética" },
-                { href: "/#mayorista", label: "Mayorista" },
                 { href: "/#contacto", label: "Contacto" },
               ].map((link) => (
                 <li key={link.href}>

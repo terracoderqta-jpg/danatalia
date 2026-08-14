@@ -233,31 +233,6 @@ export function CosmeticaGrid() {
             </div>
           ))}
         </div>
-
-        {/* Wholesale Banner */}
-        <div className="mt-16 bg-gradient-to-r from-piedra to-charcoal rounded-3xl p-8 md:p-12 text-white relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-dorado/10 rounded-full blur-3xl" />
-          <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div>
-              <p className="text-dorado text-xs uppercase tracking-widest mb-2 font-semibold">
-                Revendedores Mayoristas
-              </p>
-              <h3 className="heading-serif text-2xl md:text-3xl mb-2">
-                ¿Querés emprender con Dana Talía?
-              </h3>
-              <p className="text-white/60 text-sm max-w-lg">
-                Unite a nuestra red de revendedoras. Hasta 42% de descuento, capacitación
-                incluida y productos que se venden solos.
-              </p>
-            </div>
-            <a
-              href="#mayorista"
-              className="btn-dorado whitespace-nowrap"
-            >
-              Conocé Más
-            </a>
-          </div>
-        </div>
       </div>
     </section>
   );
