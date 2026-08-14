@@ -1,20 +1,23 @@
 # Configuración de Decap CMS para el sitio de Dana Talía
-# Admin disponible en https://danatalia.netlify.app/admin/
+# Admin disponible en https://danatalia.pages.dev/admin/
 
 backend:
-  name: git-gateway
+  name: github
+  repo: terracoderqta-jpg/danatalia
   branch: main
+  base_url: https://danatalia.pages.dev
+  auth_endpoint: /api/auth
 
 # Idioma de la interfaz del panel
 locale: es
 
 # Las fotos subidas desde el admin se guardan en public/uploads y
-# Netlify las sirve en /uploads/...
+# el sitio las sirve en /uploads/...
 media_folder: "public/uploads"
 public_folder: "/uploads"
 
-site_url: https://danatalia.netlify.app
-display_url: https://danatalia.netlify.app
+site_url: https://danatalia.pages.dev
+display_url: https://danatalia.pages.dev
 logo_url: /logo.png
 
 # Desactiva los enlaces de "vista previa de deploy" (los elementos no tienen página propia)

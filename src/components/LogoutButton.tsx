@@ -7,18 +7,12 @@ export function LogoutButton({ className = "" }: { className?: string }) {
   const isAdmin = useIsAdmin();
 
   const handleLogout = () => {
-    const identity = window.netlifyIdentity;
-    if (identity && typeof identity.logout === "function") {
-      identity.logout();
-    } else {
-      try {
-        localStorage.removeItem("netlify-cms-user");
-        localStorage.removeItem("netlify-identity-user");
-      } catch {
-        /* ignore */
-      }
-      window.location.reload();
+    try {
+      localStorage.removeItem("decap-cms-user");
+    } catch {
+      /* ignore */
     }
+    window.location.reload();
   };
 
   if (!isAdmin) return null;

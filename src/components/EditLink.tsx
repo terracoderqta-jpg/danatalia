@@ -3,31 +3,14 @@
 import { useEffect, useState } from "react";
 import { Pencil } from "lucide-react";
 
-declare global {
-  interface Window {
-    netlifyIdentity?: {
-      currentUser: () => unknown;
-      logout?: () => void;
-      on?: (event: string, cb: () => void) => void;
-      off?: (event: string, cb: () => void) => void;
-    };
-  }
-}
-
-// El widget de Netlify Identity crea usuarios "invitados" anónimos en cada
-// página, por eso no alcanza con ver si hay un usuario: solo cuentan los
-// usuarios reales (con email) o la sesión que guarda el panel de Decap CMS.
+// Decap CMS guarda la sesión del usuario (con su token de GitHub) en este key.
 function hasSession(): boolean {
   if (typeof window === "undefined") return false;
   try {
-    const identity = window.netlifyIdentity;
-    const user = identity?.currentUser?.();
-    if (user && (user as { email?: string }).email) return true;
-    if (localStorage.getItem("netlify-cms-user")) return true;
+    return Boolean(localStorage.getItem("decap-cms-user"));
   } catch {
-    /* ignore */
+    return false;
   }
-  return false;
 }
 
 export function useIsAdmin() {
@@ -36,14 +19,9 @@ export function useIsAdmin() {
   useEffect(() => {
     const check = () => setIsAdmin(hasSession());
     check();
-    const identity = window.netlifyIdentity;
-    identity?.on?.("login", check);
-    identity?.on?.("logout", check);
     window.addEventListener("focus", check);
     const timer = setInterval(check, 2000);
     return () => {
-      identity?.off?.("login", check);
-      identity?.off?.("logout", check);
       window.removeEventListener("focus", check);
       clearInterval(timer);
     };
