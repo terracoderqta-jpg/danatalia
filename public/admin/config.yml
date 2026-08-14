@@ -17,6 +17,9 @@ site_url: https://danatalia.netlify.app
 display_url: https://danatalia.netlify.app
 logo_url: /logo.png
 
+# Desactiva los enlaces de "vista previa de deploy" (los elementos no tienen página propia)
+show_preview_links: false
+
 # Desactiva la vista previa del editor para todas las colecciones
 editor:
   preview: false
