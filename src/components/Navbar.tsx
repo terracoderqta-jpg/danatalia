@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useStore } from "@/lib/store";
 import { Search, ShoppingBag, Menu, X } from "lucide-react";
+import { LogoutButton } from "@/components/LogoutButton";
 
 const NAV_LINKS = [
   { href: "/#cosmetica", label: "Cosmética" },
@@ -68,6 +69,7 @@ export function Navbar() {
             <div className="hidden md:block">
               <PriceToggleComponent />
             </div>
+            <LogoutButton />
             <button
               onClick={() => dispatch({ type: "SET_SEARCH_OPEN", payload: true })}
               className="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-cream transition-colors"

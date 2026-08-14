@@ -7,6 +7,7 @@ declare global {
   interface Window {
     netlifyIdentity?: {
       currentUser: () => unknown;
+      logout?: () => void;
       on?: (event: string, cb: () => void) => void;
       off?: (event: string, cb: () => void) => void;
     };
@@ -29,7 +30,7 @@ function hasSession(): boolean {
   return false;
 }
 
-function useIsAdmin() {
+export function useIsAdmin() {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
