@@ -48,7 +48,7 @@ collections:
           - { label: "Etiqueta 1", name: "badge1", widget: "string" }
           - { label: "Etiqueta 2", name: "badge2", widget: "string" }
           - { label: "Título (primera parte)", name: "title", widget: "string" }
-          - { label: "Título (palabras en terracota)", name: "titleHighlight", widget: "string" }
+          - { label: "Título (palabras en terracota)", name: "titleHighlight", widget: "string", required: false }
           - { label: "Subtítulo", name: "subtitle", widget: "text" }
           - { label: "Foto principal del banner", name: "heroImage", widget: "image", choose_url: true }
           - { label: "Texto alternativo de la foto", name: "heroImageAlt", widget: "string", required: false }
