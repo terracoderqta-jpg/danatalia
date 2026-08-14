@@ -84,7 +84,8 @@ collections:
     label: "Categorías"
     label_singular: "Categoría"
     folder: "src/data/categorias"
-    create: false
+    create: true
+    delete: true
     identifier_field: "key"
     format: "json"
     extension: "json"
@@ -93,7 +94,7 @@ collections:
     editor:
       preview: false
     fields:
-      - { label: "Clave interna", name: "key", widget: "select", options: ["skincare", "maquillaje", "perfumes", "sets"], hint: "Debe coincidir con la categoría de los productos." }
+      - { label: "Clave interna", name: "key", widget: "string", hint: "En minúsculas, sin espacios ni acentos. Ej: accesorios. No la cambies si la categoría ya tiene productos asignados." }
       - { label: "Nombre", name: "label", widget: "string" }
       - { label: "Foto de la categoría", name: "image", widget: "image", choose_url: true }
 
@@ -117,7 +118,7 @@ collections:
       - { label: "Slug", name: "slug", widget: "string", hint: "URL amigable del producto (sin espacios, en minúsculas)." }
       - { label: "Precio minorista ($ ARS)", name: "price", widget: "number", value_type: "int", min: 0 }
       - { label: "Precio mayorista ($ ARS)", name: "wholesalePrice", widget: "number", value_type: "int", min: 0 }
-      - { label: "Categoría", name: "cosmeticCategory", widget: "select", options: ["skincare", "maquillaje", "perfumes", "sets"] }
+      - { label: "Categoría", name: "cosmeticCategory", widget: "string", hint: "Usá la clave de una categoría existente (skincare, maquillaje, perfumes, sets o una nueva que crees)." }
       - { label: "Etiqueta (opcional)", name: "badge", widget: "string", hint: "Ej: 'Más Vendido', 'Nuevo', 'Exclusivo'. Dejalo vacío si no querés.", required: false }
       - { label: "Descripción", name: "description", widget: "text", required: false }
       - { label: "Puntaje", name: "rating", widget: "number", value_type: "float", min: 0, max: 5, step: 0.1, default: 4.5, required: false }

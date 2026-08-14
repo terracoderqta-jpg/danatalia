@@ -14,7 +14,7 @@ import { formatPrice } from "./utils";
 // ============================================
 
 export type PriceMode = "minorista" | "mayorista";
-export type CosmeticCategory = "todos" | "skincare" | "maquillaje" | "perfumes" | "sets";
+export type CosmeticCategory = "todos" | (string & {});
 
 export interface CosmeticProduct {
   id: string;
