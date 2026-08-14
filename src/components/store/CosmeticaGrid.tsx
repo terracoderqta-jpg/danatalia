@@ -109,11 +109,11 @@ export function CosmeticaGrid() {
         </div>
 
         {/* Categorías con imagen */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12">
+        <div className="flex flex-wrap justify-center gap-4 md:gap-6 mb-12">
           {categorias.map((cat) => {
             const active = activeTab === cat.key;
             return (
-              <div key={cat.key} className="relative">
+              <div key={cat.key} className="relative w-[calc(50%-8px)] md:w-[calc(25%-18px)]">
                 <button
                   onClick={() => setActiveTab(active ? "todos" : cat.key)}
                   className={`group relative aspect-square rounded-3xl overflow-hidden w-full transition-all duration-300 ${
