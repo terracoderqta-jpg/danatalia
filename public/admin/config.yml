@@ -17,6 +17,10 @@ site_url: https://danatalia.netlify.app
 display_url: https://danatalia.netlify.app
 logo_url: /logo.png
 
+# Desactiva la vista previa del editor para todas las colecciones
+editor:
+  preview: false
+
 collections:
   # ============ BANNER ============
   - name: "banner"
