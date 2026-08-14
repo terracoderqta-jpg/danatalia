@@ -7,7 +7,7 @@ export function randomHex(bytes: number): string {
 }
 
 function callbackUri(origin: string): string {
-  return `${origin}/api/auth/callback?provider=github`;
+  return `${origin}/api/auth/callback`;
 }
 
 function isGithub(request: Request) {
