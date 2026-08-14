@@ -13,6 +13,10 @@ const NAV_LINKS = [
 
 function PriceToggleComponent() {
   const { state, dispatch } = useStore();
+  const handleMayorista = () => {
+    dispatch({ type: "SET_MODE", payload: "mayorista" });
+    document.getElementById("mayorista")?.scrollIntoView({ behavior: "smooth" });
+  };
   return (
     <div className="price-toggle">
       <button
@@ -22,7 +26,7 @@ function PriceToggleComponent() {
         Minorista
       </button>
       <button
-        onClick={() => dispatch({ type: "SET_MODE", payload: "mayorista" })}
+        onClick={handleMayorista}
         className={state.mode === "mayorista" ? "price-toggle-active" : "price-toggle-inactive"}
       >
         Mayorista

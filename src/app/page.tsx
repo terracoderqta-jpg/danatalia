@@ -1,6 +1,7 @@
 import { TopBar } from "@/components/store/TopBar";
 import { HeroBanner } from "@/components/store/HeroBanner";
 import { CosmeticaGrid } from "@/components/store/CosmeticaGrid";
+import { MayoristaCTA } from "@/components/store/MayoristaCTA";
 import { Testimonials } from "@/components/store/Testimonials";
 import { ContactForm } from "@/components/store/ContactForm";
 import { CartDrawer } from "@/components/store/CartDrawer";
@@ -13,6 +14,7 @@ export default function Home() {
       <TopBar />
       <HeroBanner />
       <CosmeticaGrid />
+      <MayoristaCTA />
       <Testimonials />
       <ContactForm />
       <CartDrawer />
