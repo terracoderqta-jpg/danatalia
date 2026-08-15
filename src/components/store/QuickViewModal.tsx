@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useStore } from "@/lib/store";
 import Image from "next/image";
 import { X, ShoppingCart, Star } from "lucide-react";
@@ -7,8 +8,12 @@ import { X, ShoppingCart, Star } from "lucide-react";
 export function QuickViewModal() {
   const { state, dispatch, getPrice } = useStore();
   const product = state.quickViewProduct;
+  const [activeImage, setActiveImage] = useState(0);
 
   if (!product) return null;
+
+  const gallery = (product.gallery && product.gallery.length > 0 ? product.gallery : [product.image]).filter(Boolean);
+  const currentImage = gallery[Math.min(activeImage, gallery.length - 1)] ?? product.image;
 
   const handleAdd = () => {
     const price = state.mode === "mayorista" ? product.wholesalePrice : product.price;
@@ -39,11 +44,11 @@ export function QuickViewModal() {
             {/* Image */}
             <div className="relative">
               <Image
-                src={product.image}
+                src={currentImage}
                 alt={product.name}
                 width={600}
                 height={600}
-                className="w-full h-64 md:h-full object-cover rounded-t-3xl md:rounded-l-3xl md:rounded-tr-none"
+                className="w-full h-64 md:h-[380px] object-cover rounded-t-3xl md:rounded-l-3xl md:rounded-tr-none"
               />
               <button
                 onClick={() => dispatch({ type: "SET_QUICK_VIEW", payload: null })}
@@ -51,6 +56,29 @@ export function QuickViewModal() {
               >
                 <X size={16} />
               </button>
+              {gallery.length > 1 && (
+                <div className="absolute bottom-4 left-4 right-4 flex gap-2">
+                  {gallery.map((img, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setActiveImage(i)}
+                      className={`relative w-16 h-16 rounded-xl overflow-hidden transition-all duration-300 ${
+                        i === activeImage
+                          ? "ring-2 ring-terracota"
+                          : "opacity-70 hover:opacity-100"
+                      }`}
+                    >
+                      <Image
+                        src={img}
+                        alt={`${product.name} ${i + 1}`}
+                        width={64}
+                        height={64}
+                        className="w-full h-full object-cover"
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Details */}

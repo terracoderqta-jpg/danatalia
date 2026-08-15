@@ -24,6 +24,7 @@ export interface CosmeticProduct {
   price: number;
   wholesalePrice: number;
   image: string;
+  images?: { image: string }[];
   cosmeticCategory: CosmeticCategory;
   badge?: string;
   rating: number;
@@ -45,6 +46,7 @@ export interface StoreProduct {
   price: number;
   wholesalePrice: number;
   image: string;
+  gallery?: string[];
   category: string;
   badge?: string;
   rating?: number;
@@ -205,6 +207,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     price: p.price,
     wholesalePrice: p.wholesalePrice,
     image: p.image,
+    gallery: [p.image, ...(p.images || []).map((i) => i.image)],
     category: p.cosmeticCategory,
     badge: p.badge,
     rating: p.rating,

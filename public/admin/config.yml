@@ -113,7 +113,15 @@ collections:
     editor:
       preview: false
     fields:
-      - { label: "Foto del producto", name: "image", widget: "image", choose_url: true, hint: "Subí una foto desde tu compu o pegá un link." }
+      - { label: "Foto del producto", name: "image", widget: "image", choose_url: true, hint: "Subí una foto desde tu compu o pegá un link. Esta es la foto principal." }
+      - label: "Más fotos del producto (galería)"
+        name: "images"
+        widget: "list"
+        required: false
+        summary: "{{image}}"
+        hint: "Fotos adicionales que se muestran en la vista rápida del producto. Dejalo vacío si no querés."
+        fields:
+          - { label: "Foto", name: "image", widget: "image", choose_url: true }
       - { label: "Nombre", name: "name", widget: "string" }
       - { label: "Slug", name: "slug", widget: "string", hint: "URL amigable del producto (sin espacios, en minúsculas)." }
       - { label: "Precio minorista ($ ARS)", name: "price", widget: "number", value_type: "int", min: 0 }
