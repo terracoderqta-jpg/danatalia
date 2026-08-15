@@ -24,7 +24,7 @@ export interface CosmeticProduct {
   price: number;
   wholesalePrice: number;
   image: string;
-  images?: { image: string }[];
+  images?: (string | { image: string })[];
   cosmeticCategory: CosmeticCategory;
   badge?: string;
   rating: number;
@@ -207,7 +207,10 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     price: p.price,
     wholesalePrice: p.wholesalePrice,
     image: p.image,
-    gallery: [p.image, ...(p.images || []).map((i) => i.image)],
+    gallery: [
+      p.image,
+      ...(p.images || []).map((i) => (typeof i === "string" ? i : i.image)),
+    ],
     category: p.cosmeticCategory,
     badge: p.badge,
     rating: p.rating,

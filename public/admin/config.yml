@@ -118,10 +118,10 @@ collections:
         name: "images"
         widget: "list"
         required: false
-        summary: "{{image}}"
-        hint: "Fotos adicionales que se muestran en la vista rápida del producto. Dejalo vacío si no querés."
-        fields:
-          - { label: "Foto", name: "image", widget: "image", choose_url: true }
+        label_singular: "Foto"
+        summary: "{{image}} {{fields.image}}"
+        hint: "Agregá una foto por vez con el botón '+ Foto'. También podés elegir varias a la vez desde la biblioteca."
+        field: { label: "Foto", name: "image", widget: "image", choose_url: true, allow_multiple: true }
       - { label: "Nombre", name: "name", widget: "string" }
       - { label: "Slug", name: "slug", widget: "string", hint: "URL amigable del producto (sin espacios, en minúsculas)." }
       - { label: "Precio minorista ($ ARS)", name: "price", widget: "number", value_type: "int", min: 0 }
