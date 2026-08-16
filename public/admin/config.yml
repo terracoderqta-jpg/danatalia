@@ -127,7 +127,7 @@ collections:
         field: { label: "Foto", name: "image", widget: "image", choose_url: true, allow_multiple: true }
       - { label: "Precio minorista ($)", name: "price", widget: "number", value_type: "int", min: 0, hint: "Precio que paga el cliente final." }
       - { label: "Precio mayorista ($)", name: "wholesalePrice", widget: "number", value_type: "int", min: 0, hint: "Precio para revendedoras. Si no trabajás con mayorista, poné el mismo precio." }
-      - { label: "Categoría", name: "cosmeticCategory", widget: "string", hint: "Escribí el nombre de una categoría existente: cremas, perfumes o ropa-interior." }
+      - { label: "Categoría", name: "cosmeticCategory", widget: "select", options: ["cremas", "perfumes", "ropa-interior"], hint: "Elegí la categoría del producto." }
       - { label: "Descripción", name: "description", widget: "text", required: false, hint: "Contá qué hace el producto y por qué vale la pena." }
       - { label: "Etiqueta destacada (opcional)", name: "badge", widget: "string", hint: "Ej: 'Nuevo', 'Más Vendido', 'Exclusivo'. Vacío = sin etiqueta.", required: false }
       - { label: "Puntaje (0 a 5)", name: "rating", widget: "number", value_type: "float", min: 0, max: 5, step: 0.1, default: 4.5, required: false, hint: "Estrellas que se muestran. Dejalo en 4.5 si no sabés." }
@@ -140,7 +140,8 @@ collections:
     label: "Productos ⤷ Cremas"
     label_singular: "Producto"
     folder: "src/data/productos"
-    create: false
+    create: true
+    delete: true
     identifier_field: "id"
     format: "json"
     extension: "json"
