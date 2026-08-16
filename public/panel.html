@@ -290,8 +290,9 @@
 
   // ============ Git helpers ============
   async function gh(path, opts = {}) {
-    opts.headers = Object.assign({ Authorization: `Bearer ${token}`, Accept: "application/vnd.github+json" }, opts.headers || {});
-    const res = await fetch(path, opts);
+    const headers = Object.assign({ Accept: "application/vnd.github+json" }, opts.headers || {});
+    if (token) headers.Authorization = `Bearer ${token}`;
+    const res = await fetch(path, Object.assign({}, opts, { headers }));
     if (!res.ok) {
       const t = await res.text().catch(() => "");
       throw new Error(`GitHub ${res.status}: ${t.slice(0, 200)}`);
