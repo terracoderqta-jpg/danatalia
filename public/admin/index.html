@@ -6,72 +6,89 @@
     <meta name="robots" content="noindex" />
     <title>Administración | Dana Talía</title>
     <link
-      href="config.yml?v=20260815"
+      href="config.yml?v=20260816"
       type="text/yaml"
       rel="cms-config-url"
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <style>
       :root {
-        --dt-cream: #fdf8f6;
-        --dt-cream-dark: #f5efe9;
-        --dt-nude: #f5e6e0;
-        --dt-rose: #c4a0a0;
-        --dt-terracota: #be543b;
-        --dt-terracota-light: #d4735c;
-        --dt-piedra: #1c1917;
+        --dt-bg: #f4f6f8;
+        --dt-surface: #ffffff;
+        --dt-border: #e5e8eb;
+        --dt-text: #1c2333;
+        --dt-text-secondary: #8a94a6;
+        --dt-muted: #b6bdc9;
+        --dt-turquoise: #12b5b0;
+        --dt-turquoise-dark: #0e9a96;
+        --dt-turquoise-soft: #e4f7f6;
+        --dt-danger: #e8554d;
+        --dt-sidebar: #2a2f45;
+        --dt-sidebar-text: #cdd3e0;
       }
 
       /* Fondo general y tipografía base */
+      ::selection { background: var(--dt-turquoise-soft); }
+
+      body {
+        font-family: "Inter", system-ui, sans-serif !important;
+        background: var(--dt-bg) !important;
+        color: var(--dt-text) !important;
+        letter-spacing: -0.01em;
+      }
+
       .nc-background,
       .nc-page-container,
       .nc-appMain-container,
       .nc-collectionPage-container,
       .nc-controlPane-container,
-      .nc-settingsPage-container {
-        background: var(--dt-cream) !important;
-        font-family: "Plus Jakarta Sans", sans-serif !important;
-      }
-
-      body {
-        font-family: "Plus Jakarta Sans", sans-serif !important;
+      .nc-settingsPage-container,
+      .nc-workflowPage-container {
+        background: var(--dt-bg) !important;
+        font-family: "Inter", sans-serif !important;
       }
 
       /* Encabezado superior */
       .nc-header {
-        background: var(--dt-piedra) !important;
-        border-bottom: 3px solid var(--dt-terracota) !important;
+        background: var(--dt-surface) !important;
+        border-bottom: 1px solid var(--dt-border) !important;
       }
       .nc-headerLink__Title,
       .nc-headerLink,
       .nc-header-link,
       .nc-toolbar-title {
-        font-family: "Playfair Display", serif !important;
-        color: #fff !important;
-        letter-spacing: 0.02em;
+        font-family: "Inter", sans-serif !important;
+        color: var(--dt-text) !important;
+        font-weight: 800 !important;
+        letter-spacing: -0.02em;
       }
 
       /* Barra lateral */
       .nc-sidebar-container,
       .nc-sideNav-container {
-        background: var(--dt-cream-dark) !important;
+        background: var(--dt-sidebar) !important;
       }
       .nc-sideNav-link,
       .nc-sideNav-link__text {
-        color: var(--dt-piedra) !important;
+        color: var(--dt-sidebar-text) !important;
+        font-family: "Inter", sans-serif !important;
+        border-radius: 8px !important;
+        margin: 1px 8px !important;
+        padding: 8px 12px !important;
       }
       .nc-sideNav-link--active,
       .nc-sideNav-link:hover {
-        background: var(--dt-nude) !important;
-        color: var(--dt-terracota) !important;
+        background: rgba(18, 181, 176, 0.18) !important;
+        color: #6fe3df !important;
       }
       .nc-collectionPage-topbar {
-        border-bottom: 1px solid var(--dt-nude) !important;
+        border-bottom: 1px solid var(--dt-border) !important;
+        background: var(--dt-surface) !important;
       }
 
       /* Títulos y etiquetas */
@@ -81,33 +98,34 @@
       .nc-fieldLabel,
       .nc-controlPane-label,
       .nc-sectionLabel {
-        font-family: "Playfair Display", serif !important;
-        color: var(--dt-piedra) !important;
+        font-family: "Inter", sans-serif !important;
+        color: var(--dt-text) !important;
+        letter-spacing: -0.02em;
       }
       .nc-fieldLabel,
       .nc-controlPane-label {
-        font-family: "Plus Jakarta Sans", sans-serif !important;
+        font-family: "Inter", sans-serif !important;
         font-weight: 600 !important;
-        letter-spacing: 0.02em;
+        letter-spacing: 0 !important;
         text-transform: none !important;
         font-size: 0.8rem !important;
-        color: var(--dt-piedra) !important;
+        color: var(--dt-text) !important;
       }
 
       /* Tarjetas de entradas */
       .nc-entryCard-container,
       .nc-cardMain,
       .nc-card {
-        background: #fff !important;
-        border: 1px solid var(--dt-nude) !important;
-        border-radius: 16px !important;
-        box-shadow: 0 4px 16px rgba(28, 25, 23, 0.06) !important;
-        transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+        background: var(--dt-surface) !important;
+        border: 1px solid var(--dt-border) !important;
+        border-radius: 12px !important;
+        box-shadow: 0 1px 2px rgba(16, 22, 38, 0.04) !important;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
       }
       .nc-entryCard-container:hover,
       .nc-card:hover {
-        border-color: var(--dt-terracota) !important;
-        box-shadow: 0 8px 24px rgba(190, 84, 59, 0.14) !important;
+        border-color: var(--dt-turquoise) !important;
+        box-shadow: 0 6px 20px rgba(18, 181, 176, 0.12) !important;
       }
 
       /* Botones */
@@ -116,23 +134,24 @@
       .nc-btn--primary,
       .nc-toolbar-save,
       .nc-collectionToolbar-last {
-        background: var(--dt-terracota) !important;
+        background: var(--dt-turquoise) !important;
         color: #fff !important;
         border: none !important;
-        border-radius: 12px !important;
-        font-family: "Plus Jakarta Sans", sans-serif !important;
+        border-radius: 10px !important;
+        font-family: "Inter", sans-serif !important;
         font-weight: 600 !important;
-        letter-spacing: 0.03em;
+        letter-spacing: 0 !important;
       }
       .nc-button:hover,
       .nc-primaryButton:hover,
       .nc-toolbar-save:hover {
-        background: var(--dt-terracota-light) !important;
+        background: var(--dt-turquoise-dark) !important;
       }
-      .nc-button--gray, .nc-secondaryButton {
+      .nc-button--gray,
+      .nc-secondaryButton {
         background: transparent !important;
-        border: 1px solid var(--dt-rose) !important;
-        color: var(--dt-terracota) !important;
+        border: 1px solid var(--dt-border) !important;
+        color: var(--dt-text) !important;
       }
 
       /* Campos de formulario */
@@ -142,58 +161,59 @@
       .nc-widget input,
       .nc-widget textarea,
       .nc-widget select {
-        font-family: "Plus Jakarta Sans", sans-serif !important;
-        border: 1px solid var(--dt-rose) !important;
+        font-family: "Inter", sans-serif !important;
+        border: 1px solid var(--dt-border) !important;
         border-radius: 10px !important;
-        background: #fff !important;
-        color: var(--dt-piedra) !important;
-        padding: 8px 12px !important;
+        background: var(--dt-surface) !important;
+        color: var(--dt-text) !important;
+        padding: 9px 12px !important;
       }
       .nc-controlPane-container input:focus,
       .nc-controlPane-container textarea:focus,
       .nc-controlPane-container select:focus {
         outline: none !important;
-        border-color: var(--dt-terracota) !important;
-        box-shadow: 0 0 0 3px rgba(190, 84, 59, 0.18) !important;
+        border-color: var(--dt-turquoise) !important;
+        box-shadow: 0 0 0 3px rgba(18, 181, 176, 0.12) !important;
       }
 
       /* Imágenes: borde suave */
       .nc-imageControl-image {
         border-radius: 12px !important;
-        border: 1px solid var(--dt-nude) !important;
+        border: 1px solid var(--dt-border) !important;
       }
 
       /* Enlaces (config / crear nuevo) */
       a, .nc-link {
-        color: var(--dt-terracota) !important;
+        color: var(--dt-turquoise) !important;
       }
 
       /* Página de login */
       .nc-auth-page,
       .nc-authPage-container,
       .nc-loginBody {
-        background: linear-gradient(160deg, var(--dt-cream) 0%, var(--dt-nude) 100%) !important;
+        background: linear-gradient(160deg, var(--dt-bg) 0%, var(--dt-turquoise-soft) 100%) !important;
       }
       .nc-loginButton {
-        background: var(--dt-terracota) !important;
+        background: var(--dt-turquoise) !important;
         color: #fff !important;
         border: none !important;
-        border-radius: 12px !important;
-        font-family: "Plus Jakarta Sans", sans-serif !important;
+        border-radius: 10px !important;
+        font-family: "Inter", sans-serif !important;
         font-weight: 600 !important;
       }
       .nc-loginButton:hover {
-        background: var(--dt-terracota-light) !important;
+        background: var(--dt-turquoise-dark) !important;
       }
       .nc-loginBox, .nc-loginCard {
-        background: #fff !important;
-        border-radius: 20px !important;
-        box-shadow: 0 16px 48px rgba(28, 25, 23, 0.12) !important;
+        background: var(--dt-surface) !important;
+        border-radius: 16px !important;
+        box-shadow: 0 16px 48px rgba(16, 22, 38, 0.12) !important;
       }
 
       /* Modal / media library */
       .nc-modal {
         border-radius: 16px !important;
+        background: var(--dt-surface) !important;
       }
     </style>
   </head>
