@@ -92,7 +92,11 @@ const productosContext: JsonContext = require.context(
 export const COSMETIC_PRODUCTS: CosmeticProduct[] = (
   productosContext.keys() as string[]
 )
-  .map((k) => productosContext(k) as CosmeticProduct)
+  .map((k) => {
+    const p = productosContext(k) as CosmeticProduct;
+    const key = p.id || p.slug;
+    return { ...p, id: key };
+  })
   .sort(
     (a, b) =>
       (parseInt((a.id || "0").replace(/\D/g, ""), 10) || 0) -
