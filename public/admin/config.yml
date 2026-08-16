@@ -87,6 +87,43 @@ collections:
               - { label: "Valor", name: "value", widget: "string", required: false }
               - { label: "Etiqueta", name: "label", widget: "string", required: false }
 
+  # ============ BANNERS ADICIONALES ============
+  # Varios banners que se colocan en distintas zonas de la página.
+  # Cada banner es un archivo en src/data/banners/*.json
+  - name: "banners-adicionales"
+    label: "Banners adicionales"
+    label_singular: "Banner"
+    folder: "src/data/banners"
+    create: true
+    delete: true
+    identifier_field: "slug"
+    format: "json"
+    extension: "json"
+    slug: "{{slug}}"
+    summary: "{{image}}  {{name}}"
+    description: "Creá banners y elegí en qué zona de la página se muestran."
+    editor:
+      preview: false
+      frame: false
+    fields:
+      - { label: "Nombre interno", name: "name", widget: "string", hint: "Un nombre para reconocerlo en el panel. Ej: 'Promo invierno'.", required: false }
+      - { label: "Enlace corto (slug) *", name: "slug", widget: "string", hint: "En minúsculas, sin espacios ni acentos. Ej: promo-invierno. Es obligatorio.", required: false }
+      - label: "Ubicación en la página"
+        name: "position"
+        widget: "select"
+        options:
+          - { label: "Inicio (arriba del todo)", value: "inicio" }
+          - { label: "Debajo de Categorías", value: "despues-categorias" }
+          - { label: "Debajo de Productos", value: "despues-productos" }
+          - { label: "Antes del Contacto", value: "antes-contacto" }
+        hint: "Elegí dónde vas a mostrar este banner."
+      - { label: "Activo", name: "active", widget: "boolean", default: true, hint: "Desactivá para ocultarlo sin borrarlo." }
+      - { label: "Título", name: "title", widget: "string", required: false }
+      - { label: "Subtítulo", name: "subtitle", widget: "text", required: false }
+      - { label: "Texto del botón (opcional)", name: "ctaText", widget: "string", required: false, hint: "Ej: 'Ver colección'. Vacío = sin botón." }
+      - { label: "Enlace del botón (opcional)", name: "ctaLink", widget: "string", required: false, hint: "Ej: #cosmetica o la página del producto." }
+      - { label: "Foto del banner *", name: "image", widget: "image", choose_url: true, required: false, hint: "La imagen de fondo del banner. Recomendado: ancha (1600px aprox)." }
+
   # ============ CATEGORÍAS ============
   - name: "categorias"
     label: "Categorías"
