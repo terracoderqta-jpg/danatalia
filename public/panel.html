@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Panel Dana Talía | Gestionar (Prueba)</title>
+<title>Panel Dana Talía | Gestionar</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -21,7 +21,9 @@
     --muted: #b6bdc9;
     --sidebar: #1f2438;
     --sidebar-text: #aab2c7;
+    --danger: #e8554d;
   }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: 'Inter', system-ui, sans-serif;
     background: var(--bg);
@@ -29,326 +31,197 @@
     display: flex;
     min-height: 100vh;
   }
-
-  /* ============ SIDEBAR ============ */
   .sidebar {
-    width: 250px;
-    flex-shrink: 0;
+    width: 250px; flex-shrink: 0;
     background: linear-gradient(180deg, var(--sidebar) 0%, #171c2d 100%);
-    display: flex;
-    flex-direction: column;
-    padding: 22px 14px 18px;
-    position: sticky;
-    top: 0;
-    height: 100vh;
+    display: flex; flex-direction: column; padding: 22px 14px 18px;
+    position: sticky; top: 0; height: 100vh;
   }
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 11px;
-    padding: 4px 10px 20px;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-    margin-bottom: 18px;
-  }
-  .brand-logo {
-    width: 38px; height: 38px;
-    border-radius: 11px;
-    background: var(--turquoise);
-    display: flex; align-items: center; justify-content: center;
-    color: #fff; font-weight: 800; font-size: 17px;
-  }
+  .brand { display: flex; align-items: center; gap: 11px; padding: 4px 10px 20px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 18px; }
+  .brand-logo { width: 38px; height: 38px; border-radius: 11px; background: var(--turquoise); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 17px; }
   .brand-name { color: #fff; font-weight: 800; font-size: 15px; line-height: 1.15; }
   .brand-sub { color: var(--sidebar-text); font-size: 11px; font-weight: 500; }
-  .ready-badge {
-    display: inline-flex; align-items: center; gap: 4px;
-    font-size: 10px; font-weight: 700; letter-spacing: .4px;
-    background: var(--turquoise-soft); color: var(--turquoise-dark);
-    border-radius: 20px; padding: 2px 8px; margin-left: 6px;
-  }
-
-  .nav-label {
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 1.4px;
-    color: #6b7390;
-    font-weight: 700;
-    padding: 0 10px 8px;
-  }
-  .nav-btn {
-    display: flex;
-    align-items: center;
-    gap: 11px;
-    width: 100%;
-    padding: 11px 12px;
-    border: none;
-    border-radius: 10px;
-    background: transparent;
-    color: var(--sidebar-text);
-    font-family: inherit;
-    font-size: 13.5px;
-    font-weight: 600;
-    cursor: pointer;
-    text-align: left;
-    margin-bottom: 3px;
-    transition: background .15s, color .15s;
-  }
+  .nav-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.4px; color: #6b7390; font-weight: 700; padding: 0 10px 8px; }
+  .nav-btn { display: flex; align-items: center; gap: 11px; width: 100%; padding: 11px 12px; border: none; border-radius: 10px; background: transparent; color: var(--sidebar-text); font-family: inherit; font-size: 13.5px; font-weight: 600; cursor: pointer; text-align: left; margin-bottom: 3px; transition: background .15s, color .15s; }
   .nav-btn svg { flex-shrink: 0; }
   .nav-btn:hover { background: rgba(255,255,255,0.06); color: #fff; }
-  .nav-btn.active {
-    background: var(--turquoise);
-    color: #fff;
-    box-shadow: 0 6px 16px rgba(18,181,176,0.32);
-  }
-  .nav-badge {
-    margin-left: auto;
-    background: rgba(255,255,255,0.12);
-    border-radius: 20px;
-    font-size: 10.5px;
-    font-weight: 700;
-    padding: 2px 8px;
-  }
+  .nav-btn.active { background: var(--turquoise); color: #fff; box-shadow: 0 6px 16px rgba(18,181,176,0.32); }
+  .nav-badge { margin-left: auto; background: rgba(255,255,255,0.12); border-radius: 20px; font-size: 10.5px; font-weight: 700; padding: 2px 8px; }
   .nav-btn.active .nav-badge { background: rgba(255,255,255,0.25); }
-
-  .sidebar-footer {
-    margin-top: auto;
-    padding: 14px 10px 0;
-    border-top: 1px solid rgba(255,255,255,0.08);
+  .sidebar-footer { margin-top: auto; padding: 14px 10px 0; border-top: 1px solid rgba(255,255,255,0.08); }
+  .auth-box { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .auth-info { color: var(--sidebar-text); font-size: 12px; line-height: 1.4; }
+  .auth-info b { color: #3dd6d1; font-weight: 700; }
+  .auth-btn {
+    background: var(--turquoise); color: #fff; border: none; border-radius: 9px;
+    font-family: inherit; font-size: 12.5px; font-weight: 700; cursor: pointer;
+    padding: 9px 14px; width: 100%; margin-top: 8px;
   }
-  .data-note { color: #6b7390; font-size: 10.5px; line-height: 1.5; padding: 0 10px; }
+  .auth-btn:hover { background: var(--turquoise-dark); }
+  .auth-btn.ghost { background: rgba(255,255,255,0.08); color: #fff; }
+  .auth-btn.danger { background: rgba(232,85,77,0.2); color: #ffb3ae; }
 
-  /* ============ MAIN ============ */
   .main { flex: 1; padding: 26px 30px; overflow-x: hidden; }
-
-  .topbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 26px;
-    gap: 14px;
-    flex-wrap: wrap;
-  }
+  .topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 26px; gap: 14px; flex-wrap: wrap; }
   .crumb { font-size: 12.5px; color: var(--text-secondary); }
   .crumb b { color: var(--text); }
-  .top-actions { display: flex; gap: 12px; align-items: center; }
-  .search {
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 9px 14px;
-    background: var(--surface);
-    font-family: inherit;
-    font-size: 13px;
-    width: 240px;
-  }
+  .top-actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .search { border: 1px solid var(--border); border-radius: 10px; padding: 9px 14px; background: var(--surface); font-family: inherit; font-size: 13px; width: 220px; }
   .search:focus { outline: none; border-color: var(--turquoise); }
-
   .page-title { font-size: 24px; font-weight: 800; letter-spacing: -0.4px; margin-bottom: 6px; }
   .page-sub { color: var(--text-secondary); font-size: 13.5px; margin-bottom: 24px; }
-
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    overflow: hidden;
-    transition: transform .15s, box-shadow .15s;
-  }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; transition: transform .15s, box-shadow .15s; }
   .card:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(16,22,38,0.09); }
-  .card-thumb { height: 150px; position: relative; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:26px; }
-  .card-thumb img { width:100%; height:100%; object-fit:cover; position:absolute; inset:0; }
+  .card-thumb { height: 150px; position: relative; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 26px; }
+  .card-thumb img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
   .card-t1 { background: linear-gradient(135deg, #12b5b0, #0e7fae); }
   .card-t2 { background: linear-gradient(135deg, #e0b2a4, #b0706b); }
   .card-t3 { background: linear-gradient(135deg, #a7c7e7, #6d8cc7); }
   .card-t4 { background: linear-gradient(135deg, #c0a9d8, #8d76b5); }
   .card-t5 { background: linear-gradient(135deg, #bcd8a9, #7d9c68); }
   .card-t6 { background: linear-gradient(135deg, #efc98f, #c9903e); }
-  .card-badge {
-    position: absolute;
-    top: 10px; left: 10px;
-    background: rgba(255,255,255,0.92);
-    color: var(--text);
-    font-size: 10.5px;
-    font-weight: 700;
-    padding: 3px 9px;
-    border-radius: 20px;
-  }
-  .card-inactive {
-    position: absolute;
-    top: 10px; right: 10px;
-    background: rgba(28,35,51,0.75);
-    color: #fff;
-    font-size: 10px;
-    font-weight: 700;
-    padding: 3px 8px;
-    border-radius: 20px;
-  }
+  .card-badge { position: absolute; top: 10px; left: 10px; background: rgba(255,255,255,0.92); color: var(--text); font-size: 10.5px; font-weight: 700; padding: 3px 9px; border-radius: 20px; }
+  .card-inactive { position: absolute; top: 10px; right: 10px; background: rgba(28,35,51,0.75); color: #fff; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 20px; }
   .card-body { padding: 14px; }
   .card-title { font-size: 14px; font-weight: 700; margin-bottom: 3px; }
   .card-sub { font-size: 12px; color: var(--text-secondary); }
   .card-price { font-size: 13px; font-weight: 700; color: var(--turquoise-dark); margin-top: 8px; }
   .card-actions { display: flex; gap: 8px; margin-top: 12px; }
-  .btn {
-    border: 1px solid var(--border);
-    background: var(--surface);
-    border-radius: 9px;
-    padding: 7px 13px;
-    font-family: inherit;
-    font-size: 12.5px;
-    font-weight: 600;
-    cursor: pointer;
-    color: var(--text);
-    transition: all .15s;
-  }
+  .btn { border: 1px solid var(--border); background: var(--surface); border-radius: 9px; padding: 7px 13px; font-family: inherit; font-size: 12.5px; font-weight: 600; cursor: pointer; color: var(--text); transition: all .15s; }
   .btn:hover { border-color: var(--turquoise); color: var(--turquoise-dark); }
   .btn-teal { background: var(--turquoise); border-color: var(--turquoise); color: #fff; }
   .btn-teal:hover { background: var(--turquoise-dark); color: #fff; border-color: var(--turquoise-dark); }
-
+  .btn-danger { border-color: #f0caca; color: var(--danger); }
+  .btn-danger:hover { background: var(--danger); border-color: var(--danger); color: #fff; }
   .empty-state { text-align: center; padding: 60px 20px; color: var(--text-secondary); }
   .empty-icon { font-size: 42px; margin-bottom: 10px; }
-
   .section-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); margin: 22px 0 12px; }
+  .hidden { display: none !important; }
+  .alert { border: 1px solid var(--border); border-left: 4px solid var(--turquoise); background: var(--surface); border-radius: 10px; padding: 12px 16px; font-size: 13px; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.5; }
+  .alert.error { border-left-color: var(--danger); color: #b3362f; }
+  .alert.success { border-left-color: #2ec4a0; color: #1b7a63; }
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--text); color: #fff; padding: 12px 22px; border-radius: 12px; font-size: 13.5px; font-weight: 600; box-shadow: 0 10px 30px rgba(0,0,0,0.25); z-index: 60; opacity: 0; transition: opacity .2s; pointer-events: none; }
+  .toast.show { opacity: 1; }
+  .toast.err { background: var(--danger); }
 
-  .hidden { display: none; }
-
-  .alert {
-    border: 1px solid var(--border);
-    border-left: 4px solid var(--turquoise);
-    background: var(--surface);
-    border-radius: 10px;
-    padding: 12px 16px;
-    font-size: 13px;
-    color: var(--text-secondary);
-    margin-bottom: 20px;
-    line-height: 1.5;
+  /* Modal editor */
+  .overlay { position: fixed; inset: 0; z-index: 40; background: rgba(23,28,45,0.5); display: flex; align-items: center; justify-content: center; padding: 20px; }
+  .modal { width: 640px; max-width: 100%; max-height: calc(100vh - 40px); overflow-y: auto; background: var(--surface); border-radius: 16px; box-shadow: 0 24px 80px rgba(15,22,40,0.35); }
+  .modal-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--border); }
+  .modal-head h3 { font-size: 16px; font-weight: 800; }
+  .modal-close { background: none; border: none; font-size: 20px; cursor: pointer; color: var(--text-secondary); line-height: 1; }
+  .modal-body { padding: 20px; display: grid; gap: 14px; }
+  .field label { display: block; font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: var(--text-secondary); margin-bottom: 6px; }
+  .field .req { color: var(--danger); }
+  .input, .select, .textarea {
+    width: 100%; border: 1px solid var(--border); border-radius: 9px; padding: 9px 12px;
+    font-family: inherit; font-size: 13.5px; background: var(--surface); color: var(--text);
   }
-  .alert.loading { border-left-color: var(--turquoise); }
-  .alert.error { border-left-color: #e8554d; color: #b3362f; }
-
-  .banner-editor {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 28px;
-    max-width: 860px;
-  }
-  .banner-preview {
-    width: 100%;
-    height: 200px;
-    border-radius: 12px;
-    margin-bottom: 20px;
-    background: linear-gradient(135deg, #12b5b0, #0e7fae);
-    display: flex; align-items: center; justify-content: center;
-    color: #fff; font-size: 13px; font-weight: 600;
-    position: relative;
-    overflow: hidden;
-  }
-  .banner-preview img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-  .banner-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .bfield label { display:block; font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing:.6px; color: var(--text-secondary); margin-bottom: 6px; }
-  .bfield .fvalue { font-size: 13.5px; color: var(--text); background: var(--bg); border-radius: 9px; padding: 9px 12px; border: 1px solid var(--border); }
-  .bfield.full { grid-column: 1 / -1; }
+  .textarea { min-height: 80px; resize: vertical; }
+  .input:focus, .select:focus, .textarea:focus { outline: none; border-color: var(--turquoise); box-shadow: 0 0 0 3px rgba(18,181,176,0.12); }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .modal-foot { display: flex; justify-content: flex-end; gap: 10px; padding: 16px 20px; border-top: 1px solid var(--border); background: #fcfcfd; border-radius: 0 0 16px 16px; }
+  .img-preview { width: 100%; height: 120px; border-radius: 10px; object-fit: cover; border: 1px solid var(--border); background: var(--bg); }
+  .img-actions { display: flex; gap: 8px; align-items: center; }
+  .img-hint { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .check { display: flex; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 600; }
+  .check input { width: 17px; height: 17px; accent-color: var(--turquoise); }
+  .spinner { display:inline-block; width:14px; height:14px; border:2px solid rgba(255,255,255,.4); border-top-color:#fff; border-radius:50%; animation:spin .7s linear infinite; vertical-align:-2px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
 
-  <!-- ============ SIDEBAR ============ -->
   <aside class="sidebar">
     <div class="brand">
       <div class="brand-logo">D</div>
       <div>
-        <div class="brand-name">Dana Talía <span class="ready-badge">● DATOS REALES</span></div>
-        <div class="brand-sub">Panel de prueba</div>
+        <div class="brand-name">Dana Talía</div>
+        <div class="brand-sub">Panel de gestión</div>
       </div>
     </div>
 
     <div class="nav-label">Contenido</div>
-
     <button class="nav-btn active" data-section="banner">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="7" rx="2"/><rect x="3" y="12" width="18" height="9" rx="2"/><circle cx="7" cy="16.5" r="1"/></svg>
       Banner
     </button>
     <button class="nav-btn" data-section="categorias">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
-      Categorías
-      <span class="nav-badge" id="badge-categorias">0</span>
+      Categorías <span class="nav-badge" id="badge-categorias">0</span>
     </button>
     <button class="nav-btn" data-section="productos">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05"/><path d="M12 22.08V12"/></svg>
-      Productos
-      <span class="nav-badge" id="badge-productos">0</span>
+      Productos <span class="nav-badge" id="badge-productos">0</span>
     </button>
     <button class="nav-btn" data-section="banners">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-      Banners adicionales
-      <span class="nav-badge" id="badge-banners">0</span>
+      Banners adicionales <span class="nav-badge" id="badge-banners">0</span>
     </button>
 
     <div class="sidebar-footer">
-      <div class="data-note">
-        Panel de <b>prueba</b>: lee los datos reales del repositorio (GitHub) para que veas el diseño con tu contenido antes de migrar.
-      </div>
+      <div class="auth-info" id="auth-info">Iniciá sesión para poder editar.</div>
+      <button class="auth-btn" id="auth-btn">Iniciar sesión con GitHub</button>
     </div>
   </aside>
 
-  <!-- ============ MAIN ============ -->
   <main class="main">
-
-    <!-- Sección BANNER (banner.json) -->
     <section id="sec-banner" class="content">
       <div class="topbar">
         <div class="crumb">Panel › <b>Banner principal</b></div>
         <div class="top-actions">
           <input class="search" placeholder="Buscar…">
-          <button class="btn btn-teal" onclick="location.hash='#editar-banner'">Editar Banner</button>
+          <button class="btn btn-teal" onclick="editBanner()">Editar Banner</button>
         </div>
       </div>
       <h1 class="page-title">Banner principal</h1>
-      <p class="page-sub">Así se ve hoy el banner de la portada (datos reales de <code>src/data/banner.json</code>).</p>
-      <div id="banner-content"><div class="alert loading">Cargando banner…</div></div>
+      <p class="page-sub">Así se ve hoy el banner de la portada.</p>
+      <div id="banner-content"><div class="alert">Cargando…</div></div>
     </section>
 
-    <!-- Sección CATEGORÍAS -->
     <section id="sec-categorias" class="content hidden">
       <div class="topbar">
         <div class="crumb">Panel › <b>Categorías</b></div>
         <div class="top-actions">
-          <input class="search" placeholder="Buscar categoría…">
-          <button class="btn btn-teal">Nueva Categoría</button>
+          <input class="search" oninput="filterCards('categorias', this.value)" placeholder="Buscar categoría…">
+          <button class="btn btn-teal" onclick="openEditorCategoria()">Nueva Categoría</button>
         </div>
       </div>
       <h1 class="page-title">Categorías</h1>
-      <p class="page-sub">Las secciones que organizan los productos en la tienda.</p>
-      <div id="categorias-content"><div class="alert loading">Cargando categorías…</div></div>
+      <p class="page-sub">Las secciones que organizan los productos.</p>
+      <div id="categorias-content"></div>
     </section>
 
-    <!-- Sección PRODUCTOS -->
     <section id="sec-productos" class="content hidden">
       <div class="topbar">
         <div class="crumb">Panel › <b>Productos</b></div>
         <div class="top-actions">
-          <input class="search" placeholder="Buscar producto…">
-          <button class="btn btn-teal">Nuevo Producto</button>
+          <input class="search" oninput="filterCards('productos', this.value)" placeholder="Buscar producto…">
+          <button class="btn btn-teal" onclick="openEditorProducto()">Nuevo Producto</button>
         </div>
       </div>
       <h1 class="page-title">Productos</h1>
-      <p class="page-sub">Todos los productos cargados en la tienda (datos reales).</p>
-      <div id="productos-content"><div class="alert loading">Cargando productos…</div></div>
+      <p class="page-sub">Todos los productos de la tienda.</p>
+      <div id="productos-content"></div>
     </section>
 
-    <!-- Sección BANNERS ADICIONALES -->
     <section id="sec-banners" class="content hidden">
       <div class="topbar">
         <div class="crumb">Panel › <b>Banners adicionales</b></div>
         <div class="top-actions">
-          <input class="search" placeholder="Buscar banner…">
-          <button class="btn btn-teal">Nuevo Banner</button>
+          <input class="search" oninput="filterCards('banners', this.value)" placeholder="Buscar banner…">
+          <button class="btn btn-teal" onclick="openEditorBanner()">Nuevo Banner</button>
         </div>
       </div>
       <h1 class="page-title">Banners adicionales</h1>
       <p class="page-sub">Los banners que se colocan en distintas zonas de la página.</p>
-      <div id="banners-content"><div class="alert loading">Cargando banners…</div></div>
+      <div id="banners-content"></div>
     </section>
-
   </main>
+
+  <div id="modal-root"></div>
+  <div class="toast" id="toast"></div>
 
 <script>
   const REPO = "terracoderqta-jpg/danatalia";
@@ -356,13 +229,77 @@
   const RAW = `https://raw.githubusercontent.com/${REPO}/${BRANCH}`;
   const API = `https://api.github.com/repos/${REPO}`;
 
+  // ============ Sesión ============
+  let token = localStorage.getItem("dt_token") || "";
+  let user = null;
+  const authBtn = document.getElementById("auth-btn");
+  const authInfo = document.getElementById("auth-info");
+
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
   const money = (n) => { const v = Number(n); return v ? "$ " + v.toLocaleString("es-AR") : "Consultar"; };
 
+  function toast(msg, isErr) {
+    const t = document.getElementById("toast");
+    t.textContent = msg;
+    t.className = "toast show" + (isErr ? " err" : "");
+    clearTimeout(t._h);
+    t._h = setTimeout(() => t.classList.remove("show"), 3200);
+  }
+
+  // ============ OAuth (mismo flujo que Decap) ============
+  window.addEventListener("message", (e) => {
+    if (e.data === "authorizing:github") {
+      e.source.postMessage("authorizing:github", "*");
+    }
+    if (typeof e.data === "string" && e.data.startsWith("authorization:github:success:")) {
+      try {
+        const payload = JSON.parse(e.data.replace("authorization:github:success:", ""));
+        token = payload.token;
+        localStorage.setItem("dt_token", token);
+        loadSession();
+        toast("Sesión iniciada correctamente ✅");
+      } catch (err) { toast("No se pudo iniciar sesión", true); }
+    }
+  });
+
+  authBtn.addEventListener("click", () => {
+    if (token) {
+      token = ""; localStorage.removeItem("dt_token"); user = null;
+      updateAuthUI(); renderAll(); toast("Sesión cerrada");
+    } else {
+      const popup = window.open(`${location.origin}/api/auth?provider=github`, "dt-auth", "width=700,height=650");
+      if (!popup) toast("Bloqueá popups para iniciar sesión", true);
+    }
+  });
+
+  async function loadSession() {
+    if (!token) { updateAuthUI(); return; }
+    try {
+      const res = await fetch("https://api.github.com/user", { headers: { Authorization: `Bearer ${token}` } });
+      user = res.ok ? await res.json() : null;
+      authBtn.textContent = "Cerrar sesión";
+      authInfo.innerHTML = user ? `Sesión: <b>${esc(user.login)}</b><br>Listo para editar.` : "Sesión inválida, volvé a iniciar.";
+      if (!res.ok) authBtn.textContent = "Iniciar sesión con GitHub";
+    } catch { }
+  }
+  function updateAuthUI() {
+    authBtn.textContent = token ? "Cerrar sesión" : "Iniciar sesión con GitHub";
+    authInfo.innerHTML = token ? "Sesión iniciada. Listo para editar." : "Iniciá sesión para poder editar.";
+    authBtn.className = "auth-btn" + (token ? " ghost" : "");
+  }
+
+  // ============ Git helpers ============
+  async function gh(path, opts = {}) {
+    opts.headers = Object.assign({ Authorization: `Bearer ${token}`, Accept: "application/vnd.github+json" }, opts.headers || {});
+    const res = await fetch(path, opts);
+    if (!res.ok) {
+      const t = await res.text().catch(() => "");
+      throw new Error(`GitHub ${res.status}: ${t.slice(0, 200)}`);
+    }
+    return res.json();
+  }
   async function listDir(path) {
-    const res = await fetch(`${API}/contents/${path}?ref=${BRANCH}`);
-    if (!res.ok) throw new Error("No se pudo leer " + path);
-    const items = await res.json();
+    const items = await gh(`${API}/contents/${path}?ref=${BRANCH}`);
     return items.filter((i) => i.type === "file" && i.name.endsWith(".json"));
   }
   async function loadJson(path) {
@@ -370,125 +307,402 @@
     if (!res.ok) throw new Error("No se pudo leer " + path);
     return res.json();
   }
+  async function readFileMeta(path) {
+    try { return await gh(`${API}/contents/${path}?ref=${BRANCH}`); }
+    catch { return null; }
+  }
+  function b64(str) { return btoa(unescape(encodeURIComponent(str))); }
+  async function putFile(path, content, message) {
+    const meta = await readFileMeta(path);
+    const body = { message, content: b64(content), branch: BRANCH };
+    if (meta && meta.sha) body.sha = meta.sha;
+    return gh(`${API}/contents/${path}`, { method: "PUT", body: JSON.stringify(body) });
+  }
+  async function deleteFile(path, message) {
+    const meta = await readFileMeta(path);
+    if (!meta || !meta.sha) throw new Error("El archivo no existe");
+    return gh(`${API}/contents/${path}`, { method: "DELETE", body: JSON.stringify({ message, sha: meta.sha, branch: BRANCH }) });
+  }
 
-  let state = { categorias: [], productos: [], banners: [], banner: null };
+  // ============ Estado ============
+  let state = { banner: null, categorias: [], productos: [], banners: [] };
 
   async function loadAll() {
     try {
       state.banner = await loadJson("src/data/banner.json");
-      state.categorias = await Promise.all(
-        (await listDir("src/data/categorias")).map(async (f) => ({ ...(await loadJson("src/data/categorias/" + f.name)), _file: f.name }))
-      );
-      state.productos = await Promise.all(
-        (await listDir("src/data/productos")).map(async (f) => ({ ...(await loadJson("src/data/productos/" + f.name)), _file: f.name }))
-      );
-      state.banners = await Promise.all(
-        (await listDir("src/data/banners")).map(async (f) => ({ ...(await loadJson("src/data/banners/" + f.name)), _file: f.name }))
-      );
+      state.categorias = await Promise.all((await listDir("src/data/categorias")).map(async (f) => ({ ...(await loadJson("src/data/categorias/" + f.name)), _file: f.name })));
+      state.productos = await Promise.all((await listDir("src/data/productos")).map(async (f) => ({ ...(await loadJson("src/data/productos/" + f.name)), _file: f.name })));
+      state.banners = await Promise.all((await listDir("src/data/banners")).map(async (f) => ({ ...(await loadJson("src/data/banners/" + f.name)), _file: f.name })));
       document.getElementById("badge-categorias").textContent = state.categorias.length;
       document.getElementById("badge-productos").textContent = state.productos.length;
-      document.getElementById("badge-banners").textContent = state.banners.filter(b => b.active !== false).length;
+      document.getElementById("badge-banners").textContent = state.banners.length;
       renderAll();
-    } catch (e) {
-      ["banner", "categorias", "productos", "banners"].forEach((sec) => {
-        document.getElementById(sec + "-content").innerHTML =
-          `<div class="alert error">Error al cargar: ${esc(e.message)}</div>`;
-      });
-    }
+    } catch (e) { toast("Error al cargar datos: " + e.message, true); }
   }
+
+  const filters = { categorias: "", productos: "", banners: "" };
+  function filterCards(sec, v) { filters[sec] = v.toLowerCase(); renderSection(sec); }
+
+  function renderSection(sec) {
+    if (sec === "banner") renderBanner();
+    if (sec === "categorias") renderCategorias();
+    if (sec === "productos") renderProductos();
+    if (sec === "banners") renderBanners();
+  }
+  function renderAll() { renderBanner(); renderCategorias(); renderProductos(); renderBanners(); }
 
   function thumbClass(i) { return "card-t" + ((i % 6) + 1); }
 
-  function renderAll() {
-    renderBanner(); renderCategorias(); renderProductos(); renderBanners();
-  }
-
+  // ============ Render Banner ============
   function renderBanner() {
     const b = state.banner;
+    if (!b) { document.getElementById("banner-content").innerHTML = '<div class="alert">No hay datos</div>'; return; }
     document.getElementById("banner-content").innerHTML = `
-      <div class="alert">
-        ⚠ Panel de <b>prueba</b>: acá ves el contenido real pero todavía se edita con el botón "Editar Banner" que abre el panel de Decap. En el paso siguiente, este formulario editará directo.
+      <div class="banner-editor-note" style="display:flex;justify-content:flex-end">
+        <button class="btn btn-teal" onclick="editBanner()">✎ Editar Banner</button>
       </div>
-      <div class="banner-editor">
-        <div class="banner-preview">
-          ${b.heroImage ? `<img src="${esc(b.heroImage)}" alt="">` : "Sin foto de portada"}
+      <div class="alert">
+        Banner principal: se edita tocando <b>Editar Banner</b>.
+      </div>
+      <div class="grid">
+        <div class="card"><div class="card-thumb card-t1">${b.heroImage ? `<img src="${esc(b.heroImage)}" alt="">` : "Sin foto"}</div>
+          <div class="card-body"><div class="card-title">${esc(b.title || "Sin título")} <span style="color:var(--turquoise-dark)">${esc(b.titleHighlight || "")}</span></div>
+          <div class="card-sub">${esc((b.subtitle || "").slice(0, 90))}</div></div>
         </div>
-        <div class="banner-fields">
-          <div class="bfield"><label>Título</label><div class="fvalue">${esc(b.title || "—")} ${esc(b.titleHighlight || "")}</div></div>
-          <div class="bfield"><label>Subtítulo</label><div class="fvalue">${esc(b.subtitle || "—")}</div></div>
-          <div class="bfield"><label>Etiqueta 1</label><div class="fvalue">${esc(b.badge1 || "—")}</div></div>
-          <div class="bfield"><label>Etiqueta 2</label><div class="fvalue">${esc(b.badge2 || "—")}</div></div>
-          <div class="bfield"><label>Barra superior</label><div class="fvalue">${esc(b.topBar?.text || "—")} ${esc(b.topBar?.highlight || "")}</div></div>
-          <div class="bfield"><label>Tarjeta destacada</label><div class="fvalue">${esc(b.featured?.name || "—")}</div></div>
-          <div class="bfield"><label>Sello flotante</label><div class="fvalue">${esc(b.floatingBadge || "—")}</div></div>
-          <div class="bfield"><label>Estadísticas</label><div class="fvalue">${esc((b.stats || []).map(s => s.value + " " + s.label).join(" · ") || "—")}</div></div>
+        <div class="card"><div class="card-thumb card-t2"></div>
+          <div class="card-body"><div class="card-title">Barra superior</div>
+          <div class="card-sub">${esc(b.topBar?.text || "—")} ${esc(b.topBar?.highlight || "")}</div></div>
+        </div>
+        <div class="card"><div class="card-thumb card-t3"></div>
+          <div class="card-body"><div class="card-title">Tarjeta destacada</div>
+          <div class="card-sub">${esc(b.featured?.name || "—")}</div></div>
         </div>
       </div>`;
   }
 
+  async function editBanner() {
+    if (!ensureAuth()) return;
+    const b = state.banner || {};
+    openEditor({
+      title: "Editar Banner principal",
+      fields: [
+        ["text", "Barra superior - texto", "text", b.topBar?.text],
+        ["highlight", "Barra superior - texto destacado", "text", b.topBar?.highlight],
+        ["badge1", "Etiqueta 1", "text", b.badge1],
+        ["badge2", "Etiqueta 2", "text", b.badge2],
+        ["title", "Título", "text", b.title],
+        ["titleHighlight", "Título - resaltado", "text", b.titleHighlight],
+        ["subtitle", "Subtítulo", "textarea", b.subtitle, false, true],
+        ["heroImage", "Foto principal", "image", b.heroImage, false, false, false, true],
+        ["heroImageAlt", "Texto alternativo de la foto", "text", b.heroImageAlt],
+        ["fLabel", "Tarjeta destacada - etiqueta", "text", b.featured?.label],
+        ["fName", "Tarjeta destacada - nombre", "text", b.featured?.name],
+        ["fDesc", "Tarjeta destacada - descripción", "text", b.featured?.description],
+        ["floatingBadge", "Sello flotante", "text", b.floatingBadge],
+      ],
+      async save(vals) {
+        const data = {
+          ...b,
+          badge1: vals.badge1, badge2: vals.badge2, title: vals.title, titleHighlight: vals.titleHighlight,
+          subtitle: vals.subtitle, heroImage: vals.heroImage, heroImageAlt: vals.heroImageAlt,
+          floatingBadge: vals.floatingBadge,
+          topBar: { text: vals.text, highlight: vals.highlight },
+          featured: { label: vals.fLabel, name: vals.fName, description: vals.fDesc },
+        };
+        await putFile("src/data/banner.json", JSON.stringify(data, null, 2), "Actualizar banner principal (desde panel)");
+        state.banner = data;
+        renderBanner();
+      },
+    });
+  }
+
+  // ============ Render Categorías ============
   function renderCategorias() {
     const box = document.getElementById("categorias-content");
-    if (!state.categorias.length) {
-      box.innerHTML = `<div class="empty-state"><div class="empty-icon">🗂️</div><p style="font-weight:600;color:var(--text)">No hay categorías</p></div>`;
-      return;
-    }
-    box.innerHTML = `<div class="grid">` + state.categorias.map((c, i) => `
+    const list = state.categorias.filter((c) => !filters.categorias || (c.label || "").toLowerCase().includes(filters.categorias));
+    if (!list.length) { box.innerHTML = `<div class="empty-state"><div class="empty-icon">🗂️</div><p style="font-weight:600;color:var(--text)">No hay categorías</p></div>`; return; }
+    box.innerHTML = `<div class="grid">` + list.map((c) => `
       <div class="card">
-        <div class="card-thumb ${thumbClass(i)}">${c.image ? `<img src="${esc(c.image)}" alt="">` : c.label?.[0]?.toUpperCase() || "·"}</div>
+        <div class="card-thumb ${thumbClass(state.categorias.indexOf(c))}">${c.image ? `<img src="${esc(c.image)}" alt="">` : c.label?.[0]?.toUpperCase() || "·"}</div>
         <div class="card-body">
           <div class="card-title">${esc(c.label)}</div>
           <div class="card-sub">clave: ${esc(c.key)}</div>
-          <div class="card-actions"><button class="btn">Editar</button><button class="btn">Eliminar</button></div>
+          <div class="card-actions">
+            <button class="btn" onclick="openEditorCategoria('${esc(c._file)}')">Editar</button>
+            <button class="btn btn-danger" onclick="removeCategoria('${esc(c._file)}')">Eliminar</button>
+          </div>
         </div>
       </div>`).join("") + `</div>`;
   }
 
+  async function openEditorCategoria(file) {
+    if (!ensureAuth()) return;
+    const c = file ? state.categorias.find((x) => x._file === file) : { key: "", label: "", image: "" };
+    openEditor({
+      title: file ? "Editar Categoría" : "Nueva Categoría",
+      fields: [
+        ["key", "Clave interna *", "text", c.key],
+        ["label", "Nombre *", "text", c.label],
+        ["image", "Foto de la categoría", "image", c.image],
+      ],
+      async save(vals) {
+        if (!vals.key || !vals.label) { toast("Completá clave y nombre", true); return false; }
+        const data = { key: vals.key.trim(), label: vals.label.trim(), image: vals.image };
+        if (file) { await putFile("src/data/categorias/" + file, JSON.stringify(data, null, 2), "Actualizar categoría"); }
+        else { await putFile(`src/data/categorias/${vals.key}.json`, JSON.stringify(data, null, 2), "Crear categoría (desde panel)"); }
+        await loadAll();
+      },
+    });
+  }
+
+  async function removeCategoria(file) {
+    if (!ensureAuth()) return;
+    if (!confirm("¿Eliminar esta categoría?")) return;
+    try { await deleteFile("src/data/categorias/" + file, "Eliminar categoría (desde panel)"); await loadAll(); toast("Categoría eliminada"); }
+    catch (e) { toast(e.message, true); }
+  }
+
+  // ============ Render Productos ============
   function renderProductos() {
     const box = document.getElementById("productos-content");
-    if (!state.productos.length) {
-      box.innerHTML = `<div class="empty-state"><div class="empty-icon">📦</div><p style="font-weight:600;color:var(--text)">No hay productos cargados todavía</p><p style="font-size:13px;margin-top:4px">Cuando cargues productos aparecerán acá.</p></div>`;
-      return;
-    }
-    box.innerHTML = `<div class="grid">` + state.productos.map((p, i) => `
+    const list = state.productos.filter((p) => !filters.productos || (p.name || "").toLowerCase().includes(filters.productos));
+    if (!list.length) { box.innerHTML = `<div class="empty-state"><div class="empty-icon">📦</div><p style="font-weight:600;color:var(--text)">No hay productos cargados</p><p style="font-size:13px;margin-top:4px">Tocá "Nuevo Producto" para crear el primero.</p></div>`; return; }
+    box.innerHTML = `<div class="grid">` + list.map((p, i) => `
       <div class="card">
         <div class="card-thumb ${thumbClass(i)}">${p.image ? `<img src="${esc(p.image)}" alt="">` : "·"}</div>
         <div class="card-body">
           <div class="card-title">${esc(p.name)}</div>
           <div class="card-sub">${esc(p.cosmeticCategory || "")}</div>
           <div class="card-price">${money(p.price)}</div>
-          <div class="card-actions"><button class="btn">Editar</button><button class="btn">Eliminar</button></div>
+          <div class="card-actions">
+            <button class="btn" onclick="openEditorProducto('${esc(p._file)}')">Editar</button>
+            <button class="btn btn-danger" onclick="removeProducto('${esc(p._file)}')">Eliminar</button>
+          </div>
         </div>
       </div>`).join("") + `</div>`;
   }
 
+  async function openEditorProducto(file) {
+    if (!ensureAuth()) return;
+    const p = file ? state.productos.find((x) => x._file === file) : { name: "", image: "", images: [], price: "", wholesalePrice: "", cosmeticCategory: "cremas", description: "", badge: "", rating: 4.5, crueltyFree: true, slug: "", id: "" };
+    openEditor({
+      title: file ? "Editar Producto" : "Nuevo Producto",
+      fields: [
+        ["name", "Nombre del producto *", "text", p.name],
+        ["image", "Foto principal", "image", p.image],
+        ["images", "Galería (URLs separadas por coma)", "text", (p.images || []).map((x) => (typeof x === "string" ? x : x.image || x)).join(", ")],
+        ["price", "Precio minorista ($)", "number", p.price],
+        ["wholesalePrice", "Precio mayorista ($)", "number", p.wholesalePrice],
+        ["cosmeticCategory", "Categoría", "select", p.cosmeticCategory, true, false, ["cremas", "perfumes", "ropa-interior"]],
+        ["description", "Descripción", "textarea", p.description, false, true],
+        ["badge", "Etiqueta destacada", "text", p.badge],
+        ["rating", "Puntaje (0-5)", "number", p.rating],
+        ["crueltyFree", "Cruelty Free", "check", p.crueltyFree],
+        ["slug", "Enlace corto (slug) *", "text", p.slug],
+        ["id", "ID interno (opcional)", "text", p.id],
+      ],
+      async save(vals) {
+        if (!vals.name || !vals.slug) { toast("Completá nombre y enlace corto (slug)", true); return false; }
+        const images = vals.images.split(",").map((s) => s.trim()).filter(Boolean);
+        const data = {
+          name: vals.name.trim(), image: vals.image, images,
+          price: vals.price ? Number(vals.price) : undefined,
+          wholesalePrice: vals.wholesalePrice ? Number(vals.wholesalePrice) : undefined,
+          cosmeticCategory: vals.cosmeticCategory, description: vals.description,
+          badge: vals.badge, rating: vals.rating ? Number(vals.rating) : undefined,
+          crueltyFree: vals.crueltyFree, slug: vals.slug.trim().toLowerCase(), id: vals.id,
+        };
+        Object.keys(data).forEach((k) => { const math = data[k] === undefined || data[k] === null; if (math) delete data[k]; if (k !== "images" && (data[k] === "" )) delete data[k]; });
+        if (data.images && !data.images.length) delete data.images;
+        const fname = file ? file : (data.slug + ".json");
+        await putFile("src/data/productos/" + fname, JSON.stringify(data, null, 2), file ? "Actualizar producto" : "Crear producto (desde panel)");
+        await loadAll();
+      },
+    });
+  }
+
+  async function removeProducto(file) {
+    if (!ensureAuth()) return;
+    if (!confirm("¿Eliminar este producto?")) return;
+    try { await deleteFile("src/data/productos/" + file, "Eliminar producto (desde panel)"); await loadAll(); toast("Producto eliminado"); }
+    catch (e) { toast(e.message, true); }
+  }
+
+  // ============ Render Banners adicionales ============
   function renderBanners() {
     const box = document.getElementById("banners-content");
-    if (!state.banners.length) {
-      box.innerHTML = `<div class="empty-state"><div class="empty-icon">🪧</div><p style="font-weight:600;color:var(--text)">No hay banners adicionales</p></div>`;
-      return;
-    }
-    box.innerHTML = `<div class="grid">` + state.banners.map((b, i) => `
+    const list = state.banners.filter((b) => !filters.banners || (b.name || b.slug || "").toLowerCase().includes(filters.banners));
+    if (!list.length) { box.innerHTML = `<div class="empty-state"><div class="empty-icon">🪧</div><p style="font-weight:600;color:var(--text)">No hay banners adicionales</p><p style="font-size:13px;margin-top:4px">Tocá "Nuevo Banner" para crear uno.</p></div>`; return; }
+    box.innerHTML = `<div class="grid">` + list.map((b) => `
       <div class="card">
-        <div class="card-thumb ${thumbClass(i)}">${b.image ? `<img src="${esc(b.image)}" alt="">` : "·"}${b.active === false ? `<span class="card-inactive">Inactivo</span>` : ""}</div>
+        <div class="card-thumb ${thumbClass(state.banners.indexOf(b))}">${b.image ? `<img src="${esc(b.image)}" alt="">` : "·"}${b.active === false ? `<span class="card-inactive">Inactivo</span>` : ""}</div>
         <div class="card-body">
           <div class="card-title">${esc(b.name || b.slug)}</div>
           <div class="card-sub">zona: ${esc(b.position)}</div>
-          <div class="card-actions"><button class="btn">Editar</button><button class="btn">Eliminar</button></div>
+          <div class="card-actions">
+            <button class="btn" onclick="openEditorBanner('${esc(b._file)}')">Editar</button>
+            <button class="btn btn-danger" onclick="removeBanner('${esc(b._file)}')">Eliminar</button>
+          </div>
         </div>
       </div>`).join("") + `</div>`;
   }
 
+  async function openEditorBanner(file) {
+    if (!ensureAuth()) return;
+    const b = file ? state.banners.find((x) => x._file === file) : { name: "", slug: "", position: "inicio", active: true, title: "", subtitle: "", ctaText: "", ctaLink: "", image: "" };
+    openEditor({
+      title: file ? "Editar Banner" : "Nuevo Banner",
+      fields: [
+        ["name", "Nombre interno", "text", b.name],
+        ["slug", "Enlace corto (slug) *", "text", b.slug],
+        ["position", "Ubicación en la página", "select", b.position, false, false, [["inicio", "Inicio (arriba del todo)"], ["despues-categorias", "Debajo de Categorías"], ["despues-productos", "Debajo de Productos"], ["antes-contacto", "Antes del Contacto"]]],
+        ["active", "Activo", "check", b.active],
+        ["title", "Título", "text", b.title],
+        ["subtitle", "Subtítulo", "textarea", b.subtitle, false, true],
+        ["ctaText", "Texto del botón", "text", b.ctaText],
+        ["ctaLink", "Enlace del botón", "text", b.ctaLink],
+        ["image", "Foto del banner", "image", b.image],
+      ],
+      async save(vals) {
+        if (!vals.slug) { toast("Completá el enlace corto (slug)", true); return false; }
+        const data = {
+          name: vals.name, slug: vals.slug.trim().toLowerCase(), position: vals.position,
+          active: vals.active, title: vals.title, subtitle: vals.subtitle,
+          ctaText: vals.ctaText, ctaLink: vals.ctaLink, image: vals.image,
+        };
+        ["name","title","subtitle","ctaText","ctaLink","image"].forEach((k) => { if (!data[k]) delete data[k]; });
+        const fname = file ? file : (data.slug + ".json");
+        await putFile("src/data/banners/" + fname, JSON.stringify(data, null, 2), file ? "Actualizar banner" : "Crear banner (desde panel)");
+        await loadAll();
+      },
+    });
+  }
+
+  async function removeBanner(file) {
+    if (!ensureAuth()) return;
+    if (!confirm("¿Eliminar este banner?")) return;
+    try { await deleteFile("src/data/banners/" + file, "Eliminar banner (desde panel)"); await loadAll(); toast("Banner eliminado"); }
+    catch (e) { toast(e.message, true); }
+  }
+
+  // ============ Editor genérico ============
+  function fieldHtml([name, label, type, value, full, wide, options, isImage]) {
+    const v = value ?? (type === "check" ? true : "");
+    const id = "f_" + name;
+    const req = label.includes("*") ? '<span class="req">*</span>' : "";
+    let input = "";
+    if (type === "text") input = `<input class="input" id="${id}" value="${esc(v)}">`;
+    else if (type === "number") input = `<input class="input" id="${id}" type="number" step="any" value="${v ?? ""}">`;
+    else if (type === "textarea") input = `<textarea class="textarea" id="${id}">${esc(v)}</textarea>`;
+    else if (type === "check") input = `<label class="check"><input type="checkbox" id="${id}" ${v ? "checked" : ""}> Sí</label>`;
+    else if (type === "select") input = `<select class="select" id="${id}">${(options || []).map((o) => { const [val, lab] = Array.isArray(o) ? o : [o, o]; return `<option value="${esc(val)}" ${String(v) === String(val) ? "selected" : ""}>${esc(lab || val)}</option>`; }).join("")}</select>`;
+    else if (type === "image") {
+      input = `<img class="img-preview" id="${id}_img" src="${esc(v) || ""}" style="${v ? "" : "display:none"}">
+        <div class="img-actions" style="margin-top:8px">
+          <input class="input" id="${id}" placeholder="URL de la imagen (/uploads/…) o subí un archivo" value="${esc(v)}">
+          <label class="btn" style="white-space:nowrap">Subir<input type="file" accept="image/*" hidden onchange="uploadImageField(this,'${id}')"></label>
+        </div>
+        <div class="img-hint">Puede pasar la URL de una imagen ya cargada o subir un archivo nuevo (se guarda en /uploads/).</div>`;
+    }
+    const cls = full ? "field full" : "field";
+    return `<div class="${cls}" style="${wide ? "" : ""}">${type === "image" ? input : `<label>${esc(label.replace("*",""))} ${req}</label>${input}`}</div>`;
+  }
+
+  const modalRoot = document.getElementById("modal-root");
+
+  function openEditor({ title, fields, save }) {
+    if (!ensureAuth()) return;
+    modalRoot.innerHTML = `
+      <div class="overlay" onclick="if(event.target===this)closeEditor()">
+        <div class="modal">
+          <div class="modal-head">
+            <h3>${esc(title)}</h3>
+            <button class="modal-close" onclick="closeEditor()">&times;</button>
+          </div>
+          <div class="modal-body">
+            ${fields.map((f, i) => fieldHtml([...f, i % 2 === 1])).join("")}
+          </div>
+          <div class="modal-foot">
+            <button class="btn" onclick="closeEditor()">Cancelar</button>
+            <button class="btn btn-teal" id="save-btn">Guardar</button>
+          </div>
+        </div>
+      </div>`;
+
+    window._editorSave = save;
+
+    document.getElementById("save-btn").addEventListener("click", async () => {
+      const vals = {};
+      fields.forEach((f) => {
+        const name = f[0], type = f[2];
+        const el = document.getElementById("f_" + name);
+        if (type === "check") vals[name] = el.checked;
+        else if (type === "number") vals[name] = el.value.trim();
+        else if (type === "select") vals[name] = el.value;
+        else if (type === "image" || type === "text" || type === "textarea") vals[name] = el.value.trim();
+      });
+      const btn = document.getElementById("save-btn");
+      btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Guardando…';
+      try {
+        const r = await window._editorSave(vals);
+        if (r === false) { btn.disabled = false; btn.textContent = "Guardar"; return; }
+        closeEditor();
+        toast("Guardado y publicado ✅ (el deploy tarda ~1 min)");
+        setTimeout(() => location.reload(), 1200);
+      } catch (e) {
+        btn.disabled = false; btn.textContent = "Guardar";
+        toast("Error al guardar: " + e.message, true);
+      }
+    });
+  }
+
+  function closeEditor() { modalRoot.innerHTML = ""; }
+
+  async function uploadImageField(input, fieldId) {
+    const file = input.files && input.files[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) { toast("La imagen pesa más de 5 MB", true); return; }
+    const reader = new FileReader();
+    reader.onload = async () => {
+      try {
+        const result = reader.result; // data URL
+        const base64 = result.split(",")[1];
+        const ext = (file.name.split(".").pop() || "jpg").toLowerCase();
+        const name = "panel-" + Date.now() + "." + ext;
+        const path = "public/uploads/" + name;
+        const meta = await readFileMeta(path);
+        if (!token) { toast("Ingresá sesión para subir archivos", true); return; }
+        const body = { message: `Subir imagen ${name} (desde panel)`, content: base64, branch: BRANCH };
+        if (meta && meta.sha) body.sha = meta.sha;
+        const res = await fetch(`${API}/contents/${path}`, { method: "PUT", headers: { Authorization: `Bearer ${token}`, Accept: "application/vnd.github+json" }, body: JSON.stringify(body) });
+        if (!res.ok) throw new Error("No se pudo subir la imagen");
+        const url = "/uploads/" + name;
+        const urlInput = document.getElementById(fieldId);
+        if (urlInput) { urlInput.value = url; const img = document.getElementById(fieldId + "_img"); if (img) { img.src = url; img.style.display = ""; } }
+        toast("Imagen subida ✅");
+      } catch (e) { toast("Error al subir imagen: " + e.message, true); }
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function ensureAuth() {
+    if (token) return true;
+    toast("Iniciá sesión con GitHub primero (abajo a la izquierda)", true);
+    return false;
+  }
+
   // Navegación
-  document.querySelectorAll('.nav-btn').forEach(btn => {
+  document.querySelectorAll('.nav-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach((b) => b.classList.remove('active'));
       btn.classList.add('active');
       const target = btn.dataset.section;
-      document.querySelectorAll('.content').forEach(s => s.classList.add('hidden'));
+      document.querySelectorAll('.content').forEach((s) => s.classList.add('hidden'));
       document.getElementById('sec-' + target).classList.remove('hidden');
     });
   });
 
+  loadSession();
   loadAll();
 </script>
 </body>
