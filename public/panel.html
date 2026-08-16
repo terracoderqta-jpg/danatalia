@@ -125,6 +125,11 @@
   .img-preview { width: 100%; height: 120px; border-radius: 10px; object-fit: cover; border: 1px solid var(--border); background: var(--bg); }
   .img-actions { display: flex; gap: 8px; align-items: center; }
   .img-hint { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 8px; margin-bottom: 10px; }
+  .g-thumb { position: relative; aspect-ratio: 1; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); background: var(--bg); }
+  .g-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .g-x { position: absolute; top: 4px; right: 4px; width: 22px; height: 22px; border-radius: 50%; border: none; background: rgba(20,24,38,0.75); color: #fff; font-size: 13px; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .g-x:hover { background: var(--danger); }
   .check { display: flex; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 600; }
   .check input { width: 17px; height: 17px; accent-color: var(--turquoise); }
   .spinner { display:inline-block; width:14px; height:14px; border:2px solid rgba(255,255,255,.4); border-top-color:#fff; border-radius:50%; animation:spin .7s linear infinite; vertical-align:-2px; }
@@ -491,7 +496,7 @@
       fields: [
         ["name", "Nombre del producto *", "text", p.name],
         ["image", "Foto principal", "image", p.image],
-        ["images", "Galería (URLs separadas por coma)", "text", (p.images || []).map((x) => (typeof x === "string" ? x : x.image || x)).join(", ")],
+        ["images", "Galería de fotos", "gallery", (p.images || []).map((x) => (typeof x === "string" ? x : x.image || x))],
         ["price", "Precio minorista ($)", "number", p.price],
         ["wholesalePrice", "Precio mayorista ($)", "number", p.wholesalePrice],
         ["cosmeticCategory", "Categoría", "select", p.cosmeticCategory, true, false, ["cremas", "perfumes", "ropa-interior"]],
@@ -504,7 +509,7 @@
       ],
       async save(vals) {
         if (!vals.name || !vals.slug) { toast("Completá nombre y enlace corto (slug)", true); return false; }
-        const images = vals.images.split(",").map((s) => s.trim()).filter(Boolean);
+        const images = Array.isArray(vals.images) ? vals.images.filter(Boolean) : (vals.images ? String(vals.images).split(",").map((s) => s.trim()).filter(Boolean) : []);
         const data = {
           name: vals.name.trim(), image: vals.image, images,
           price: vals.price ? Number(vals.price) : undefined,
@@ -605,6 +610,18 @@
         </div>
         <div class="img-hint">Puede pasar la URL de una imagen ya cargada o subir un archivo nuevo (se guarda en /uploads/).</div>`;
     }
+    else if (type === "gallery") {
+      input = `<div class="gallery" id="${id}_wrap">
+        <div class="gallery-grid" id="${id}_list"></div>
+        <div class="img-actions">
+          <label class="btn" style="white-space:nowrap">Subir fotos<input type="file" accept="image/*" multiple hidden onchange="uploadGalleryFiles(this,'${id}')"></label>
+          <input class="input" id="${id}_url" placeholder="…o pegá una URL y tocá Agregar" style="flex:1">
+          <button class="btn" type="button" onclick="addGalleryUrl('${id}')">Agregar</button>
+        </div>
+        <div class="img-hint">Subí varias fotos a la vez. Cada una se guarda en /uploads/ y se muestra en la ficha del producto.</div>
+        <input type="hidden" id="${id}" value='${esc(JSON.stringify(normGallery(v)))}'>
+      </div>`;
+    }
     const cls = full ? "field full" : "field";
     return `<div class="${cls}" style="${wide ? "" : ""}">${type === "image" ? input : `<label>${esc(label.replace("*",""))} ${req}</label>${input}`}</div>`;
   }
@@ -630,6 +647,8 @@
         </div>
       </div>`;
 
+    fields.forEach((f) => { if (f[2] === "gallery") setGallery("f_" + f[0], galleryList("f_" + f[0])); });
+
     window._editorSave = save;
 
     document.getElementById("save-btn").addEventListener("click", async () => {
@@ -640,6 +659,7 @@
         if (type === "check") vals[name] = el.checked;
         else if (type === "number") vals[name] = el.value.trim();
         else if (type === "select") vals[name] = el.value;
+        else if (type === "gallery") { try { vals[name] = JSON.parse(el.value || "[]"); } catch { vals[name] = []; } }
         else if (type === "image" || type === "text" || type === "textarea") vals[name] = el.value.trim();
       });
       const btn = document.getElementById("save-btn");
@@ -659,31 +679,88 @@
 
   function closeEditor() { modalRoot.innerHTML = ""; }
 
+  async function uploadOne(file) {
+    if (file.size > 5 * 1024 * 1024) throw new Error("pesa más de 5 MB");
+    const base64 = await new Promise((resolve, reject) => {
+      const r = new FileReader();
+      r.onload = () => resolve(String(r.result).split(",")[1]);
+      r.onerror = reject;
+      r.readAsDataURL(file);
+    });
+    if (!token) throw new Error("iniciá sesión para subir archivos");
+    const ext = (file.name.split(".").pop() || "jpg").toLowerCase();
+    const name = "panel-" + Date.now() + "-" + Math.random().toString(36).slice(2, 6) + "." + ext;
+    const path = "public/uploads/" + name;
+    const meta = await readFileMeta(path);
+    const body = { message: `Subir imagen ${name} (desde panel)`, content: base64, branch: BRANCH };
+    if (meta && meta.sha) body.sha = meta.sha;
+    const res = await fetch(`${API}/contents/${path}`, { method: "PUT", headers: { Authorization: `Bearer ${token}`, Accept: "application/vnd.github+json" }, body: JSON.stringify(body) });
+    if (!res.ok) throw new Error("no se pudo subir la imagen");
+    return "/uploads/" + name;
+  }
+
+  function previewSrc(u) {
+    return u && u.startsWith("/uploads/") ? `https://raw.githubusercontent.com/${REPO}/${BRANCH}/public${u}` : u;
+  }
+
+  function normGallery(v) {
+    const arr = Array.isArray(v) ? v : [];
+    return arr.map((x) => (typeof x === "string" ? x : x && x.image)).filter(Boolean);
+  }
+
+  function galleryList(fieldId) {
+    try { return JSON.parse(document.getElementById(fieldId).value || "[]"); } catch { return []; }
+  }
+
+  function setGallery(fieldId, arr) {
+    document.getElementById(fieldId).value = JSON.stringify(arr);
+    const grid = document.getElementById(fieldId + "_list");
+    grid.innerHTML = (arr.length ? arr : []).map((u, i) =>
+      `<div class="g-thumb"><img src="${esc(previewSrc(u))}" alt=""><button class="g-x" title="Quitar" onclick="removeGalleryItem('${esc(fieldId)}',${i})">&times;</button></div>`
+    ).join("") || `<div class="img-hint" style="margin:0">Todavía no subiste fotos.</div>`;
+  }
+
+  function addGalleryUrl(fieldId) {
+    const inp = document.getElementById(fieldId + "_url");
+    const u = (inp.value || "").trim();
+    if (!u) return;
+    const list = galleryList(fieldId);
+    list.push(u);
+    setGallery(fieldId, list);
+    inp.value = "";
+  }
+
+  function removeGalleryItem(fieldId, idx) {
+    const list = galleryList(fieldId);
+    list.splice(idx, 1);
+    setGallery(fieldId, list);
+  }
+
+  async function uploadGalleryFiles(input, fieldId) {
+    const files = Array.from(input.files || []);
+    if (!files.length) return;
+    if (!token) { toast("Ingresá sesión para subir fotos", true); return; }
+    const list = galleryList(fieldId);
+    let added = 0;
+    for (const file of files) {
+      try { list.push(await uploadOne(file)); added++; }
+      catch (e) { toast(`Error al subir ${file.name}: ${e.message}`, true); }
+    }
+    if (added) { toast(added === 1 ? "1 foto subida ✅" : `${added} fotos subidas ✅`); }
+    setGallery(fieldId, list);
+    input.value = "";
+  }
+
   async function uploadImageField(input, fieldId) {
     const file = input.files && input.files[0];
     if (!file) return;
-    if (file.size > 5 * 1024 * 1024) { toast("La imagen pesa más de 5 MB", true); return; }
-    const reader = new FileReader();
-    reader.onload = async () => {
-      try {
-        const result = reader.result; // data URL
-        const base64 = result.split(",")[1];
-        const ext = (file.name.split(".").pop() || "jpg").toLowerCase();
-        const name = "panel-" + Date.now() + "." + ext;
-        const path = "public/uploads/" + name;
-        const meta = await readFileMeta(path);
-        if (!token) { toast("Ingresá sesión para subir archivos", true); return; }
-        const body = { message: `Subir imagen ${name} (desde panel)`, content: base64, branch: BRANCH };
-        if (meta && meta.sha) body.sha = meta.sha;
-        const res = await fetch(`${API}/contents/${path}`, { method: "PUT", headers: { Authorization: `Bearer ${token}`, Accept: "application/vnd.github+json" }, body: JSON.stringify(body) });
-        if (!res.ok) throw new Error("No se pudo subir la imagen");
-        const url = "/uploads/" + name;
-        const urlInput = document.getElementById(fieldId);
-        if (urlInput) { urlInput.value = url; const img = document.getElementById(fieldId + "_img"); if (img) { img.src = url; img.style.display = ""; } }
-        toast("Imagen subida ✅");
-      } catch (e) { toast("Error al subir imagen: " + e.message, true); }
-    };
-    reader.readAsDataURL(file);
+    try {
+      const url = await uploadOne(file);
+      const urlInput = document.getElementById(fieldId);
+      if (urlInput) { urlInput.value = url; const img = document.getElementById(fieldId + "_img"); if (img) { img.src = previewSrc(url); img.style.display = ""; } }
+      toast("Imagen subida ✅");
+    } catch (e) { toast("Error al subir imagen: " + e.message, true); }
+    input.value = "";
   }
 
   function ensureAuth() {
