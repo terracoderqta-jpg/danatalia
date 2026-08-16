@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Panel Dana Talía | Gestionar</title>
+<title>Panel Dana Talía | Gestionar (Prueba)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -20,7 +20,6 @@
     --text-secondary: #8a94a6;
     --muted: #b6bdc9;
     --sidebar: #1f2438;
-    --sidebar-light: #2a2f45;
     --sidebar-text: #aab2c7;
   }
   body {
@@ -60,6 +59,12 @@
   }
   .brand-name { color: #fff; font-weight: 800; font-size: 15px; line-height: 1.15; }
   .brand-sub { color: var(--sidebar-text); font-size: 11px; font-weight: 500; }
+  .ready-badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 10px; font-weight: 700; letter-spacing: .4px;
+    background: var(--turquoise-soft); color: var(--turquoise-dark);
+    border-radius: 20px; padding: 2px 8px; margin-left: 6px;
+  }
 
   .nav-label {
     font-size: 10px;
@@ -109,18 +114,7 @@
     padding: 14px 10px 0;
     border-top: 1px solid rgba(255,255,255,0.08);
   }
-  .user-row { display: flex; align-items: center; gap: 10px; }
-  .user-avatar {
-    width: 34px; height: 34px;
-    border-radius: 50%;
-    background: var(--turquoise-soft);
-    color: var(--turquoise-dark);
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 700; font-size: 14px;
-  }
-  .user-name { color: #fff; font-size: 12.5px; font-weight: 600; }
-  .user-role { color: var(--sidebar-text); font-size: 11px; }
-  .logout { margin-left: auto; color: var(--sidebar-text); background: none; border: none; cursor: pointer; }
+  .data-note { color: #6b7390; font-size: 10.5px; line-height: 1.5; padding: 0 10px; }
 
   /* ============ MAIN ============ */
   .main { flex: 1; padding: 26px 30px; overflow-x: hidden; }
@@ -130,6 +124,8 @@
     align-items: center;
     justify-content: space-between;
     margin-bottom: 26px;
+    gap: 14px;
+    flex-wrap: wrap;
   }
   .crumb { font-size: 12.5px; color: var(--text-secondary); }
   .crumb b { color: var(--text); }
@@ -148,7 +144,6 @@
   .page-title { font-size: 24px; font-weight: 800; letter-spacing: -0.4px; margin-bottom: 6px; }
   .page-sub { color: var(--text-secondary); font-size: 13.5px; margin-bottom: 24px; }
 
-  /* Tarjetas */
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
   .card {
     background: var(--surface);
@@ -158,7 +153,8 @@
     transition: transform .15s, box-shadow .15s;
   }
   .card:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(16,22,38,0.09); }
-  .card-thumb { height: 150px; position: relative; }
+  .card-thumb { height: 150px; position: relative; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:26px; }
+  .card-thumb img { width:100%; height:100%; object-fit:cover; position:absolute; inset:0; }
   .card-t1 { background: linear-gradient(135deg, #12b5b0, #0e7fae); }
   .card-t2 { background: linear-gradient(135deg, #e0b2a4, #b0706b); }
   .card-t3 { background: linear-gradient(135deg, #a7c7e7, #6d8cc7); }
@@ -173,6 +169,16 @@
     font-size: 10.5px;
     font-weight: 700;
     padding: 3px 9px;
+    border-radius: 20px;
+  }
+  .card-inactive {
+    position: absolute;
+    top: 10px; right: 10px;
+    background: rgba(28,35,51,0.75);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 8px;
     border-radius: 20px;
   }
   .card-body { padding: 14px; }
@@ -196,31 +202,50 @@
   .btn-teal { background: var(--turquoise); border-color: var(--turquoise); color: #fff; }
   .btn-teal:hover { background: var(--turquoise-dark); color: #fff; border-color: var(--turquoise-dark); }
 
-  /* Banner editor placeholder */
+  .empty-state { text-align: center; padding: 60px 20px; color: var(--text-secondary); }
+  .empty-icon { font-size: 42px; margin-bottom: 10px; }
+
+  .section-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); margin: 22px 0 12px; }
+
+  .hidden { display: none; }
+
+  .alert {
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--turquoise);
+    background: var(--surface);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+  .alert.loading { border-left-color: var(--turquoise); }
+  .alert.error { border-left-color: #e8554d; color: #b3362f; }
+
   .banner-editor {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 16px;
     padding: 28px;
-    max-width: 760px;
+    max-width: 860px;
   }
-  .banner-row { display: flex; gap: 18px; margin-bottom: 20px; align-items: center; }
   .banner-preview {
-    width: 200px; height: 140px;
+    width: 100%;
+    height: 200px;
     border-radius: 12px;
+    margin-bottom: 20px;
     background: linear-gradient(135deg, #12b5b0, #0e7fae);
     display: flex; align-items: center; justify-content: center;
     color: #fff; font-size: 13px; font-weight: 600;
+    position: relative;
+    overflow: hidden;
   }
-  .flutter-box { border: 2px dashed var(--border); border-radius: 12px; padding: 20px; text-align: center; color: var(--muted); font-size: 13px; }
-
-  .empty-state { text-align: center; padding: 60px 20px; color: var(--text-secondary); }
-  .empty-icon { font-size: 42px; margin-bottom: 10px; }
-
-  /* columnas seccionadas de productos nuevo */
-  .section-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); margin: 22px 0 12px; }
-
-  .hidden { display: none; }
+  .banner-preview img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .banner-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .bfield label { display:block; font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing:.6px; color: var(--text-secondary); margin-bottom: 6px; }
+  .bfield .fvalue { font-size: 13.5px; color: var(--text); background: var(--bg); border-radius: 9px; padding: 9px 12px; border: 1px solid var(--border); }
+  .bfield.full { grid-column: 1 / -1; }
 </style>
 </head>
 <body>
@@ -230,8 +255,8 @@
     <div class="brand">
       <div class="brand-logo">D</div>
       <div>
-        <div class="brand-name">Dana Talía</div>
-        <div class="brand-sub">Panel de gestión</div>
+        <div class="brand-name">Dana Talía <span class="ready-badge">● DATOS REALES</span></div>
+        <div class="brand-sub">Panel de prueba</div>
       </div>
     </div>
 
@@ -244,24 +269,22 @@
     <button class="nav-btn" data-section="categorias">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
       Categorías
-      <span class="nav-badge">3</span>
+      <span class="nav-badge" id="badge-categorias">0</span>
     </button>
     <button class="nav-btn" data-section="productos">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05"/><path d="M12 22.08V12"/></svg>
       Productos
-      <span class="nav-badge">0</span>
+      <span class="nav-badge" id="badge-productos">0</span>
+    </button>
+    <button class="nav-btn" data-section="banners">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      Banners adicionales
+      <span class="nav-badge" id="badge-banners">0</span>
     </button>
 
     <div class="sidebar-footer">
-      <div class="user-row">
-        <div class="user-avatar">DT</div>
-        <div>
-          <div class="user-name">Administrador</div>
-          <div class="user-role">Dana Talía</div>
-        </div>
-        <button class="logout" title="Salir">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
-        </button>
+      <div class="data-note">
+        Panel de <b>prueba</b>: lee los datos reales del repositorio (GitHub) para que veas el diseño con tu contenido antes de migrar.
       </div>
     </div>
   </aside>
@@ -269,28 +292,18 @@
   <!-- ============ MAIN ============ -->
   <main class="main">
 
-    <!-- Sección BANNER -->
+    <!-- Sección BANNER (banner.json) -->
     <section id="sec-banner" class="content">
       <div class="topbar">
-        <div class="crumb">Panel › <b>Banner</b></div>
+        <div class="crumb">Panel › <b>Banner principal</b></div>
         <div class="top-actions">
           <input class="search" placeholder="Buscar…">
-          <button class="btn btn-teal">Nuevo Banner</button>
+          <button class="btn btn-teal" onclick="location.hash='#editar-banner'">Editar Banner</button>
         </div>
       </div>
       <h1 class="page-title">Banner principal</h1>
-      <p class="page-sub">Editá el texto y la foto de portada de la página de inicio.</p>
-
-      <div class="banner-editor">
-        <div class="banner-row">
-          <div class="banner-preview">Foto de portada</div>
-          <div style="flex:1">
-            <div class="section-label">Vista previa del contenido</div>
-            <p style="font-size:13px; color:var(--text-secondary)">En este panel se editará: barra superior, título, subtítulo, foto principal, tarjeta destacada, sello y estadísticas.</p>
-          </div>
-        </div>
-        <div class="flutter-box">Acá irán los campos del banner (en la versión conectada)</div>
-      </div>
+      <p class="page-sub">Así se ve hoy el banner de la portada (datos reales de <code>src/data/banner.json</code>).</p>
+      <div id="banner-content"><div class="alert loading">Cargando banner…</div></div>
     </section>
 
     <!-- Sección CATEGORÍAS -->
@@ -304,33 +317,7 @@
       </div>
       <h1 class="page-title">Categorías</h1>
       <p class="page-sub">Las secciones que organizan los productos en la tienda.</p>
-
-      <div class="grid">
-        <div class="card">
-          <div class="card-thumb card-t1"></div>
-          <div class="card-body">
-            <div class="card-title">Cremas</div>
-            <div class="card-sub">clave: cremas</div>
-            <div class="card-actions"><button class="btn">Editar</button><button class="btn">Eliminar</button></div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-thumb card-t2"></div>
-          <div class="card-body">
-            <div class="card-title">Perfumes</div>
-            <div class="card-sub">clave: perfumes</div>
-            <div class="card-actions"><button class="btn">Editar</button><button class="btn">Eliminar</button></div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-thumb card-t3"></div>
-          <div class="card-body">
-            <div class="card-title">Ropa Interior</div>
-            <div class="card-sub">clave: ropa-interior</div>
-            <div class="card-actions"><button class="btn">Editar</button><button class="btn">Eliminar</button></div>
-          </div>
-        </div>
-      </div>
+      <div id="categorias-content"><div class="alert loading">Cargando categorías…</div></div>
     </section>
 
     <!-- Sección PRODUCTOS -->
@@ -343,50 +330,155 @@
         </div>
       </div>
       <h1 class="page-title">Productos</h1>
-      <p class="page-sub">Acá vas a cargar y editar todos tus productos. Todavía no hay productos cargados.</p>
+      <p class="page-sub">Todos los productos cargados en la tienda (datos reales).</p>
+      <div id="productos-content"><div class="alert loading">Cargando productos…</div></div>
+    </section>
 
-      <div class="empty-state">
-        <div class="empty-icon">📦</div>
-        <p style="font-weight:600; color:var(--text)">No hay productos todavía</p>
-        <p style="font-size:13px; margin-top:4px">Cuando conectemos el panel, los productos aparecerán acá con su foto, precio y categoría.</p>
-        <button class="btn btn-teal" style="margin-top:16px">+ Nuevo Producto</button>
-      </div>
-
-      <div class="section-label">Así se verán los productos cuando haya</div>
-      <div class="grid">
-        <div class="card">
-          <div class="card-thumb card-t4"><span class="card-badge">Más Vendido</span></div>
-          <div class="card-body">
-            <div class="card-title">Crema Rosa Mosqueta</div>
-            <div class="card-sub">Cremas</div>
-            <div class="card-price">$ 6.200</div>
-            <div class="card-actions"><button class="btn">Editar</button><button class="btn">Eliminar</button></div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-thumb card-t5"><span class="card-badge">Nuevo</span></div>
-          <div class="card-body">
-            <div class="card-title">Bruma Floral Dana</div>
-            <div class="card-sub">Perfumes</div>
-            <div class="card-price">$ 9.800</div>
-            <div class="card-actions"><button class="btn">Editar</button><button class="btn">Eliminar</button></div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-thumb card-t6"></div>
-          <div class="card-body">
-            <div class="card-title">Kit Regalo Premium</div>
-            <div class="card-sub">Ropa Interior</div>
-            <div class="card-price">$ 28.900</div>
-            <div class="card-actions"><button class="btn">Editar</button><button class="btn">Eliminar</button></div>
-          </div>
+    <!-- Sección BANNERS ADICIONALES -->
+    <section id="sec-banners" class="content hidden">
+      <div class="topbar">
+        <div class="crumb">Panel › <b>Banners adicionales</b></div>
+        <div class="top-actions">
+          <input class="search" placeholder="Buscar banner…">
+          <button class="btn btn-teal">Nuevo Banner</button>
         </div>
       </div>
+      <h1 class="page-title">Banners adicionales</h1>
+      <p class="page-sub">Los banners que se colocan en distintas zonas de la página.</p>
+      <div id="banners-content"><div class="alert loading">Cargando banners…</div></div>
     </section>
 
   </main>
 
 <script>
+  const REPO = "terracoderqta-jpg/danatalia";
+  const BRANCH = "main";
+  const RAW = `https://raw.githubusercontent.com/${REPO}/${BRANCH}`;
+  const API = `https://api.github.com/repos/${REPO}`;
+
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
+  const money = (n) => { const v = Number(n); return v ? "$ " + v.toLocaleString("es-AR") : "Consultar"; };
+
+  async function listDir(path) {
+    const res = await fetch(`${API}/contents/${path}?ref=${BRANCH}`);
+    if (!res.ok) throw new Error("No se pudo leer " + path);
+    const items = await res.json();
+    return items.filter((i) => i.type === "file" && i.name.endsWith(".json"));
+  }
+  async function loadJson(path) {
+    const res = await fetch(`${RAW}/${path}`);
+    if (!res.ok) throw new Error("No se pudo leer " + path);
+    return res.json();
+  }
+
+  let state = { categorias: [], productos: [], banners: [], banner: null };
+
+  async function loadAll() {
+    try {
+      state.banner = await loadJson("src/data/banner.json");
+      state.categorias = await Promise.all(
+        (await listDir("src/data/categorias")).map(async (f) => ({ ...(await loadJson("src/data/categorias/" + f.name)), _file: f.name }))
+      );
+      state.productos = await Promise.all(
+        (await listDir("src/data/productos")).map(async (f) => ({ ...(await loadJson("src/data/productos/" + f.name)), _file: f.name }))
+      );
+      state.banners = await Promise.all(
+        (await listDir("src/data/banners")).map(async (f) => ({ ...(await loadJson("src/data/banners/" + f.name)), _file: f.name }))
+      );
+      document.getElementById("badge-categorias").textContent = state.categorias.length;
+      document.getElementById("badge-productos").textContent = state.productos.length;
+      document.getElementById("badge-banners").textContent = state.banners.filter(b => b.active !== false).length;
+      renderAll();
+    } catch (e) {
+      ["banner", "categorias", "productos", "banners"].forEach((sec) => {
+        document.getElementById(sec + "-content").innerHTML =
+          `<div class="alert error">Error al cargar: ${esc(e.message)}</div>`;
+      });
+    }
+  }
+
+  function thumbClass(i) { return "card-t" + ((i % 6) + 1); }
+
+  function renderAll() {
+    renderBanner(); renderCategorias(); renderProductos(); renderBanners();
+  }
+
+  function renderBanner() {
+    const b = state.banner;
+    document.getElementById("banner-content").innerHTML = `
+      <div class="alert">
+        ⚠ Panel de <b>prueba</b>: acá ves el contenido real pero todavía se edita con el botón "Editar Banner" que abre el panel de Decap. En el paso siguiente, este formulario editará directo.
+      </div>
+      <div class="banner-editor">
+        <div class="banner-preview">
+          ${b.heroImage ? `<img src="${esc(b.heroImage)}" alt="">` : "Sin foto de portada"}
+        </div>
+        <div class="banner-fields">
+          <div class="bfield"><label>Título</label><div class="fvalue">${esc(b.title || "—")} ${esc(b.titleHighlight || "")}</div></div>
+          <div class="bfield"><label>Subtítulo</label><div class="fvalue">${esc(b.subtitle || "—")}</div></div>
+          <div class="bfield"><label>Etiqueta 1</label><div class="fvalue">${esc(b.badge1 || "—")}</div></div>
+          <div class="bfield"><label>Etiqueta 2</label><div class="fvalue">${esc(b.badge2 || "—")}</div></div>
+          <div class="bfield"><label>Barra superior</label><div class="fvalue">${esc(b.topBar?.text || "—")} ${esc(b.topBar?.highlight || "")}</div></div>
+          <div class="bfield"><label>Tarjeta destacada</label><div class="fvalue">${esc(b.featured?.name || "—")}</div></div>
+          <div class="bfield"><label>Sello flotante</label><div class="fvalue">${esc(b.floatingBadge || "—")}</div></div>
+          <div class="bfield"><label>Estadísticas</label><div class="fvalue">${esc((b.stats || []).map(s => s.value + " " + s.label).join(" · ") || "—")}</div></div>
+        </div>
+      </div>`;
+  }
+
+  function renderCategorias() {
+    const box = document.getElementById("categorias-content");
+    if (!state.categorias.length) {
+      box.innerHTML = `<div class="empty-state"><div class="empty-icon">🗂️</div><p style="font-weight:600;color:var(--text)">No hay categorías</p></div>`;
+      return;
+    }
+    box.innerHTML = `<div class="grid">` + state.categorias.map((c, i) => `
+      <div class="card">
+        <div class="card-thumb ${thumbClass(i)}">${c.image ? `<img src="${esc(c.image)}" alt="">` : c.label?.[0]?.toUpperCase() || "·"}</div>
+        <div class="card-body">
+          <div class="card-title">${esc(c.label)}</div>
+          <div class="card-sub">clave: ${esc(c.key)}</div>
+          <div class="card-actions"><button class="btn">Editar</button><button class="btn">Eliminar</button></div>
+        </div>
+      </div>`).join("") + `</div>`;
+  }
+
+  function renderProductos() {
+    const box = document.getElementById("productos-content");
+    if (!state.productos.length) {
+      box.innerHTML = `<div class="empty-state"><div class="empty-icon">📦</div><p style="font-weight:600;color:var(--text)">No hay productos cargados todavía</p><p style="font-size:13px;margin-top:4px">Cuando cargues productos aparecerán acá.</p></div>`;
+      return;
+    }
+    box.innerHTML = `<div class="grid">` + state.productos.map((p, i) => `
+      <div class="card">
+        <div class="card-thumb ${thumbClass(i)}">${p.image ? `<img src="${esc(p.image)}" alt="">` : "·"}</div>
+        <div class="card-body">
+          <div class="card-title">${esc(p.name)}</div>
+          <div class="card-sub">${esc(p.cosmeticCategory || "")}</div>
+          <div class="card-price">${money(p.price)}</div>
+          <div class="card-actions"><button class="btn">Editar</button><button class="btn">Eliminar</button></div>
+        </div>
+      </div>`).join("") + `</div>`;
+  }
+
+  function renderBanners() {
+    const box = document.getElementById("banners-content");
+    if (!state.banners.length) {
+      box.innerHTML = `<div class="empty-state"><div class="empty-icon">🪧</div><p style="font-weight:600;color:var(--text)">No hay banners adicionales</p></div>`;
+      return;
+    }
+    box.innerHTML = `<div class="grid">` + state.banners.map((b, i) => `
+      <div class="card">
+        <div class="card-thumb ${thumbClass(i)}">${b.image ? `<img src="${esc(b.image)}" alt="">` : "·"}${b.active === false ? `<span class="card-inactive">Inactivo</span>` : ""}</div>
+        <div class="card-body">
+          <div class="card-title">${esc(b.name || b.slug)}</div>
+          <div class="card-sub">zona: ${esc(b.position)}</div>
+          <div class="card-actions"><button class="btn">Editar</button><button class="btn">Eliminar</button></div>
+        </div>
+      </div>`).join("") + `</div>`;
+  }
+
+  // Navegación
   document.querySelectorAll('.nav-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -396,7 +488,8 @@
       document.getElementById('sec-' + target).classList.remove('hidden');
     });
   });
-</script>
 
+  loadAll();
+</script>
 </body>
 </html>
