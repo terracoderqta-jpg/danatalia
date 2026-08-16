@@ -99,8 +99,9 @@ collections:
       - { label: "Foto de la categoría", name: "image", widget: "image", choose_url: true }
 
   # ============ PRODUCTOS ============
+  # Mismos archivos (src/data/productos), pero separados por categoría en el panel
   - name: "productos"
-    label: "Productos"
+    label: "Productos — Todos"
     label_singular: "Producto"
     folder: "src/data/productos"
     create: true
@@ -113,7 +114,7 @@ collections:
     editor:
       preview: false
       frame: false
-    fields:
+    fields: &producto_fields
       - { label: "Nombre del producto", name: "name", widget: "string", hint: "El nombre que se muestra en la tienda. Ej: 'Crema Rosa Mosqueta'." }
       - { label: "Foto principal", name: "image", widget: "image", choose_url: true, hint: "La foto que se ve en la lista de productos." }
       - label: "Galería (fotos extra)"
@@ -133,3 +134,52 @@ collections:
       - { label: "Cruelty Free", name: "crueltyFree", widget: "boolean", default: true }
       - { label: "Enlace (slug)", name: "slug", widget: "string", hint: "No lo toques: se usa en el enlace del producto." }
       - { label: "ID interno", name: "id", widget: "string", hint: "No lo cambies, se usa para el carrito.", required: false }
+
+  # Listados por categoría (mismos archivos, filtrados para que se vean agrupados)
+  - name: "productos-cremas"
+    label: "Productos ⤷ Cremas"
+    label_singular: "Producto"
+    folder: "src/data/productos"
+    create: false
+    identifier_field: "id"
+    format: "json"
+    extension: "json"
+    slug: "{{slug}}"
+    summary: "{{image}}  {{name}} — ${{price}}"
+    filter: { field: "cosmeticCategory", value: "cremas" }
+    editor:
+      preview: false
+      frame: false
+    fields: *producto_fields
+
+  - name: "productos-perfumes"
+    label: "Productos ⤷ Perfumes"
+    label_singular: "Producto"
+    folder: "src/data/productos"
+    create: false
+    identifier_field: "id"
+    format: "json"
+    extension: "json"
+    slug: "{{slug}}"
+    summary: "{{image}}  {{name}} — ${{price}}"
+    filter: { field: "cosmeticCategory", value: "perfumes" }
+    editor:
+      preview: false
+      frame: false
+    fields: *producto_fields
+
+  - name: "productos-ropa-interior"
+    label: "Productos ⤷ Ropa Interior"
+    label_singular: "Producto"
+    folder: "src/data/productos"
+    create: false
+    identifier_field: "id"
+    format: "json"
+    extension: "json"
+    slug: "{{slug}}"
+    summary: "{{image}}  {{name}} — ${{price}}"
+    filter: { field: "cosmeticCategory", value: "ropa-interior" }
+    editor:
+      preview: false
+      frame: false
+    fields: *producto_fields
