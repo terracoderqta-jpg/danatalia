@@ -108,7 +108,7 @@ collections:
     format: "json"
     extension: "json"
     slug: "{{slug}}"
-    summary: "{{name}} — Minorista ${{price}} / Mayorista ${{wholesalePrice}}"
+    summary: "{{image}}  {{name}} — ${{price}}"
     description: "Edita foto, precios, nombre y descripción de cada producto. Los cambios se publican solos al guardar."
     editor:
       preview: false
