@@ -242,6 +242,7 @@
 
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
   const money = (n) => { const v = Number(n); return v ? "$ " + v.toLocaleString("es-AR") : "Consultar"; };
+  const slugify = (s) => String(s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 80) || "producto";
 
   function toast(msg, isErr) {
     const t = document.getElementById("toast");
@@ -501,14 +502,14 @@
         ["wholesalePrice", "Precio mayorista ($)", "number", p.wholesalePrice],
         ["cosmeticCategory", "Categoría", "select", p.cosmeticCategory, true, false, ["cremas", "perfumes", "ropa-interior"]],
         ["description", "Descripción", "textarea", p.description, false, true],
-        ["badge", "Etiqueta destacada", "text", p.badge],
         ["rating", "Puntaje (0-5)", "number", p.rating],
         ["crueltyFree", "Cruelty Free", "check", p.crueltyFree],
-        ["slug", "Enlace corto (slug) *", "text", p.slug],
         ["id", "ID interno (opcional)", "text", p.id],
       ],
       async save(vals) {
-        if (!vals.name || !vals.slug) { toast("Completá nombre y enlace corto (slug)", true); return false; }
+        if (!vals.name) { toast("Completá el nombre del producto", true); return false; }
+        const slug = slugify(vals.name);
+        if (!file && state.productos.some((x) => x._file === slug + ".json")) { toast("Ya existe un producto con ese nombre", true); return false; }
         const images = Array.isArray(vals.images) ? vals.images.filter(Boolean) : (vals.images ? String(vals.images).split(",").map((s) => s.trim()).filter(Boolean) : []);
         const data = {
           name: vals.name.trim(), image: vals.image, images,
@@ -516,11 +517,11 @@
           wholesalePrice: vals.wholesalePrice ? Number(vals.wholesalePrice) : undefined,
           cosmeticCategory: vals.cosmeticCategory, description: vals.description,
           badge: vals.badge, rating: vals.rating ? Number(vals.rating) : undefined,
-          crueltyFree: vals.crueltyFree, slug: vals.slug.trim().toLowerCase(), id: vals.id,
+          crueltyFree: vals.crueltyFree, slug, id: vals.id,
         };
         Object.keys(data).forEach((k) => { const math = data[k] === undefined || data[k] === null; if (math) delete data[k]; if (k !== "images" && (data[k] === "" )) delete data[k]; });
         if (data.images && !data.images.length) delete data.images;
-        const fname = file ? file : (data.slug + ".json");
+        const fname = file ? file : (slug + ".json");
         await putFile("src/data/productos/" + fname, JSON.stringify(data, null, 2), file ? "Actualizar producto" : "Crear producto (desde panel)");
         await loadAll();
       },
@@ -560,7 +561,6 @@
       title: file ? "Editar Banner" : "Nuevo Banner",
       fields: [
         ["name", "Nombre interno", "text", b.name],
-        ["slug", "Enlace corto (slug) *", "text", b.slug],
         ["position", "Ubicación en la página", "select", b.position, false, false, [["inicio", "Inicio (arriba del todo)"], ["despues-categorias", "Debajo de Categorías"], ["despues-productos", "Debajo de Productos"], ["antes-contacto", "Antes del Contacto"]]],
         ["active", "Activo", "check", b.active],
         ["title", "Título", "text", b.title],
@@ -570,9 +570,10 @@
         ["image", "Foto del banner", "image", b.image],
       ],
       async save(vals) {
-        if (!vals.slug) { toast("Completá el enlace corto (slug)", true); return false; }
+        if (!vals.name) { toast("Completá el nombre interno del banner", true); return false; }
+        const slug = slugify(vals.name);
         const data = {
-          name: vals.name, slug: vals.slug.trim().toLowerCase(), position: vals.position,
+          name: vals.name, slug, position: vals.position,
           active: vals.active, title: vals.title, subtitle: vals.subtitle,
           ctaText: vals.ctaText, ctaLink: vals.ctaLink, image: vals.image,
         };
