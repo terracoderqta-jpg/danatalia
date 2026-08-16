@@ -42,19 +42,24 @@ collections:
           - label: "Barra superior"
             name: "topBar"
             widget: "object"
+            collapsed: true
+            summary: "{{text}}"
             fields:
-              - { label: "Texto", name: "text", widget: "string", required: false }
-              - { label: "Texto destacado", name: "highlight", widget: "string", required: false }
-          - { label: "Etiqueta 1", name: "badge1", widget: "string", required: false }
-          - { label: "Etiqueta 2", name: "badge2", widget: "string", required: false }
-          - { label: "Título (primera parte)", name: "title", widget: "string", required: false }
-          - { label: "Título (palabras en terracota)", name: "titleHighlight", widget: "string", required: false }
+              - { label: "Texto", name: "text", widget: "string", required: false, hint: "Ej: 'Envíos a todo el país'. Vacío = no se muestra." }
+              - { label: "Texto destacado", name: "highlight", widget: "string", required: false, hint: "Ej: 'Atención para revendedoras'. Vacío = no se muestra." }
+          - { label: "Etiqueta 1 (opcional)", name: "badge1", widget: "string", required: false, hint: "Ej: 'Cruelty Free'. Vacío = oculta la etiqueta." }
+          - { label: "Etiqueta 2 (opcional)", name: "badge2", widget: "string", required: false }
+          - { label: "Título (primera parte)", name: "title", widget: "string", required: false, hint: "Texto principal grande. Ej: 'Maquillaje Corporal'." }
+          - { label: "Título (segunda parte en turquesa)", name: "titleHighlight", widget: "string", required: false }
           - { label: "Subtítulo", name: "subtitle", widget: "text", required: false }
-          - { label: "Foto principal del banner", name: "heroImage", widget: "image", choose_url: true, required: false }
+          - { label: "Foto principal del banner *", name: "heroImage", widget: "image", choose_url: true, required: false, hint: "La foto grande del banner. La tarjeta destacada se apoya sobre ella." }
           - { label: "Texto alternativo de la foto", name: "heroImageAlt", widget: "string", required: false }
           - label: "Tarjeta destacada (sobre la foto)"
             name: "featured"
             widget: "object"
+            collapsed: true
+            summary: "{{name}}"
+            hint: "Texto que se ve abajo sobre la foto del banner. Si lo dejás vacío, no se muestra."
             fields:
               - { label: "Etiqueta", name: "label", widget: "string", required: false }
               - { label: "Nombre del producto", name: "name", widget: "string", required: false }
@@ -65,16 +70,19 @@ collections:
             min: 0
             max: 1
             summary: "{{fields.title}}"
-            hint: "Se muestra una tarjeta flotante sobre el banner. Para ocultarla, presioná el botón para vaciarla (si no hay elementos, no aparece)."
+            collapsed: true
+            hint: "Tarjeta blanca flotante sobre el banner. Para ocultarla, borrá el único item."
             fields:
               - { label: "Título", name: "title", widget: "string", required: false }
               - { label: "Subtítulo", name: "subtitle", widget: "string", required: false }
               - { label: "Emoji", name: "emoji", widget: "string", required: false }
-          - { label: "Sello flotante (arriba a la derecha)", name: "floatingBadge", widget: "string", required: false }
-          - label: "Estadísticas"
+          - { label: "Sello flotante (opcional)", name: "floatingBadge", widget: "string", required: false, hint: "Sello dorado arriba a la derecha. Ej: 'Envío 24/48h'. Vacío = no se muestra." }
+          - label: "Estadísticas (opcional)"
             name: "stats"
             widget: "list"
             summary: "{{fields.value}} {{fields.label}}"
+            collapsed: true
+            hint: "Números de la marca (ej: '+500 Clientes'). Si no cargás ninguno, no se muestra."
             fields:
               - { label: "Valor", name: "value", widget: "string", required: false }
               - { label: "Etiqueta", name: "label", widget: "string", required: false }
@@ -116,25 +124,22 @@ collections:
       preview: false
       frame: false
     fields: &producto_fields
-      - { label: "Nombre del producto", name: "name", widget: "string", hint: "El nombre que se muestra en la tienda. Ej: 'Crema Rosa Mosqueta'.", required: false }
-      - { label: "Foto principal", name: "image", widget: "image", choose_url: true, hint: "La foto que se ve en la lista de productos.", required: false }
-      - label: "Galería (fotos extra)"
-        name: "images"
-        widget: "list"
-        required: false
-        label_singular: "Foto"
-        summary: "{{image}} {{fields.image}}"
-        hint: "Fotos adicionales que se ven al hacer clic en el producto. Tocá '+ Foto' para agregar cada una."
-        field: { label: "Foto", name: "image", widget: "image", choose_url: true, allow_multiple: true, required: false }
+      # --- Paso 1: lo esencial ---
+      - { label: "Nombre del producto *", name: "name", widget: "string", hint: "El nombre que se muestra en la tienda. Ej: 'Crema Rosa Mosqueta'.", required: false }
+      - { label: "Foto principal *", name: "image", widget: "image", choose_url: true, hint: "La foto de portada que se ve en la lista de productos. Es obligatoria.", required: false }
+      - { label: "Fotos de la galería (opcional)", name: "images", widget: "image", choose_url: true, allow_multiple: true, required: false, hint: "Podés seleccionar VARIAS fotos a la vez. Se ven al hacer clic en el producto. Mínimo quedate solo con la principal si no tenés más." }
+      # --- Paso 2: precios y categoría ---
       - { label: "Precio minorista ($)", name: "price", widget: "number", value_type: "int", min: 0, hint: "Precio que paga el cliente final.", required: false }
       - { label: "Precio mayorista ($)", name: "wholesalePrice", widget: "number", value_type: "int", min: 0, hint: "Precio para revendedoras. Si no trabajás con mayorista, poné el mismo precio.", required: false }
-      - { label: "Categoría", name: "cosmeticCategory", widget: "select", options: ["cremas", "perfumes", "ropa-interior"], hint: "Elegí la categoría del producto.", required: false }
-      - { label: "Descripción", name: "description", widget: "text", required: false, hint: "Contá qué hace el producto y por qué vale la pena." }
+      - { label: "Categoría *", name: "cosmeticCategory", widget: "select", options: ["cremas", "perfumes", "ropa-interior"], hint: "Elegí dónde se va a mostrar el producto.", required: false }
+      # --- Paso 3: descripción y detalles ---
+      - { label: "Descripción", name: "description", widget: "text", required: false, hint: "Contá qué hace el producto y por qué vale la pena. Vacío = no se muestra." }
       - { label: "Etiqueta destacada (opcional)", name: "badge", widget: "string", hint: "Ej: 'Nuevo', 'Más Vendido', 'Exclusivo'. Vacío = sin etiqueta.", required: false }
       - { label: "Puntaje (0 a 5)", name: "rating", widget: "number", value_type: "float", min: 0, max: 5, step: 0.1, default: 4.5, required: false, hint: "Estrellas que se muestran. Dejalo en 4.5 si no sabés." }
       - { label: "Cruelty Free", name: "crueltyFree", widget: "boolean", default: true }
-      - { label: "Enlace corto (slug)", name: "slug", widget: "string", hint: "En minúsculas, sin espacios ni acentos ni la extensión. Ej: crema-rosa-mosqueta. Es obligatorio: identifica la foto/link del producto." }
-      - { label: "ID interno", name: "id", widget: "string", hint: "Opcional. Se usa para el carrito; si lo dejás vacío funciona igual.", required: false }
+      # --- Paso 4: técnico (no tocar) ---
+      - { label: "Enlace corto (slug) *", name: "slug", widget: "string", hint: "En minúsculas, sin espacios ni acentos ni la extensión. Ej: crema-rosa-mosqueta. Es obligatorio: identifica el archivo y el link del producto. Poné el mismo nombre del producto separado por guiones." }
+      - { label: "ID interno (opcional)", name: "id", widget: "string", hint: "Se usa para el carrito; si lo dejás vacío usa el slug automáticamente. No lo cambies en productos ya creados.", required: false }
 
   # Listados por categoría (mismos archivos, filtrados para que se vean agrupados)
   - name: "productos-cremas"
