@@ -112,23 +112,24 @@ collections:
     description: "Edita foto, precios, nombre y descripción de cada producto. Los cambios se publican solos al guardar."
     editor:
       preview: false
+      frame: false
     fields:
-      - { label: "Foto del producto", name: "image", widget: "image", choose_url: true, hint: "Subí una foto desde tu compu o pegá un link. Esta es la foto principal." }
-      - label: "Más fotos del producto (galería)"
+      - { label: "Nombre del producto", name: "name", widget: "string", hint: "El nombre que se muestra en la tienda. Ej: 'Crema Rosa Mosqueta'." }
+      - { label: "Foto principal", name: "image", widget: "image", choose_url: true, hint: "La foto que se ve en la lista de productos." }
+      - label: "Galería (fotos extra)"
         name: "images"
         widget: "list"
         required: false
         label_singular: "Foto"
         summary: "{{image}} {{fields.image}}"
-        hint: "Agregá una foto por vez con el botón '+ Foto'. También podés elegir varias a la vez desde la biblioteca."
+        hint: "Fotos adicionales que se ven al hacer clic en el producto. Tocá '+ Foto' para agregar cada una."
         field: { label: "Foto", name: "image", widget: "image", choose_url: true, allow_multiple: true }
-      - { label: "Nombre", name: "name", widget: "string" }
-      - { label: "Slug", name: "slug", widget: "string", hint: "URL amigable del producto (sin espacios, en minúsculas)." }
-      - { label: "Precio minorista ($ ARS)", name: "price", widget: "number", value_type: "int", min: 0 }
-      - { label: "Precio mayorista ($ ARS)", name: "wholesalePrice", widget: "number", value_type: "int", min: 0 }
-      - { label: "Categoría", name: "cosmeticCategory", widget: "string", hint: "Usá la clave de una categoría existente (skincare, maquillaje, perfumes, sets o una nueva que crees)." }
-      - { label: "Etiqueta (opcional)", name: "badge", widget: "string", hint: "Ej: 'Más Vendido', 'Nuevo', 'Exclusivo'. Dejalo vacío si no querés.", required: false }
-      - { label: "Descripción", name: "description", widget: "text", required: false }
-      - { label: "Puntaje", name: "rating", widget: "number", value_type: "float", min: 0, max: 5, step: 0.1, default: 4.5, required: false }
+      - { label: "Precio minorista ($)", name: "price", widget: "number", value_type: "int", min: 0, hint: "Precio que paga el cliente final." }
+      - { label: "Precio mayorista ($)", name: "wholesalePrice", widget: "number", value_type: "int", min: 0, hint: "Precio para revendedoras. Si no trabajás con mayorista, poné el mismo precio." }
+      - { label: "Categoría", name: "cosmeticCategory", widget: "string", hint: "Escribí el nombre de una categoría existente: cremas, perfumes o ropa-interior." }
+      - { label: "Descripción", name: "description", widget: "text", required: false, hint: "Contá qué hace el producto y por qué vale la pena." }
+      - { label: "Etiqueta destacada (opcional)", name: "badge", widget: "string", hint: "Ej: 'Nuevo', 'Más Vendido', 'Exclusivo'. Vacío = sin etiqueta.", required: false }
+      - { label: "Puntaje (0 a 5)", name: "rating", widget: "number", value_type: "float", min: 0, max: 5, step: 0.1, default: 4.5, required: false, hint: "Estrellas que se muestran. Dejalo en 4.5 si no sabés." }
       - { label: "Cruelty Free", name: "crueltyFree", widget: "boolean", default: true }
+      - { label: "Enlace (slug)", name: "slug", widget: "string", hint: "No lo toques: se usa en el enlace del producto." }
       - { label: "ID interno", name: "id", widget: "string", hint: "No lo cambies, se usa para el carrito.", required: false }
