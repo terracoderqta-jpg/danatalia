@@ -34,7 +34,8 @@ const categorias: Categoria[] = (categoriasContext.keys() as string[])
   .map((k) => categoriasContext(k) as Categoria)
   .sort((a, b) => (CATEGORY_ORDER[a.key] ?? 99) - (CATEGORY_ORDER[b.key] ?? 99));
 
-function StarRating({ rating }: { rating: number }) {
+function StarRating({ rating }: { rating?: number }) {
+  if (!rating) return null;
   return (
     <div className="flex items-center gap-0.5">
       {[1, 2, 3, 4, 5].map((i) => (
@@ -121,13 +122,17 @@ export function CosmeticaGrid() {
                       : "hover:shadow-lg"
                   }`}
                 >
-                  <Image
-                    src={cat.image}
-                    alt={cat.label}
-                    width={600}
-                    height={600}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
+                  {cat.image ? (
+                    <Image
+                      src={cat.image}
+                      alt={cat.label}
+                      width={600}
+                      height={600}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-nude to-blush" />
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-piedra/80 via-piedra/10 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-4 text-left">
                     <p className="heading-serif text-lg md:text-xl text-white">{cat.label}</p>
@@ -174,13 +179,17 @@ export function CosmeticaGrid() {
           {filtered.map((product) => (
             <div key={product.id} className="card-product">
               <div className="relative aspect-square overflow-hidden">
-                <Image
-                  src={product.image}
-                  alt={product.name}
-                  width={600}
-                  height={600}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
+                {product.image ? (
+                  <Image
+                    src={product.image}
+                    alt={product.name}
+                    width={600}
+                    height={600}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gradient-to-br from-nude to-blush" />
+                )}
                 {/* Badges */}
                 <div className="absolute top-3 left-3 flex flex-col gap-2">
                   {product.badge && (

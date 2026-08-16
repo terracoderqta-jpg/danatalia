@@ -4,7 +4,8 @@ export function cn(...inputs: ClassValue[]) {
   return clsx(inputs);
 }
 
-export function formatPrice(price: number): string {
+export function formatPrice(price?: number | null): string {
+  if (price == null || Number.isNaN(price) || price <= 0) return "Consultar";
   return new Intl.NumberFormat('es-AR', {
     style: 'currency',
     currency: 'ARS',

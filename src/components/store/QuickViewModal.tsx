@@ -43,13 +43,17 @@ export function QuickViewModal() {
           <div className="grid grid-cols-1 md:grid-cols-2">
             {/* Image */}
             <div className="relative">
-              <Image
-                src={currentImage}
-                alt={product.name}
-                width={600}
-                height={600}
-                className="w-full h-64 md:h-[380px] object-cover rounded-t-3xl md:rounded-l-3xl md:rounded-tr-none"
-              />
+              {currentImage ? (
+                <Image
+                  src={currentImage}
+                  alt={product.name}
+                  width={600}
+                  height={600}
+                  className="w-full h-64 md:h-[380px] object-cover rounded-t-3xl md:rounded-l-3xl md:rounded-tr-none"
+                />
+              ) : (
+                <div className="w-full h-64 md:h-[380px] bg-gradient-to-br from-nude to-blush rounded-t-3xl md:rounded-l-3xl md:rounded-tr-none" />
+              )}
               <button
                 onClick={() => dispatch({ type: "SET_QUICK_VIEW", payload: null })}
                 className="absolute top-4 right-4 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center hover:bg-white"

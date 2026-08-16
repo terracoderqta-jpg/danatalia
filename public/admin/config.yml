@@ -43,22 +43,22 @@ collections:
             name: "topBar"
             widget: "object"
             fields:
-              - { label: "Texto", name: "text", widget: "string" }
-              - { label: "Texto destacado", name: "highlight", widget: "string" }
-          - { label: "Etiqueta 1", name: "badge1", widget: "string" }
-          - { label: "Etiqueta 2", name: "badge2", widget: "string" }
-          - { label: "Título (primera parte)", name: "title", widget: "string" }
+              - { label: "Texto", name: "text", widget: "string", required: false }
+              - { label: "Texto destacado", name: "highlight", widget: "string", required: false }
+          - { label: "Etiqueta 1", name: "badge1", widget: "string", required: false }
+          - { label: "Etiqueta 2", name: "badge2", widget: "string", required: false }
+          - { label: "Título (primera parte)", name: "title", widget: "string", required: false }
           - { label: "Título (palabras en terracota)", name: "titleHighlight", widget: "string", required: false }
-          - { label: "Subtítulo", name: "subtitle", widget: "text" }
-          - { label: "Foto principal del banner", name: "heroImage", widget: "image", choose_url: true }
+          - { label: "Subtítulo", name: "subtitle", widget: "text", required: false }
+          - { label: "Foto principal del banner", name: "heroImage", widget: "image", choose_url: true, required: false }
           - { label: "Texto alternativo de la foto", name: "heroImageAlt", widget: "string", required: false }
           - label: "Tarjeta destacada (sobre la foto)"
             name: "featured"
             widget: "object"
             fields:
-              - { label: "Etiqueta", name: "label", widget: "string" }
-              - { label: "Nombre del producto", name: "name", widget: "string" }
-              - { label: "Descripción", name: "description", widget: "string" }
+              - { label: "Etiqueta", name: "label", widget: "string", required: false }
+              - { label: "Nombre del producto", name: "name", widget: "string", required: false }
+              - { label: "Descripción", name: "description", widget: "string", required: false }
           - label: "Tarjeta flotante"
             name: "floatingCard"
             widget: "list"
@@ -67,17 +67,17 @@ collections:
             summary: "{{fields.title}}"
             hint: "Se muestra una tarjeta flotante sobre el banner. Para ocultarla, presioná el botón para vaciarla (si no hay elementos, no aparece)."
             fields:
-              - { label: "Título", name: "title", widget: "string" }
-              - { label: "Subtítulo", name: "subtitle", widget: "string" }
-              - { label: "Emoji", name: "emoji", widget: "string" }
-          - { label: "Sello flotante (arriba a la derecha)", name: "floatingBadge", widget: "string" }
+              - { label: "Título", name: "title", widget: "string", required: false }
+              - { label: "Subtítulo", name: "subtitle", widget: "string", required: false }
+              - { label: "Emoji", name: "emoji", widget: "string", required: false }
+          - { label: "Sello flotante (arriba a la derecha)", name: "floatingBadge", widget: "string", required: false }
           - label: "Estadísticas"
             name: "stats"
             widget: "list"
             summary: "{{fields.value}} {{fields.label}}"
             fields:
-              - { label: "Valor", name: "value", widget: "string" }
-              - { label: "Etiqueta", name: "label", widget: "string" }
+              - { label: "Valor", name: "value", widget: "string", required: false }
+              - { label: "Etiqueta", name: "label", widget: "string", required: false }
 
   # ============ CATEGORÍAS ============
   - name: "categorias"
@@ -94,9 +94,9 @@ collections:
     editor:
       preview: false
     fields:
-      - { label: "Clave interna", name: "key", widget: "string", hint: "En minúsculas, sin espacios ni acentos. Ej: accesorios. No la cambies si la categoría ya tiene productos asignados." }
-      - { label: "Nombre", name: "label", widget: "string" }
-      - { label: "Foto de la categoría", name: "image", widget: "image", choose_url: true }
+      - { label: "Clave interna", name: "key", widget: "string", hint: "En minúsculas, sin espacios ni acentos. Ej: accesorios. No la cambies si la categoría ya tiene productos asignados.", required: false }
+      - { label: "Nombre", name: "label", widget: "string", required: false }
+      - { label: "Foto de la categoría", name: "image", widget: "image", choose_url: true, required: false }
 
   # ============ PRODUCTOS ============
   # Mismos archivos (src/data/productos), pero separados por categoría en el panel
@@ -115,8 +115,8 @@ collections:
       preview: false
       frame: false
     fields: &producto_fields
-      - { label: "Nombre del producto", name: "name", widget: "string", hint: "El nombre que se muestra en la tienda. Ej: 'Crema Rosa Mosqueta'." }
-      - { label: "Foto principal", name: "image", widget: "image", choose_url: true, hint: "La foto que se ve en la lista de productos." }
+      - { label: "Nombre del producto", name: "name", widget: "string", hint: "El nombre que se muestra en la tienda. Ej: 'Crema Rosa Mosqueta'.", required: false }
+      - { label: "Foto principal", name: "image", widget: "image", choose_url: true, hint: "La foto que se ve en la lista de productos.", required: false }
       - label: "Galería (fotos extra)"
         name: "images"
         widget: "list"
@@ -124,15 +124,15 @@ collections:
         label_singular: "Foto"
         summary: "{{image}} {{fields.image}}"
         hint: "Fotos adicionales que se ven al hacer clic en el producto. Tocá '+ Foto' para agregar cada una."
-        field: { label: "Foto", name: "image", widget: "image", choose_url: true, allow_multiple: true }
-      - { label: "Precio minorista ($)", name: "price", widget: "number", value_type: "int", min: 0, hint: "Precio que paga el cliente final." }
-      - { label: "Precio mayorista ($)", name: "wholesalePrice", widget: "number", value_type: "int", min: 0, hint: "Precio para revendedoras. Si no trabajás con mayorista, poné el mismo precio." }
-      - { label: "Categoría", name: "cosmeticCategory", widget: "select", options: ["cremas", "perfumes", "ropa-interior"], hint: "Elegí la categoría del producto." }
+        field: { label: "Foto", name: "image", widget: "image", choose_url: true, allow_multiple: true, required: false }
+      - { label: "Precio minorista ($)", name: "price", widget: "number", value_type: "int", min: 0, hint: "Precio que paga el cliente final.", required: false }
+      - { label: "Precio mayorista ($)", name: "wholesalePrice", widget: "number", value_type: "int", min: 0, hint: "Precio para revendedoras. Si no trabajás con mayorista, poné el mismo precio.", required: false }
+      - { label: "Categoría", name: "cosmeticCategory", widget: "select", options: ["cremas", "perfumes", "ropa-interior"], hint: "Elegí la categoría del producto.", required: false }
       - { label: "Descripción", name: "description", widget: "text", required: false, hint: "Contá qué hace el producto y por qué vale la pena." }
       - { label: "Etiqueta destacada (opcional)", name: "badge", widget: "string", hint: "Ej: 'Nuevo', 'Más Vendido', 'Exclusivo'. Vacío = sin etiqueta.", required: false }
       - { label: "Puntaje (0 a 5)", name: "rating", widget: "number", value_type: "float", min: 0, max: 5, step: 0.1, default: 4.5, required: false, hint: "Estrellas que se muestran. Dejalo en 4.5 si no sabés." }
       - { label: "Cruelty Free", name: "crueltyFree", widget: "boolean", default: true }
-      - { label: "Enlace (slug)", name: "slug", widget: "string", hint: "No lo toques: se usa en el enlace del producto." }
+      - { label: "Enlace (slug)", name: "slug", widget: "string", hint: "No lo toques: se usa en el enlace del producto.", required: false }
       - { label: "ID interno", name: "id", widget: "string", hint: "No lo cambies, se usa para el carrito.", required: false }
 
   # Listados por categoría (mismos archivos, filtrados para que se vean agrupados)
