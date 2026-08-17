@@ -885,7 +885,6 @@ function updateAuthUI() {
     if (u && u.startsWith("/uploads/")) {
       const e = pending["public" + u];
       if (e && e.kind === "image") return `data:${e.mime};base64,${e.base64}`;
-      return `https://raw.githubusercontent.com/${REPO}/${BRANCH}/public${u}`;
     }
     return u;
   }
@@ -893,7 +892,6 @@ function updateAuthUI() {
     if (u && u.startsWith("/uploads/")) {
       const e = pending["public" + u];
       if (e && (e.kind === "video" || e.kind === "image")) return `data:${e.mime};base64,${e.base64}`;
-      return `https://raw.githubusercontent.com/${REPO}/${BRANCH}/public${u}`;
     }
     return u;
   }
