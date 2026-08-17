@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Panel Dana Talía | Gestionar</title>
+<title>Panel Dana TalÃ­a | Gestionar</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -134,6 +134,17 @@
   .check input { width: 17px; height: 17px; accent-color: var(--turquoise); }
   .spinner { display:inline-block; width:14px; height:14px; border:2px solid rgba(255,255,255,.4); border-top-color:#fff; border-radius:50%; animation:spin .7s linear infinite; vertical-align:-2px; }
   @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Barra de publicaciÃ³n */
+  .publish-bar { position: fixed; bottom: 24px; right: 24px; z-index: 70; display: none; align-items: center; gap: 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 12px 16px; box-shadow: 0 14px 44px rgba(15,22,40,0.22); max-width: min(90vw, 420px); }
+  .publish-bar.show { display: flex; flex-wrap: wrap; }
+  .publish-bar .pb-text { font-size: 13px; color: var(--text-secondary); }
+  .publish-bar .pb-text b { color: var(--text); }
+  .pb-btn { border: none; cursor: pointer; font-family: inherit; border-radius: 9px; padding: 9px 14px; font-size: 13px; font-weight: 700; }
+  .pb-btn-primary { background: var(--turquoise); color: #fff; }
+  .pb-btn-primary:hover { background: var(--turquoise-dark); }
+  .pb-btn-primary:disabled { opacity: .6; cursor: progress; }
+  .pb-btn-ghost { background: transparent; color: var(--danger); border: 1px solid var(--border); }
 </style>
 </head>
 <body>
@@ -142,8 +153,8 @@
     <div class="brand">
       <div class="brand-logo">D</div>
       <div>
-        <div class="brand-name">Dana Talía</div>
-        <div class="brand-sub">Panel de gestión</div>
+        <div class="brand-name">Dana TalÃ­a</div>
+        <div class="brand-sub">Panel de gestiÃ³n</div>
       </div>
     </div>
 
@@ -154,7 +165,7 @@
     </button>
     <button class="nav-btn" data-section="categorias">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
-      Categorías <span class="nav-badge" id="badge-categorias">0</span>
+      CategorÃ­as <span class="nav-badge" id="badge-categorias">0</span>
     </button>
     <button class="nav-btn" data-section="productos">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05"/><path d="M12 22.08V12"/></svg>
@@ -166,43 +177,43 @@
     </button>
 
     <div class="sidebar-footer">
-      <div class="auth-info" id="auth-info">Iniciá sesión para poder editar.</div>
-      <button class="auth-btn" id="auth-btn">Iniciar sesión con GitHub</button>
+      <div class="auth-info" id="auth-info">IniciÃ¡ sesiÃ³n para poder editar.</div>
+      <button class="auth-btn" id="auth-btn">Iniciar sesiÃ³n con GitHub</button>
     </div>
   </aside>
 
   <main class="main">
     <section id="sec-banner" class="content">
       <div class="topbar">
-        <div class="crumb">Panel › <b>Banner principal</b></div>
+        <div class="crumb">Panel â€º <b>Banner principal</b></div>
         <div class="top-actions">
-          <input class="search" placeholder="Buscar…">
+          <input class="search" placeholder="Buscarâ€¦">
           <button class="btn btn-teal" onclick="editBanner()">Editar Banner</button>
         </div>
       </div>
       <h1 class="page-title">Banner principal</h1>
-      <p class="page-sub">Así se ve hoy el banner de la portada.</p>
-      <div id="banner-content"><div class="alert">Cargando…</div></div>
+      <p class="page-sub">AsÃ­ se ve hoy el banner de la portada.</p>
+      <div id="banner-content"><div class="alert">Cargandoâ€¦</div></div>
     </section>
 
     <section id="sec-categorias" class="content hidden">
       <div class="topbar">
-        <div class="crumb">Panel › <b>Categorías</b></div>
+        <div class="crumb">Panel â€º <b>CategorÃ­as</b></div>
         <div class="top-actions">
-          <input class="search" oninput="filterCards('categorias', this.value)" placeholder="Buscar categoría…">
-          <button class="btn btn-teal" onclick="openEditorCategoria()">Nueva Categoría</button>
+          <input class="search" oninput="filterCards('categorias', this.value)" placeholder="Buscar categorÃ­aâ€¦">
+          <button class="btn btn-teal" onclick="openEditorCategoria()">Nueva CategorÃ­a</button>
         </div>
       </div>
-      <h1 class="page-title">Categorías</h1>
+      <h1 class="page-title">CategorÃ­as</h1>
       <p class="page-sub">Las secciones que organizan los productos.</p>
       <div id="categorias-content"></div>
     </section>
 
     <section id="sec-productos" class="content hidden">
       <div class="topbar">
-        <div class="crumb">Panel › <b>Productos</b></div>
+        <div class="crumb">Panel â€º <b>Productos</b></div>
         <div class="top-actions">
-          <input class="search" oninput="filterCards('productos', this.value)" placeholder="Buscar producto…">
+          <input class="search" oninput="filterCards('productos', this.value)" placeholder="Buscar productoâ€¦">
           <button class="btn btn-teal" onclick="openEditorProducto()">Nuevo Producto</button>
         </div>
       </div>
@@ -213,14 +224,14 @@
 
     <section id="sec-banners" class="content hidden">
       <div class="topbar">
-        <div class="crumb">Panel › <b>Banners adicionales</b></div>
+        <div class="crumb">Panel â€º <b>Banners adicionales</b></div>
         <div class="top-actions">
-          <input class="search" oninput="filterCards('banners', this.value)" placeholder="Buscar banner…">
+          <input class="search" oninput="filterCards('banners', this.value)" placeholder="Buscar bannerâ€¦">
           <button class="btn btn-teal" onclick="openEditorBanner()">Nuevo Banner</button>
         </div>
       </div>
       <h1 class="page-title">Banners adicionales</h1>
-      <p class="page-sub">Los banners que se colocan en distintas zonas de la página.</p>
+      <p class="page-sub">Los banners que se colocan en distintas zonas de la pÃ¡gina.</p>
       <div id="banners-content"></div>
     </section>
   </main>
@@ -228,13 +239,19 @@
   <div id="modal-root"></div>
   <div class="toast" id="toast"></div>
 
+  <div class="publish-bar" id="publish-bar">
+    <span class="pb-text" id="publish-text">Cambios sin publicar.</span>
+    <button class="pb-btn pb-btn-primary" id="publish-btn" onclick="publishAll()">Publicar todos</button>
+    <button class="pb-btn pb-btn-ghost" id="publish-clear" onclick="discardPending()">Descartar</button>
+  </div>
+
 <script>
   const REPO = "terracoderqta-jpg/danatalia";
   const BRANCH = "main";
   const RAW = `https://raw.githubusercontent.com/${REPO}/${BRANCH}`;
   const API = `https://api.github.com/repos/${REPO}`;
 
-  // ============ Sesión ============
+  // ============ SesiÃ³n ============
   let token = localStorage.getItem("dt_token") || "";
   let user = null;
   const authBtn = document.getElementById("auth-btn");
@@ -243,6 +260,100 @@
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
   const money = (n) => { const v = Number(n); return v ? "$ " + v.toLocaleString("es-AR") : "Consultar"; };
   const slugify = (s) => String(s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 80) || "producto";
+
+  // ============ Cambios en cola (se publican todos juntos) ============
+  const pending = {};
+  // pending[path] = { kind:"file", content } | { kind:"image", base64, mime } | { kind:"delete" }
+
+  function savePending() {
+    try { localStorage.setItem("dt_pending", JSON.stringify(pending)); } catch (e) { }
+  }
+  function loadPending() {
+    try {
+      const raw = localStorage.getItem("dt_pending");
+      if (!raw) return;
+      const data = JSON.parse(raw);
+      Object.keys(data).forEach((k) => { if (data[k] && data[k].kind) pending[k] = data[k]; });
+    } catch (e) { }
+  }
+  function pendingCount() {
+    return Object.keys(pending).filter((p) => p.startsWith("src/")).length;
+  }
+  function stageFile(path, content) {
+    pending[path] = { kind: "file", content };
+    savePending();
+    updatePendingUI();
+  }
+  function stageImage(path, base64, mime) {
+    pending[path] = { kind: "image", base64, mime };
+    savePending();
+    updatePendingUI();
+  }
+  function stageDelete(path) {
+    pending[path] = { kind: "delete" };
+    savePending();
+    updatePendingUI();
+  }
+  function updatePendingUI() {
+    const bar = document.getElementById("publish-bar");
+    const imgCount = Object.keys(pending).filter((p) => p.startsWith("public/uploads")).length;
+    const n = pendingCount();
+    if (!n && !imgCount) { bar.classList.remove("show"); return; }
+    bar.classList.add("show");
+    const txt = n ? `<b>${n} cambio${n === 1 ? "" : "s"}</b> sin publicar` : "";
+    const imgTxt = imgCount ? `${n ? " + " : ""}${imgCount} foto${imgCount > 1 ? "s" : ""} sin publicar` : "";
+    document.getElementById("publish-text").innerHTML = (txt + imgTxt) + ".";
+  }
+
+  async function publishAll() {
+    const paths = Object.keys(pending);
+    if (!paths.length) { toast("No hay cambios pendientes"); return; }
+    if (!token) { toast("IngresÃ¡ sesiÃ³n para publicar", true); return; }
+    const btn = document.getElementById("publish-btn");
+    btn.disabled = true; btn.textContent = "Publicandoâ€¦";
+    try {
+      const blobs = {};
+      for (const path of paths) {
+        const e = pending[path];
+        if (e.kind === "delete") continue;
+        const body = e.kind === "image"
+          ? { content: e.base64, encoding: "base64" }
+          : { content: b64(e.content), encoding: "base64" };
+        blobs[path] = (await gh(`${API}/git/blobs`, { method: "POST", body: JSON.stringify(body) })).sha;
+      }
+      const ref = await gh(`${API}/git/ref/heads/${BRANCH}`);
+      const headCommit = await gh(`${API}/git/commits/${ref.object.sha}`);
+      const tree = paths.map((p) => ({
+        path: p,
+        mode: "100644",
+        type: "blob",
+        sha: pending[p].kind === "delete" ? null : blobs[p],
+      }));
+      const newTree = await gh(`${API}/git/trees`, { method: "POST", body: JSON.stringify({ base_tree: headCommit.tree.sha, tree }) });
+      const deletions = paths.filter((p) => pending[p].kind === "delete").length;
+      const edits = paths.length - deletions;
+      const msg = `Publicar ${edits} cambio${edits === 1 ? "" : "s"} desde el panel${deletions ? ` (${deletions} eliminado${deletions > 1 ? "s" : ""})` : ""}`;
+      const newCommit = await gh(`${API}/git/commits`, { method: "POST", body: JSON.stringify({ message: msg, tree: newTree.sha, parents: [ref.object.sha] }) });
+      await gh(`${API}/git/refs/heads/${BRANCH}`, { method: "PATCH", body: JSON.stringify({ sha: newCommit.sha, force: false }) });
+      Object.keys(pending).forEach((k) => delete pending[k]);
+      try { localStorage.removeItem("dt_pending"); } catch (e) { }
+      updatePendingUI();
+      toast("Â¡Todo publicado! âœ… (deploy en ~1 min)");
+      setTimeout(() => location.reload(), 1200);
+    } catch (e) {
+      btn.disabled = false; btn.textContent = "Publicar todos";
+      toast("Error al publicar: " + e.message, true);
+    }
+  }
+
+  function discardPending() {
+    if (!Object.keys(pending).length) return;
+    if (!confirm("Â¿Descartar todos los cambios sin publicar?")) return;
+    Object.keys(pending).forEach((k) => delete pending[k]);
+    try { localStorage.removeItem("dt_pending"); } catch (e) { }
+    updatePendingUI();
+    location.reload();
+  }
 
   function toast(msg, isErr) {
     const t = document.getElementById("toast");
@@ -263,18 +374,18 @@
         token = payload.token;
         localStorage.setItem("dt_token", token);
         loadSession();
-        toast("Sesión iniciada correctamente ✅");
-      } catch (err) { toast("No se pudo iniciar sesión", true); }
+        toast("SesiÃ³n iniciada correctamente âœ…");
+      } catch (err) { toast("No se pudo iniciar sesiÃ³n", true); }
     }
   });
 
   authBtn.addEventListener("click", () => {
     if (token) {
       token = ""; localStorage.removeItem("dt_token"); user = null;
-      updateAuthUI(); renderAll(); toast("Sesión cerrada");
+      updateAuthUI(); renderAll(); toast("SesiÃ³n cerrada");
     } else {
       const popup = window.open(`${location.origin}/api/auth?provider=github`, "dt-auth", "width=700,height=650");
-      if (!popup) toast("Bloqueá popups para iniciar sesión", true);
+      if (!popup) toast("BloqueÃ¡ popups para iniciar sesiÃ³n", true);
     }
   });
 
@@ -283,14 +394,14 @@
     try {
       const res = await fetch("https://api.github.com/user", { headers: { Authorization: `Bearer ${token}` } });
       user = res.ok ? await res.json() : null;
-      authBtn.textContent = "Cerrar sesión";
-      authInfo.innerHTML = user ? `Sesión: <b>${esc(user.login)}</b><br>Listo para editar.` : "Sesión inválida, volvé a iniciar.";
-      if (!res.ok) authBtn.textContent = "Iniciar sesión con GitHub";
+      authBtn.textContent = "Cerrar sesiÃ³n";
+      authInfo.innerHTML = user ? `SesiÃ³n: <b>${esc(user.login)}</b><br>Listo para editar.` : "SesiÃ³n invÃ¡lida, volvÃ© a iniciar.";
+      if (!res.ok) authBtn.textContent = "Iniciar sesiÃ³n con GitHub";
     } catch { }
   }
   function updateAuthUI() {
-    authBtn.textContent = token ? "Cerrar sesión" : "Iniciar sesión con GitHub";
-    authInfo.innerHTML = token ? "Sesión iniciada. Listo para editar." : "Iniciá sesión para poder editar.";
+    authBtn.textContent = token ? "Cerrar sesiÃ³n" : "Iniciar sesiÃ³n con GitHub";
+    authInfo.innerHTML = token ? "SesiÃ³n iniciada. Listo para editar." : "IniciÃ¡ sesiÃ³n para poder editar.";
     authBtn.className = "auth-btn" + (token ? " ghost" : "");
   }
 
@@ -340,11 +451,37 @@
       state.categorias = await Promise.all((await listDir("src/data/categorias")).map(async (f) => ({ ...(await loadJson("src/data/categorias/" + f.name)), _file: f.name })));
       state.productos = await Promise.all((await listDir("src/data/productos")).map(async (f) => ({ ...(await loadJson("src/data/productos/" + f.name)), _file: f.name })));
       state.banners = await Promise.all((await listDir("src/data/banners")).map(async (f) => ({ ...(await loadJson("src/data/banners/" + f.name)), _file: f.name })));
+      applyPendingToState();
       document.getElementById("badge-categorias").textContent = state.categorias.length;
       document.getElementById("badge-productos").textContent = state.productos.length;
       document.getElementById("badge-banners").textContent = state.banners.length;
       renderAll();
     } catch (e) { toast("Error al cargar datos: " + e.message, true); }
+  }
+
+  const upsert = (list, obj) => { const i = list.findIndex((x) => x._file === obj._file); if (i >= 0) list[i] = obj; else list.push(obj); };
+  const baseName = (p) => p.split("/").pop();
+
+  // Refleja en las listas los cambios pendientes (sobreviven al recargar la pestaÃ±a)
+  function applyPendingToState() {
+    const paths = Object.keys(pending);
+    for (const p of paths) {
+      const e = pending[p];
+      if (e.kind === "file") {
+        try {
+          const obj = JSON.parse(e.content);
+          obj._file = baseName(p);
+          if (p.startsWith("src/data/productos/")) upsert(state.productos, obj);
+          else if (p.startsWith("src/data/categorias/")) upsert(state.categorias, obj);
+          else if (p.startsWith("src/data/banners/")) upsert(state.banners, obj);
+        } catch (err) { }
+      } else if (e.kind === "delete") {
+        const f = baseName(p);
+        if (p.startsWith("src/data/productos/")) state.productos = state.productos.filter((x) => x._file !== f);
+        else if (p.startsWith("src/data/categorias/")) state.categorias = state.categorias.filter((x) => x._file !== f);
+        else if (p.startsWith("src/data/banners/")) state.banners = state.banners.filter((x) => x._file !== f);
+      }
+    }
   }
 
   const filters = { categorias: "", productos: "", banners: "" };
@@ -366,23 +503,23 @@
     if (!b) { document.getElementById("banner-content").innerHTML = '<div class="alert">No hay datos</div>'; return; }
     document.getElementById("banner-content").innerHTML = `
       <div class="banner-editor-note" style="display:flex;justify-content:flex-end">
-        <button class="btn btn-teal" onclick="editBanner()">✎ Editar Banner</button>
+        <button class="btn btn-teal" onclick="editBanner()">âœŽ Editar Banner</button>
       </div>
       <div class="alert">
         Banner principal: se edita tocando <b>Editar Banner</b>.
       </div>
       <div class="grid">
-        <div class="card"><div class="card-thumb card-t1">${b.heroImage ? `<img src="${esc(b.heroImage)}" alt="">` : "Sin foto"}</div>
-          <div class="card-body"><div class="card-title">${esc(b.title || "Sin título")} <span style="color:var(--turquoise-dark)">${esc(b.titleHighlight || "")}</span></div>
+        <div class="card"><div class="card-thumb card-t1">${b.heroImage ? `<img src="${esc(previewSrc(b.heroImage))}" alt="">` : "Sin foto"}</div>
+          <div class="card-body"><div class="card-title">${esc(b.title || "Sin tÃ­tulo")} <span style="color:var(--turquoise-dark)">${esc(b.titleHighlight || "")}</span></div>
           <div class="card-sub">${esc((b.subtitle || "").slice(0, 90))}</div></div>
         </div>
         <div class="card"><div class="card-thumb card-t2"></div>
           <div class="card-body"><div class="card-title">Barra superior</div>
-          <div class="card-sub">${esc(b.topBar?.text || "—")} ${esc(b.topBar?.highlight || "")}</div></div>
+          <div class="card-sub">${esc(b.topBar?.text || "â€”")} ${esc(b.topBar?.highlight || "")}</div></div>
         </div>
         <div class="card"><div class="card-thumb card-t3"></div>
           <div class="card-body"><div class="card-title">Tarjeta destacada</div>
-          <div class="card-sub">${esc(b.featured?.name || "—")}</div></div>
+          <div class="card-sub">${esc(b.featured?.name || "â€”")}</div></div>
         </div>
       </div>`;
   }
@@ -397,14 +534,14 @@
         ["highlight", "Barra superior - texto destacado", "text", b.topBar?.highlight],
         ["badge1", "Etiqueta 1", "text", b.badge1],
         ["badge2", "Etiqueta 2", "text", b.badge2],
-        ["title", "Título", "text", b.title],
-        ["titleHighlight", "Título - resaltado", "text", b.titleHighlight],
-        ["subtitle", "Subtítulo", "textarea", b.subtitle, false, true],
+        ["title", "TÃ­tulo", "text", b.title],
+        ["titleHighlight", "TÃ­tulo - resaltado", "text", b.titleHighlight],
+        ["subtitle", "SubtÃ­tulo", "textarea", b.subtitle, false, true],
         ["heroImage", "Foto principal", "image", b.heroImage, false, false, false, true],
         ["heroImageAlt", "Texto alternativo de la foto", "text", b.heroImageAlt],
         ["fLabel", "Tarjeta destacada - etiqueta", "text", b.featured?.label],
         ["fName", "Tarjeta destacada - nombre", "text", b.featured?.name],
-        ["fDesc", "Tarjeta destacada - descripción", "text", b.featured?.description],
+        ["fDesc", "Tarjeta destacada - descripciÃ³n", "text", b.featured?.description],
         ["floatingBadge", "Sello flotante", "text", b.floatingBadge],
       ],
       async save(vals) {
@@ -416,21 +553,21 @@
           topBar: { text: vals.text, highlight: vals.highlight },
           featured: { label: vals.fLabel, name: vals.fName, description: vals.fDesc },
         };
-        await putFile("src/data/banner.json", JSON.stringify(data, null, 2), "Actualizar banner principal (desde panel)");
+        await stageFile("src/data/banner.json", JSON.stringify(data, null, 2));
         state.banner = data;
         renderBanner();
       },
     });
   }
 
-  // ============ Render Categorías ============
+  // ============ Render CategorÃ­as ============
   function renderCategorias() {
     const box = document.getElementById("categorias-content");
     const list = state.categorias.filter((c) => !filters.categorias || (c.label || "").toLowerCase().includes(filters.categorias));
-    if (!list.length) { box.innerHTML = `<div class="empty-state"><div class="empty-icon">🗂️</div><p style="font-weight:600;color:var(--text)">No hay categorías</p></div>`; return; }
+    if (!list.length) { box.innerHTML = `<div class="empty-state"><div class="empty-icon">ðŸ—‚ï¸</div><p style="font-weight:600;color:var(--text)">No hay categorÃ­as</p></div>`; return; }
     box.innerHTML = `<div class="grid">` + list.map((c) => `
       <div class="card">
-        <div class="card-thumb ${thumbClass(state.categorias.indexOf(c))}">${c.image ? `<img src="${esc(c.image)}" alt="">` : c.label?.[0]?.toUpperCase() || "·"}</div>
+        <div class="card-thumb ${thumbClass(state.categorias.indexOf(c))}">${c.image ? `<img src="${esc(previewSrc(c.image))}" alt="">` : c.label?.[0]?.toUpperCase() || "Â·"}</div>
         <div class="card-body">
           <div class="card-title">${esc(c.label)}</div>
           <div class="card-sub">clave: ${esc(c.key)}</div>
@@ -446,37 +583,44 @@
     if (!ensureAuth()) return;
     const c = file ? state.categorias.find((x) => x._file === file) : { key: "", label: "", image: "" };
     openEditor({
-      title: file ? "Editar Categoría" : "Nueva Categoría",
+      title: file ? "Editar CategorÃ­a" : "Nueva CategorÃ­a",
       fields: [
         ["key", "Clave interna *", "text", c.key],
         ["label", "Nombre *", "text", c.label],
-        ["image", "Foto de la categoría", "image", c.image],
+        ["image", "Foto de la categorÃ­a", "image", c.image],
       ],
       async save(vals) {
-        if (!vals.key || !vals.label) { toast("Completá clave y nombre", true); return false; }
+        if (!vals.key || !vals.label) { toast("CompletÃ¡ clave y nombre", true); return false; }
         const data = { key: vals.key.trim(), label: vals.label.trim(), image: vals.image };
-        if (file) { await putFile("src/data/categorias/" + file, JSON.stringify(data, null, 2), "Actualizar categoría"); }
-        else { await putFile(`src/data/categorias/${vals.key}.json`, JSON.stringify(data, null, 2), "Crear categoría (desde panel)"); }
-        await loadAll();
+        const fname = file ? file : (vals.key.trim() + ".json");
+        const obj = { ...data, _file: fname };
+        stageFile("src/data/categorias/" + fname, JSON.stringify(data, null, 2));
+        const ex = state.categorias.findIndex((x) => x._file === fname);
+        if (ex >= 0) state.categorias[ex] = obj; else state.categorias.push(obj);
+        renderCategorias();
+        document.getElementById("badge-categorias").textContent = state.categorias.length;
       },
     });
   }
 
   async function removeCategoria(file) {
     if (!ensureAuth()) return;
-    if (!confirm("¿Eliminar esta categoría?")) return;
-    try { await deleteFile("src/data/categorias/" + file, "Eliminar categoría (desde panel)"); await loadAll(); toast("Categoría eliminada"); }
-    catch (e) { toast(e.message, true); }
+    if (!confirm("Â¿Eliminar esta categorÃ­a?")) return;
+    stageDelete("src/data/categorias/" + file);
+    state.categorias = state.categorias.filter((x) => x._file !== file);
+    renderCategorias();
+    document.getElementById("badge-categorias").textContent = state.categorias.length;
+    toast("Eliminado (se publica con los demÃ¡s cambios)");
   }
 
   // ============ Render Productos ============
   function renderProductos() {
     const box = document.getElementById("productos-content");
     const list = state.productos.filter((p) => !filters.productos || (p.name || "").toLowerCase().includes(filters.productos));
-    if (!list.length) { box.innerHTML = `<div class="empty-state"><div class="empty-icon">📦</div><p style="font-weight:600;color:var(--text)">No hay productos cargados</p><p style="font-size:13px;margin-top:4px">Tocá "Nuevo Producto" para crear el primero.</p></div>`; return; }
+    if (!list.length) { box.innerHTML = `<div class="empty-state"><div class="empty-icon">ðŸ“¦</div><p style="font-weight:600;color:var(--text)">No hay productos cargados</p><p style="font-size:13px;margin-top:4px">TocÃ¡ "Nuevo Producto" para crear el primero.</p></div>`; return; }
     box.innerHTML = `<div class="grid">` + list.map((p, i) => `
       <div class="card">
-        <div class="card-thumb ${thumbClass(i)}">${p.image ? `<img src="${esc(p.image)}" alt="">` : "·"}</div>
+        <div class="card-thumb ${thumbClass(i)}">${p.image ? `<img src="${esc(previewSrc(p.image))}" alt="">` : "Â·"}</div>
         <div class="card-body">
           <div class="card-title">${esc(p.name)}</div>
           <div class="card-sub">${esc(p.cosmeticCategory || "")}</div>
@@ -497,17 +641,17 @@
       fields: [
         ["name", "Nombre del producto *", "text", p.name],
         ["image", "Foto principal", "image", p.image],
-        ["images", "Galería de fotos", "gallery", (p.images || []).map((x) => (typeof x === "string" ? x : x.image || x))],
+        ["images", "GalerÃ­a de fotos", "gallery", (p.images || []).map((x) => (typeof x === "string" ? x : x.image || x))],
         ["price", "Precio minorista ($)", "number", p.price],
         ["wholesalePrice", "Precio mayorista ($)", "number", p.wholesalePrice],
-        ["cosmeticCategory", "Categoría", "select", p.cosmeticCategory, true, false, ["cremas", "perfumes", "ropa-interior"]],
-        ["description", "Descripción", "textarea", p.description, false, true],
+        ["cosmeticCategory", "CategorÃ­a", "select", p.cosmeticCategory, true, false, ["cremas", "perfumes", "ropa-interior"]],
+        ["description", "DescripciÃ³n", "textarea", p.description, false, true],
         ["rating", "Puntaje (0-5)", "number", p.rating],
         ["crueltyFree", "Cruelty Free", "check", p.crueltyFree],
         ["id", "ID interno (opcional)", "text", p.id],
       ],
       async save(vals) {
-        if (!vals.name) { toast("Completá el nombre del producto", true); return false; }
+        if (!vals.name) { toast("CompletÃ¡ el nombre del producto", true); return false; }
         const slug = slugify(vals.name);
         if (!file && state.productos.some((x) => x._file === slug + ".json")) { toast("Ya existe un producto con ese nombre", true); return false; }
         const images = Array.isArray(vals.images) ? vals.images.filter(Boolean) : (vals.images ? String(vals.images).split(",").map((s) => s.trim()).filter(Boolean) : []);
@@ -522,27 +666,34 @@
         Object.keys(data).forEach((k) => { const math = data[k] === undefined || data[k] === null; if (math) delete data[k]; if (k !== "images" && (data[k] === "" )) delete data[k]; });
         if (data.images && !data.images.length) delete data.images;
         const fname = file ? file : (slug + ".json");
-        await putFile("src/data/productos/" + fname, JSON.stringify(data, null, 2), file ? "Actualizar producto" : "Crear producto (desde panel)");
-        await loadAll();
+        const obj = { ...data, _file: fname };
+        stageFile("src/data/productos/" + fname, JSON.stringify(data, null, 2));
+        const ex = state.productos.findIndex((x) => x._file === fname);
+        if (ex >= 0) state.productos[ex] = obj; else state.productos.push(obj);
+        renderProductos();
+        document.getElementById("badge-productos").textContent = state.productos.length;
       },
     });
   }
 
   async function removeProducto(file) {
     if (!ensureAuth()) return;
-    if (!confirm("¿Eliminar este producto?")) return;
-    try { await deleteFile("src/data/productos/" + file, "Eliminar producto (desde panel)"); await loadAll(); toast("Producto eliminado"); }
-    catch (e) { toast(e.message, true); }
+    if (!confirm("Â¿Eliminar este producto?")) return;
+    stageDelete("src/data/productos/" + file);
+    state.productos = state.productos.filter((x) => x._file !== file);
+    renderProductos();
+    document.getElementById("badge-productos").textContent = state.productos.length;
+    toast("Eliminado (se publica con los demÃ¡s cambios)");
   }
 
   // ============ Render Banners adicionales ============
   function renderBanners() {
     const box = document.getElementById("banners-content");
     const list = state.banners.filter((b) => !filters.banners || (b.name || b.slug || "").toLowerCase().includes(filters.banners));
-    if (!list.length) { box.innerHTML = `<div class="empty-state"><div class="empty-icon">🪧</div><p style="font-weight:600;color:var(--text)">No hay banners adicionales</p><p style="font-size:13px;margin-top:4px">Tocá "Nuevo Banner" para crear uno.</p></div>`; return; }
+    if (!list.length) { box.innerHTML = `<div class="empty-state"><div class="empty-icon">ðŸª§</div><p style="font-weight:600;color:var(--text)">No hay banners adicionales</p><p style="font-size:13px;margin-top:4px">TocÃ¡ "Nuevo Banner" para crear uno.</p></div>`; return; }
     box.innerHTML = `<div class="grid">` + list.map((b) => `
       <div class="card">
-        <div class="card-thumb ${thumbClass(state.banners.indexOf(b))}">${b.image ? `<img src="${esc(b.image)}" alt="">` : "·"}${b.active === false ? `<span class="card-inactive">Inactivo</span>` : ""}</div>
+        <div class="card-thumb ${thumbClass(state.banners.indexOf(b))}">${b.image ? `<img src="${esc(previewSrc(b.image))}" alt="">` : "Â·"}${b.active === false ? `<span class="card-inactive">Inactivo</span>` : ""}</div>
         <div class="card-body">
           <div class="card-title">${esc(b.name || b.slug)}</div>
           <div class="card-sub">zona: ${esc(b.position)}</div>
@@ -561,16 +712,16 @@
       title: file ? "Editar Banner" : "Nuevo Banner",
       fields: [
         ["name", "Nombre interno", "text", b.name],
-        ["position", "Ubicación en la página", "select", b.position, false, false, [["inicio", "Inicio (arriba del todo)"], ["despues-categorias", "Debajo de Categorías"], ["despues-productos", "Debajo de Productos"], ["antes-contacto", "Antes del Contacto"]]],
+        ["position", "UbicaciÃ³n en la pÃ¡gina", "select", b.position, false, false, [["inicio", "Inicio (arriba del todo)"], ["despues-categorias", "Debajo de CategorÃ­as"], ["despues-productos", "Debajo de Productos"], ["antes-contacto", "Antes del Contacto"]]],
         ["active", "Activo", "check", b.active],
-        ["title", "Título", "text", b.title],
-        ["subtitle", "Subtítulo", "textarea", b.subtitle, false, true],
-        ["ctaText", "Texto del botón", "text", b.ctaText],
-        ["ctaLink", "Enlace del botón", "text", b.ctaLink],
+        ["title", "TÃ­tulo", "text", b.title],
+        ["subtitle", "SubtÃ­tulo", "textarea", b.subtitle, false, true],
+        ["ctaText", "Texto del botÃ³n", "text", b.ctaText],
+        ["ctaLink", "Enlace del botÃ³n", "text", b.ctaLink],
         ["image", "Foto del banner", "image", b.image],
       ],
       async save(vals) {
-        if (!vals.name) { toast("Completá el nombre interno del banner", true); return false; }
+        if (!vals.name) { toast("CompletÃ¡ el nombre interno del banner", true); return false; }
         const slug = slugify(vals.name);
         const data = {
           name: vals.name, slug, position: vals.position,
@@ -578,21 +729,28 @@
           ctaText: vals.ctaText, ctaLink: vals.ctaLink, image: vals.image,
         };
         ["name","title","subtitle","ctaText","ctaLink","image"].forEach((k) => { if (!data[k]) delete data[k]; });
-        const fname = file ? file : (data.slug + ".json");
-        await putFile("src/data/banners/" + fname, JSON.stringify(data, null, 2), file ? "Actualizar banner" : "Crear banner (desde panel)");
-        await loadAll();
+        const fname = file ? file : (slug + ".json");
+        const obj = { ...data, _file: fname };
+        stageFile("src/data/banners/" + fname, JSON.stringify(data, null, 2));
+        const ex = state.banners.findIndex((x) => x._file === fname);
+        if (ex >= 0) state.banners[ex] = obj; else state.banners.push(obj);
+        renderBanners();
+        document.getElementById("badge-banners").textContent = state.banners.length;
       },
     });
   }
 
   async function removeBanner(file) {
     if (!ensureAuth()) return;
-    if (!confirm("¿Eliminar este banner?")) return;
-    try { await deleteFile("src/data/banners/" + file, "Eliminar banner (desde panel)"); await loadAll(); toast("Banner eliminado"); }
-    catch (e) { toast(e.message, true); }
+    if (!confirm("Â¿Eliminar este banner?")) return;
+    stageDelete("src/data/banners/" + file);
+    state.banners = state.banners.filter((x) => x._file !== file);
+    renderBanners();
+    document.getElementById("badge-banners").textContent = state.banners.length;
+    toast("Eliminado (se publica con los demÃ¡s cambios)");
   }
 
-  // ============ Editor genérico ============
+  // ============ Editor genÃ©rico ============
   function fieldHtml([name, label, type, value, full, wide, options, isImage]) {
     const v = value ?? (type === "check" ? true : "");
     const id = "f_" + name;
@@ -601,12 +759,12 @@
     if (type === "text") input = `<input class="input" id="${id}" value="${esc(v)}">`;
     else if (type === "number") input = `<input class="input" id="${id}" type="number" step="any" value="${v ?? ""}">`;
     else if (type === "textarea") input = `<textarea class="textarea" id="${id}">${esc(v)}</textarea>`;
-    else if (type === "check") input = `<label class="check"><input type="checkbox" id="${id}" ${v ? "checked" : ""}> Sí</label>`;
+    else if (type === "check") input = `<label class="check"><input type="checkbox" id="${id}" ${v ? "checked" : ""}> SÃ­</label>`;
     else if (type === "select") input = `<select class="select" id="${id}">${(options || []).map((o) => { const [val, lab] = Array.isArray(o) ? o : [o, o]; return `<option value="${esc(val)}" ${String(v) === String(val) ? "selected" : ""}>${esc(lab || val)}</option>`; }).join("")}</select>`;
     else if (type === "image") {
       input = `<img class="img-preview" id="${id}_img" src="${esc(v) || ""}" style="${v ? "" : "display:none"}">
         <div class="img-actions" style="margin-top:8px">
-          <input class="input" id="${id}" placeholder="URL de la imagen (/uploads/…) o subí un archivo" value="${esc(v)}">
+          <input class="input" id="${id}" placeholder="URL de la imagen (/uploads/â€¦) o subÃ­ un archivo" value="${esc(v)}">
           <label class="btn" style="white-space:nowrap">Subir<input type="file" accept="image/*" hidden onchange="uploadImageField(this,'${id}')"></label>
         </div>
         <div class="img-hint">Puede pasar la URL de una imagen ya cargada o subir un archivo nuevo (se guarda en /uploads/).</div>`;
@@ -616,10 +774,10 @@
         <div class="gallery-grid" id="${id}_list"></div>
         <div class="img-actions">
           <label class="btn" style="white-space:nowrap">Subir fotos<input type="file" accept="image/*" multiple hidden onchange="uploadGalleryFiles(this,'${id}')"></label>
-          <input class="input" id="${id}_url" placeholder="…o pegá una URL y tocá Agregar" style="flex:1">
+          <input class="input" id="${id}_url" placeholder="â€¦o pegÃ¡ una URL y tocÃ¡ Agregar" style="flex:1">
           <button class="btn" type="button" onclick="addGalleryUrl('${id}')">Agregar</button>
         </div>
-        <div class="img-hint">Subí varias fotos a la vez. Cada una se guarda en /uploads/ y se muestra en la ficha del producto.</div>
+        <div class="img-hint">SubÃ­ varias fotos a la vez. Cada una se guarda en /uploads/ y se muestra en la ficha del producto.</div>
         <input type="hidden" id="${id}" value='${esc(JSON.stringify(normGallery(v)))}'>
       </div>`;
     }
@@ -664,13 +822,12 @@
         else if (type === "image" || type === "text" || type === "textarea") vals[name] = el.value.trim();
       });
       const btn = document.getElementById("save-btn");
-      btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Guardando…';
+      btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Guardandoâ€¦';
       try {
         const r = await window._editorSave(vals);
         if (r === false) { btn.disabled = false; btn.textContent = "Guardar"; return; }
         closeEditor();
-        toast("Guardado y publicado ✅ (el deploy tarda ~1 min)");
-        setTimeout(() => location.reload(), 1200);
+        toast("Guardado. Cuando termines, tocÃ¡ â€œPublicar todosâ€ ðŸš€");
       } catch (e) {
         btn.disabled = false; btn.textContent = "Guardar";
         toast("Error al guardar: " + e.message, true);
@@ -681,27 +838,28 @@
   function closeEditor() { modalRoot.innerHTML = ""; }
 
   async function uploadOne(file) {
-    if (file.size > 5 * 1024 * 1024) throw new Error("pesa más de 5 MB");
-    const base64 = await new Promise((resolve, reject) => {
+    if (file.size > 5 * 1024 * 1024) throw new Error("pesa mÃ¡s de 5 MB");
+    const dataUrl = await new Promise((resolve, reject) => {
       const r = new FileReader();
-      r.onload = () => resolve(String(r.result).split(",")[1]);
+      r.onload = () => resolve(String(r.result));
       r.onerror = reject;
       r.readAsDataURL(file);
     });
-    if (!token) throw new Error("iniciá sesión para subir archivos");
+    if (!token) throw new Error("iniciÃ¡ sesiÃ³n para subir archivos");
     const ext = (file.name.split(".").pop() || "jpg").toLowerCase();
     const name = "panel-" + Date.now() + "-" + Math.random().toString(36).slice(2, 6) + "." + ext;
     const path = "public/uploads/" + name;
-    const meta = await readFileMeta(path);
-    const body = { message: `Subir imagen ${name} (desde panel)`, content: base64, branch: BRANCH };
-    if (meta && meta.sha) body.sha = meta.sha;
-    const res = await fetch(`${API}/contents/${path}`, { method: "PUT", headers: { Authorization: `Bearer ${token}`, Accept: "application/vnd.github+json" }, body: JSON.stringify(body) });
-    if (!res.ok) throw new Error("no se pudo subir la imagen");
+    stageImage(path, dataUrl.split(",")[1], file.type || "image/" + ext);
     return "/uploads/" + name;
   }
 
   function previewSrc(u) {
-    return u && u.startsWith("/uploads/") ? `https://raw.githubusercontent.com/${REPO}/${BRANCH}/public${u}` : u;
+    if (u && u.startsWith("/uploads/")) {
+      const e = pending["public" + u];
+      if (e && e.kind === "image") return `data:${e.mime};base64,${e.base64}`;
+      return `https://raw.githubusercontent.com/${REPO}/${BRANCH}/public${u}`;
+    }
+    return u;
   }
 
   function normGallery(v) {
@@ -718,7 +876,7 @@
     const grid = document.getElementById(fieldId + "_list");
     grid.innerHTML = (arr.length ? arr : []).map((u, i) =>
       `<div class="g-thumb"><img src="${esc(previewSrc(u))}" alt=""><button class="g-x" title="Quitar" onclick="removeGalleryItem('${esc(fieldId)}',${i})">&times;</button></div>`
-    ).join("") || `<div class="img-hint" style="margin:0">Todavía no subiste fotos.</div>`;
+    ).join("") || `<div class="img-hint" style="margin:0">TodavÃ­a no subiste fotos.</div>`;
   }
 
   function addGalleryUrl(fieldId) {
@@ -740,14 +898,14 @@
   async function uploadGalleryFiles(input, fieldId) {
     const files = Array.from(input.files || []);
     if (!files.length) return;
-    if (!token) { toast("Ingresá sesión para subir fotos", true); return; }
+    if (!token) { toast("IngresÃ¡ sesiÃ³n para subir fotos", true); return; }
     const list = galleryList(fieldId);
     let added = 0;
     for (const file of files) {
       try { list.push(await uploadOne(file)); added++; }
       catch (e) { toast(`Error al subir ${file.name}: ${e.message}`, true); }
     }
-    if (added) { toast(added === 1 ? "1 foto subida ✅" : `${added} fotos subidas ✅`); }
+    if (added) { toast(added === 1 ? "1 foto subida âœ…" : `${added} fotos subidas âœ…`); }
     setGallery(fieldId, list);
     input.value = "";
   }
@@ -759,18 +917,18 @@
       const url = await uploadOne(file);
       const urlInput = document.getElementById(fieldId);
       if (urlInput) { urlInput.value = url; const img = document.getElementById(fieldId + "_img"); if (img) { img.src = previewSrc(url); img.style.display = ""; } }
-      toast("Imagen subida ✅");
+      toast("Imagen subida âœ…");
     } catch (e) { toast("Error al subir imagen: " + e.message, true); }
     input.value = "";
   }
 
   function ensureAuth() {
     if (token) return true;
-    toast("Iniciá sesión con GitHub primero (abajo a la izquierda)", true);
+    toast("IniciÃ¡ sesiÃ³n con GitHub primero (abajo a la izquierda)", true);
     return false;
   }
 
-  // Navegación
+  // NavegaciÃ³n
   document.querySelectorAll('.nav-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.nav-btn').forEach((b) => b.classList.remove('active'));
@@ -781,6 +939,7 @@
     });
   });
 
+  loadPending();
   loadSession();
   loadAll();
 </script>
