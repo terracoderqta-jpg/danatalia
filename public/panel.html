@@ -429,8 +429,11 @@ function updateAuthUI() {
   }
   async function loadJson(path) {
     const res = await fetch(`${RAW}/${path}`);
-    if (!res.ok) throw new Error("No se pudo leer " + path);
-    return res.json();
+    if (res.ok) return res.json();
+    const data = await gh(`${API}/contents/${path}?ref=${BRANCH}`);
+    let txt = decodeURIComponent(escape(atob(data.content)));
+    if (txt.charCodeAt(0) === 0xFEFF) txt = txt.slice(1);
+    return JSON.parse(txt);
   }
   async function readFileMeta(path) {
     try { return await gh(`${API}/contents/${path}?ref=${BRANCH}`); }
