@@ -85,6 +85,7 @@
   .card-inactive { position: absolute; top: 10px; right: 10px; background: rgba(28,35,51,0.75); color: #fff; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 20px; }
   .card-body { padding: 14px; }
   .card-title { font-size: 14px; font-weight: 700; margin-bottom: 3px; }
+  .com-rating { color: #c9a227; font-size: 12px; letter-spacing: 1px; margin-left: 6px; }
   .card-sub { font-size: 12px; color: var(--text-secondary); }
   .card-price { font-size: 13px; font-weight: 700; color: var(--turquoise-dark); margin-top: 8px; }
   .card-actions { display: flex; gap: 8px; margin-top: 12px; }
@@ -175,6 +176,10 @@
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
       Banners adicionales <span class="nav-badge" id="badge-banners">0</span>
     </button>
+    <button class="nav-btn" data-section="comentarios">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Comentarios <span class="nav-badge" id="badge-comentarios">0</span>
+    </button>
 
     <div class="sidebar-footer">
       <div class="auth-info" id="auth-info">Iniciá sesión para poder editar.</div>
@@ -233,6 +238,19 @@
       <h1 class="page-title">Banners adicionales</h1>
       <p class="page-sub">Los banners que se colocan en distintas zonas de la página.</p>
       <div id="banners-content"></div>
+    </section>
+
+    <section id="sec-comentarios" class="content hidden">
+      <div class="topbar">
+        <div class="crumb">Panel › <b>Comentarios</b></div>
+        <div class="top-actions">
+          <input class="search" oninput="filterCards('comentarios', this.value)" placeholder="Buscar comentario…">
+          <button class="btn btn-teal" onclick="openEditorComentario()">Nuevo Comentario</button>
+        </div>
+      </div>
+      <h1 class="page-title">Comentarios</h1>
+      <p class="page-sub">Los testimonios que se muestran en la sección "Lo Que Dicen Nuestras Clientas".</p>
+      <div id="comentarios-content"></div>
     </section>
   </main>
 
@@ -461,7 +479,7 @@ function updateAuthUI() {
   }
 
   // ============ Estado ============
-  let state = { banner: null, categorias: [], productos: [], banners: [] };
+  let state = { banner: null, categorias: [], productos: [], banners: [], comentarios: [] };
 
   async function loadAll() {
     try {
@@ -469,10 +487,13 @@ function updateAuthUI() {
       state.categorias = await Promise.all((await listDir("src/data/categorias")).map(async (f) => ({ ...(await loadJson("src/data/categorias/" + f.name)), _file: f.name })));
       state.productos = await Promise.all((await listDir("src/data/productos")).map(async (f) => ({ ...(await loadJson("src/data/productos/" + f.name)), _file: f.name })));
       state.banners = await Promise.all((await listDir("src/data/banners")).map(async (f) => ({ ...(await loadJson("src/data/banners/" + f.name)), _file: f.name })));
+      state.comentarios = await loadJson("src/data/comentarios/comentarios.json");
+      if (!Array.isArray(state.comentarios)) state.comentarios = [];
       applyPendingToState();
       document.getElementById("badge-categorias").textContent = state.categorias.length;
       document.getElementById("badge-productos").textContent = state.productos.length;
       document.getElementById("badge-banners").textContent = state.banners.length;
+      document.getElementById("badge-comentarios").textContent = state.comentarios.length;
       renderAll();
     } catch (e) { toast("Error al cargar datos: " + e.message, true); }
   }
@@ -492,6 +513,7 @@ function updateAuthUI() {
           if (p.startsWith("src/data/productos/")) upsert(state.productos, obj);
           else if (p.startsWith("src/data/categorias/")) upsert(state.categorias, obj);
           else if (p.startsWith("src/data/banners/")) upsert(state.banners, obj);
+          else if (p.startsWith("src/data/comentarios/")) { if (Array.isArray(obj)) state.comentarios = obj; else state.comentarios = []; }
         } catch (err) { }
       } else if (e.kind === "delete") {
         const f = baseName(p);
@@ -502,7 +524,7 @@ function updateAuthUI() {
     }
   }
 
-  const filters = { categorias: "", productos: "", banners: "" };
+  const filters = { categorias: "", productos: "", banners: "", comentarios: "" };
   function filterCards(sec, v) { filters[sec] = v.toLowerCase(); renderSection(sec); }
 
   function renderSection(sec) {
@@ -510,8 +532,9 @@ function updateAuthUI() {
     if (sec === "categorias") renderCategorias();
     if (sec === "productos") renderProductos();
     if (sec === "banners") renderBanners();
+    if (sec === "comentarios") renderComentarios();
   }
-  function renderAll() { renderBanner(); renderCategorias(); renderProductos(); renderBanners(); }
+  function renderAll() { renderBanner(); renderCategorias(); renderProductos(); renderBanners(); renderComentarios(); }
 
   function thumbClass(i) { return "card-t" + ((i % 6) + 1); }
 
@@ -767,6 +790,67 @@ function updateAuthUI() {
     state.banners = state.banners.filter((x) => x._file !== file);
     renderBanners();
     document.getElementById("badge-banners").textContent = state.banners.length;
+    toast("Eliminado (se publica con los demás cambios)");
+  }
+
+  // ============ Render Comentarios ============
+  function renderComentarios() {
+    const box = document.getElementById("comentarios-content");
+    const list = state.comentarios.filter((c) => !filters.comentarios || (c.name || "").toLowerCase().includes(filters.comentarios));
+    if (!list.length) { box.innerHTML = `<div class="empty-state"><div class="empty-icon">💬</div><p style="font-weight:600;color:var(--text)">No hay comentarios</p><p style="font-size:13px;margin-top:4px">Tocá "Nuevo Comentario" para crear el primero.</p></div>`; return; }
+    box.innerHTML = `<div class="grid">` + state.comentarios.map((c, i) => `
+      <div class="card">
+        <div class="card-body">
+          <div class="card-title">${esc(c.name)} <span class="com-rating">${"★".repeat(Math.round(c.rating || 0))}${"☆".repeat(Math.max(0, 5 - Math.round(c.rating || 0)))}</span></div>
+          <div class="card-sub">${esc(c.type || "")}</div>
+          <p style="font-size:13px;color:var(--text-secondary);margin:8px 0;line-height:1.5">${esc((c.text || "").slice(0, 140))}${(c.text || "").length > 140 ? "…" : ""}</p>
+          <div class="card-actions">
+            <button class="btn" onclick="openEditorComentario(${i})">Editar</button>
+            <button class="btn btn-danger" onclick="removeComentario(${i})">Eliminar</button>
+          </div>
+        </div>
+      </div>`).join("") + `</div>`;
+  }
+
+  async function openEditorComentario(idx) {
+    if (!ensureAuth()) return;
+    const c = (typeof idx === "number" && state.comentarios[idx]) ? state.comentarios[idx] : { name: "", type: "Cliente Minorista", text: "", rating: 5, avatar: "" };
+    openEditor({
+      title: typeof idx === "number" ? "Editar Comentario" : "Nuevo Comentario",
+      fields: [
+        ["name", "Nombre de la clienta *", "text", c.name],
+        ["type", "Tipo", "select", c.type, true, false, [["Cliente Minorista", "Cliente Minorista"], ["Revendedora Mayorista", "Revendedora Mayorista"]]],
+        ["rating", "Puntaje (0-5)", "number", c.rating],
+        ["avatar", "Iniciales del avatar (ej: MG)", "text", c.avatar],
+        ["text", "Comentario *", "textarea", c.text, false, true],
+      ],
+      async save(vals) {
+        if (!vals.name) { toast("Completá el nombre", true); return false; }
+        if (!vals.text) { toast("Completá el comentario", true); return false; }
+        const data = {
+          name: vals.name.trim(),
+          type: vals.type,
+          text: vals.text.trim(),
+          rating: vals.rating !== "" ? Number(vals.rating) : undefined,
+          avatar: vals.avatar.trim() || String(vals.name.trim()[0]).toUpperCase(),
+        };
+        ["rating"].forEach((k) => { if (data[k] === undefined || data[k] === null || isNaN(data[k])) delete data[k]; });
+        if (typeof idx === "number" && state.comentarios[idx]) state.comentarios[idx] = data;
+        else state.comentarios.push(data);
+        stageFile("src/data/comentarios/comentarios.json", JSON.stringify(state.comentarios, null, 2));
+        renderComentarios();
+        document.getElementById("badge-comentarios").textContent = state.comentarios.length;
+      },
+    });
+  }
+
+  function removeComentario(idx) {
+    if (!ensureAuth()) return;
+    if (!confirm("¿Eliminar este comentario?")) return;
+    state.comentarios.splice(idx, 1);
+    stageFile("src/data/comentarios/comentarios.json", JSON.stringify(state.comentarios, null, 2));
+    renderComentarios();
+    document.getElementById("badge-comentarios").textContent = state.comentarios.length;
     toast("Eliminado (se publica con los demás cambios)");
   }
 

@@ -2,50 +2,29 @@
 
 import { Star, Quote } from "lucide-react";
 
-const TESTIMONIALS = [
-  {
-    name: "María González",
-    type: "Cliente Minorista",
-    text: "Los cosméticos de Dana Talía son increíbles. El sérum de vitamina C me cambió la piel. El despacho súper rápido.",
-    rating: 5,
-    avatar: "MG",
-  },
-  {
-    name: "Luciana Fernández",
-    type: "Revendedora Mayorista",
-    text: "Empecé con una inversión de $80.000 y en el primer mes ya había triplicado mi ganancia. La capacitación es excellentísima.",
-    rating: 5,
-    avatar: "LF",
-  },
-  {
-    name: "Carolina Ruiz",
-    type: "Cliente Minorista",
-    text: "La bruma floral es mi favorita. Todos me preguntan a qué huelo. Los productos son de primera calidad.",
-    rating: 5,
-    avatar: "CR",
-  },
-  {
-    name: "Valentina López",
-    type: "Revendedora Mayorista",
-    text: "Las clientas me piden más productos cada semana. Dana Talía me dio la oportunidad de emprender desde mi casa.",
-    rating: 5,
-    avatar: "VL",
-  },
-  {
-    name: "Camila Herrera",
-    type: "Cliente Minorista",
-    text: "Compré el kit skincare y mi piel quedó increíble. El precio es muy bueno para la calidad que tiene.",
-    rating: 4,
-    avatar: "CH",
-  },
-  {
-    name: "Daniela Romero",
-    type: "Revendedora Mayorista",
-    text: "En 3 meses armé mi clientela estable. Los productos se venden solos y el margen de ganancia es muy bueno.",
-    rating: 5,
-    avatar: "DR",
-  },
-];
+interface Testimonial {
+  name: string;
+  type: string;
+  text: string;
+  rating: number;
+  avatar: string;
+}
+
+interface JsonContext {
+  keys: () => string[];
+  (id: string): unknown;
+}
+
+// @ts-expect-error - require.context es una API de webpack disponible en el bundle de Next.js
+const comentariosContext: JsonContext = require.context(
+  "../../data/comentarios",
+  false,
+  /\.json$/
+);
+
+const TESTIMONIALS: Testimonial[] = (comentariosContext.keys() as string[]).length
+  ? (comentariosContext(comentariosContext.keys()[0]) as Testimonial[])
+  : [];
 
 export function Testimonials() {
   return (
