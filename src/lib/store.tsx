@@ -25,6 +25,7 @@ export interface CosmeticProduct {
   wholesalePrice: number;
   image: string;
   images?: (string | { image: string })[];
+  video?: string;
   cosmeticCategory: CosmeticCategory;
   badge?: string;
   rating: number;

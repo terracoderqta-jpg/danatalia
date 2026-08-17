@@ -1,6 +1,9 @@
 /admin/*
   Cache-Control: no-cache, no-store, must-revalidate
 
+/panel
+  Cache-Control: no-cache, no-store, must-revalidate
+
 # Las imágenes subidas desde el admin se revalidan para no mostrar versiones viejas
 /uploads/*
   Cache-Control: public, max-age=0, must-revalidate

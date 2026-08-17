@@ -266,7 +266,11 @@
   // pending[path] = { kind:"file", content } | { kind:"image", base64, mime } | { kind:"delete" }
 
   function savePending() {
-    try { localStorage.setItem("dt_pending", JSON.stringify(pending)); } catch (e) { }
+    try {
+      const slim = {};
+      Object.keys(pending).forEach((k) => { if (pending[k].kind !== "video") slim[k] = pending[k]; });
+      localStorage.setItem("dt_pending", JSON.stringify(slim));
+    } catch (e) { }
   }
   function loadPending() {
     try {
@@ -296,13 +300,17 @@
   }
   function updatePendingUI() {
     const bar = document.getElementById("publish-bar");
-    const imgCount = Object.keys(pending).filter((p) => p.startsWith("public/uploads")).length;
+    const uploads = Object.keys(pending).filter((p) => p.startsWith("public/uploads"));
+    const imgCount = uploads.filter((p) => pending[p].kind === "image").length;
+    const vidCount = uploads.filter((p) => pending[p].kind === "video").length;
     const n = pendingCount();
-    if (!n && !imgCount) { bar.classList.remove("show"); return; }
+    if (!n && !imgCount && !vidCount) { bar.classList.remove("show"); return; }
     bar.classList.add("show");
-    const txt = n ? `<b>${n} cambio${n === 1 ? "" : "s"}</b> sin publicar` : "";
-    const imgTxt = imgCount ? `${n ? " + " : ""}${imgCount} foto${imgCount > 1 ? "s" : ""} sin publicar` : "";
-    document.getElementById("publish-text").innerHTML = (txt + imgTxt) + ".";
+    const parts = [];
+    if (n) parts.push(`<b>${n} cambio${n === 1 ? "" : "s"}</b> sin publicar`);
+    if (imgCount) parts.push(`${imgCount} foto${imgCount > 1 ? "s" : ""}`);
+    if (vidCount) parts.push(`${vidCount} video${vidCount > 1 ? "s" : ""}`);
+    document.getElementById("publish-text").innerHTML = parts.join(" + ") + ".";
   }
 
   async function publishAll() {
@@ -316,7 +324,7 @@
       for (const path of paths) {
         const e = pending[path];
         if (e.kind === "delete") continue;
-        const body = e.kind === "image"
+        const body = (e.kind === "image" || e.kind === "video")
           ? { content: e.base64, encoding: "base64" }
           : { content: b64(e.content), encoding: "base64" };
         blobs[path] = (await gh(`${API}/git/blobs`, { method: "POST", body: JSON.stringify(body) })).sha;
@@ -651,6 +659,7 @@ function updateAuthUI() {
       fields: [
         ["name", "Nombre del producto *", "text", p.name],
         ["image", "Foto principal", "image", p.image],
+        ["video", "Video del producto", "video", p.video],
         ["images", "Galería de fotos", "gallery", (p.images || []).map((x) => (typeof x === "string" ? x : x.image || x))],
         ["price", "Precio minorista ($)", "number", p.price],
         ["wholesalePrice", "Precio mayorista ($)", "number", p.wholesalePrice],
@@ -666,7 +675,7 @@ function updateAuthUI() {
         if (!file && state.productos.some((x) => x._file === slug + ".json")) { toast("Ya existe un producto con ese nombre", true); return false; }
         const images = Array.isArray(vals.images) ? vals.images.filter(Boolean) : (vals.images ? String(vals.images).split(",").map((s) => s.trim()).filter(Boolean) : []);
         const data = {
-          name: vals.name.trim(), image: vals.image, images,
+          name: vals.name.trim(), image: vals.image, video: vals.video, images,
           price: vals.price ? Number(vals.price) : undefined,
           wholesalePrice: vals.wholesalePrice ? Number(vals.wholesalePrice) : undefined,
           cosmeticCategory: vals.cosmeticCategory, description: vals.description,
@@ -729,6 +738,7 @@ function updateAuthUI() {
         ["ctaText", "Texto del botón", "text", b.ctaText],
         ["ctaLink", "Enlace del botón", "text", b.ctaLink],
         ["image", "Foto del banner", "image", b.image],
+        ["video", "Video del banner", "video", b.video],
       ],
       async save(vals) {
         if (!vals.name) { toast("Completá el nombre interno del banner", true); return false; }
@@ -736,9 +746,9 @@ function updateAuthUI() {
         const data = {
           name: vals.name, slug, position: vals.position,
           active: vals.active, title: vals.title, subtitle: vals.subtitle,
-          ctaText: vals.ctaText, ctaLink: vals.ctaLink, image: vals.image,
+          ctaText: vals.ctaText, ctaLink: vals.ctaLink, image: vals.image, video: vals.video,
         };
-        ["name","title","subtitle","ctaText","ctaLink","image"].forEach((k) => { if (!data[k]) delete data[k]; });
+        ["name","title","subtitle","ctaText","ctaLink","image","video"].forEach((k) => { if (!data[k]) delete data[k]; });
         const fname = file ? file : (slug + ".json");
         const obj = { ...data, _file: fname };
         stageFile("src/data/banners/" + fname, JSON.stringify(data, null, 2));
@@ -778,6 +788,14 @@ function updateAuthUI() {
           <label class="btn" style="white-space:nowrap">Subir<input type="file" accept="image/*" hidden onchange="uploadImageField(this,'${id}')"></label>
         </div>
         <div class="img-hint">Puede pasar la URL de una imagen ya cargada o subir un archivo nuevo (se guarda en /uploads/).</div>`;
+    }
+    else if (type === "video") {
+      input = `<video controls preload="metadata" id="${id}_v" style="width:100%;border-radius:10px;max-height:200px;background:#000;${v ? "" : "display:none"}" ${v ? `src="${esc(previewMedia(v))}"` : ""}></video>
+        <div class="img-actions" style="margin-top:8px">
+          <input class="input" id="${id}" placeholder="URL del video (/uploads/…) o subí un archivo" value="${esc(v)}">
+          <label class="btn" style="white-space:nowrap">Subir video<input type="file" accept="video/mp4,video/webm" hidden onchange="uploadVideoField(this,'${id}')"></label>
+        </div>
+        <div class="img-hint">MP4 o WebM, idealmente corto y liviano. Si es pesado, publicá antes de recargar la página.</div>`;
     }
     else if (type === "gallery") {
       input = `<div class="gallery" id="${id}_wrap">
@@ -871,6 +889,14 @@ function updateAuthUI() {
     }
     return u;
   }
+  function previewMedia(u) {
+    if (u && u.startsWith("/uploads/")) {
+      const e = pending["public" + u];
+      if (e && (e.kind === "video" || e.kind === "image")) return `data:${e.mime};base64,${e.base64}`;
+      return `https://raw.githubusercontent.com/${REPO}/${BRANCH}/public${u}`;
+    }
+    return u;
+  }
 
   function normGallery(v) {
     const arr = Array.isArray(v) ? v : [];
@@ -929,6 +955,35 @@ function updateAuthUI() {
       if (urlInput) { urlInput.value = url; const img = document.getElementById(fieldId + "_img"); if (img) { img.src = previewSrc(url); img.style.display = ""; } }
       toast("Imagen subida ✅");
     } catch (e) { toast("Error al subir imagen: " + e.message, true); }
+    input.value = "";
+  }
+
+  async function uploadVideoField(input, fieldId) {
+    const file = input.files && input.files[0];
+    if (!file) return;
+    if (file.size > 30 * 1024 * 1024) { toast("El video pesa más de 30 MB", true); return; }
+    if (!token) { toast("Ingresá sesión para subir videos", true); return; }
+    try {
+      const dataUrl = await new Promise((resolve, reject) => {
+        const r = new FileReader();
+        r.onload = () => resolve(String(r.result));
+        r.onerror = reject;
+        r.readAsDataURL(file);
+      });
+      const ext = (file.name.split(".").pop() || "mp4").toLowerCase();
+      const name = "panel-" + Date.now() + "-" + Math.random().toString(36).slice(2, 6) + "." + ext;
+      const path = "public/uploads/" + name;
+      const mime = (file.type || "video/" + ext).split(";")[0];
+      pending[path] = { kind: "video", base64: dataUrl.split(",")[1], mime };
+      savePending();
+      updatePendingUI();
+      const url = "/uploads/" + name;
+      const urlInput = document.getElementById(fieldId);
+      if (urlInput) urlInput.value = url;
+      const v = document.getElementById(fieldId + "_v");
+      if (v) { v.src = dataUrl; v.controls = true; v.style.display = ""; }
+      toast("Video agregado ✅");
+    } catch (e) { toast("Error al subir video: " + e.message, true); }
     input.value = "";
   }
 

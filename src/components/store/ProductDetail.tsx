@@ -43,6 +43,18 @@ export function ProductDetail({ product }: { product: CosmeticProduct }) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-14">
           {/* Galería */}
           <div>
+            {product.video && (
+              <div className="relative rounded-3xl overflow-hidden aspect-square bg-black mb-4">
+                <video
+                  src={product.video}
+                  poster={product.image || undefined}
+                  controls
+                  playsInline
+                  preload="metadata"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            )}
             <div className="relative rounded-3xl overflow-hidden aspect-square bg-cream-dark">
               {current ? (
                 <Image

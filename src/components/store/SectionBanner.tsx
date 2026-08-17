@@ -12,6 +12,7 @@ export interface SeccBannerData {
   ctaText?: string;
   ctaLink?: string;
   image?: string;
+  video?: string;
 }
 
 export function SectionBanner({ banner }: { banner: SeccBannerData }) {
@@ -23,7 +24,17 @@ export function SectionBanner({ banner }: { banner: SeccBannerData }) {
     <section className="section-padding bg-white">
       <div className="container-site">
         <div className="relative rounded-3xl overflow-hidden shadow-xl">
-          {banner.image ? (
+          {banner.video ? (
+            <video
+              src={banner.video}
+              poster={banner.image || undefined}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-[260px] md:h-[320px] object-cover"
+            />
+          ) : banner.image ? (
             <Image
               src={banner.image}
               alt={banner.title || banner.name || "Banner"}
