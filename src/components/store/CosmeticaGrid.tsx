@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useStore, COSMETIC_PRODUCTS, type CosmeticCategory } from "@/lib/store";
 import Image from "next/image";
+import Link from "next/link";
 import { Star, ShoppingCart, Eye } from "lucide-react";
 import { EditLink } from "@/components/EditLink";
 
@@ -177,38 +178,45 @@ export function CosmeticaGrid() {
         {/* Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
           {filtered.map((product) => (
-            <div key={product.id} className="card-product">
+            <div key={product.id} className="card-product group">
               <div className="relative aspect-square overflow-hidden">
-                {product.image ? (
-                  <Image
-                    src={product.image}
-                    alt={product.name}
-                    width={600}
-                    height={600}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                ) : (
-                  <div className="w-full h-full bg-gradient-to-br from-nude to-blush" />
-                )}
-                {/* Badges */}
-                <div className="absolute top-3 left-3 flex flex-col gap-2">
-                  {product.badge && (
-                    <span className="badge-terracota text-[10px]">{product.badge}</span>
+                <Link
+                  href={`/producto/${product.slug}`}
+                  className="relative block w-full h-full"
+                  aria-label={`Ver ${product.name}`}
+                >
+                  {product.image ? (
+                    <Image
+                      src={product.image}
+                      alt={product.name}
+                      width={600}
+                      height={600}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-nude to-blush" />
                   )}
-                  {product.crueltyFree && (
-                    <span className="badge-green text-[10px]">Cruelty Free</span>
-                  )}
-                </div>
+                  {/* Badges */}
+                  <div className="absolute top-3 left-3 flex flex-col gap-2">
+                    {product.badge && (
+                      <span className="badge-terracota text-[10px]">{product.badge}</span>
+                    )}
+                    {product.crueltyFree && (
+                      <span className="badge-green text-[10px]">Cruelty Free</span>
+                    )}
+                  </div>
+                </Link>
                 {/* Quick view */}
                 <button
                   onClick={() => openQuickView(product)}
-                  className="absolute top-3 right-3 w-9 h-9 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-terracota hover:text-white"
+                  className="absolute top-3 right-3 z-10 w-9 h-9 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-terracota hover:text-white"
+                  aria-label="Vista rápida"
                 >
                   <Eye size={16} />
                 </button>
                 <EditLink
                   href={`/admin/#/collections/productos/entries/${product.slug}`}
-                  className="absolute bottom-3 right-3"
+                  className="absolute bottom-3 right-3 z-10"
                 />
               </div>
 
