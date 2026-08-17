@@ -423,7 +423,7 @@ function updateAuthUI() {
   async function gh(path, opts = {}) {
     const headers = Object.assign({ Accept: "application/vnd.github+json" }, opts.headers || {});
     const method = (opts.method || "GET").toUpperCase();
-    if (token && method !== "GET") headers.Authorization = `Bearer ${token}`;
+    if (token) headers.Authorization = `Bearer ${token}`;
     const res = await fetch(path, Object.assign({}, opts, { headers }));
     if (!res.ok) {
       const t = await res.text().catch(() => "");
