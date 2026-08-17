@@ -1,0 +1,12 @@
+{
+  "name": "Bikini",
+  "image": "/uploads/panel-1786924824626-xss8.jpeg",
+  "images": [
+    "/uploads/panel-1786924835129-ffur.jpeg"
+  ],
+  "price": 19999,
+  "cosmeticCategory": "ropa-interior",
+  "rating": 4.5,
+  "crueltyFree": false,
+  "slug": "bikini"
+}
