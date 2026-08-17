@@ -342,7 +342,7 @@
       setTimeout(() => location.reload(), 1200);
     } catch (e) {
       btn.disabled = false; btn.textContent = "Publicar todos";
-      toast("Error al publicar: " + e.message, true);
+      if (isAuthErr(e.message)) { authExpired(); } else { toast("Error al publicar: " + e.message, true); }
     }
   }
 
@@ -399,16 +399,23 @@
       if (!res.ok) authBtn.textContent = "Iniciar sesiÃ³n con GitHub";
     } catch { }
   }
-  function updateAuthUI() {
-    authBtn.textContent = token ? "Cerrar sesiÃ³n" : "Iniciar sesiÃ³n con GitHub";
-    authInfo.innerHTML = token ? "SesiÃ³n iniciada. Listo para editar." : "IniciÃ¡ sesiÃ³n para poder editar.";
+function updateAuthUI() {
+    authBtn.textContent = token ? "Cerrar sesión" : "Iniciar sesión con GitHub";
+    authInfo.innerHTML = token ? "Sesión iniciada. Listo para editar." : "Iniciá sesión para poder editar.";
     authBtn.className = "auth-btn" + (token ? " ghost" : "");
+  }
+  function isAuthErr(msg) { return /401|bad credentials|expired|invalid_token/i.test(String(msg)); }
+  function authExpired() {
+    token = ""; user = null; updateAuthUI();
+    try { localStorage.removeItem("dt_token"); } catch (e) { }
+    toast("Tu sesión de GitHub expiró. Volvé a iniciar sesión.", true);
   }
 
   // ============ Git helpers ============
   async function gh(path, opts = {}) {
     const headers = Object.assign({ Accept: "application/vnd.github+json" }, opts.headers || {});
-    if (token) headers.Authorization = `Bearer ${token}`;
+    const method = (opts.method || "GET").toUpperCase();
+    if (token && method !== "GET") headers.Authorization = `Bearer ${token}`;
     const res = await fetch(path, Object.assign({}, opts, { headers }));
     if (!res.ok) {
       const t = await res.text().catch(() => "");
@@ -830,7 +837,7 @@
         toast("Guardado. Cuando termines, tocÃ¡ â€œPublicar todosâ€ ðŸš€");
       } catch (e) {
         btn.disabled = false; btn.textContent = "Guardar";
-        toast("Error al guardar: " + e.message, true);
+        if (isAuthErr(e.message)) { authExpired(); } else { toast("Error al guardar: " + e.message, true); }
       }
     });
   }
