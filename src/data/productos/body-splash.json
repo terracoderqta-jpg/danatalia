@@ -1,0 +1,12 @@
+{
+  "name": "Body Splash",
+  "image": "/uploads/panel-1786977961974-5t4b.jpg",
+  "images": [
+    "/uploads/panel-1786977968628-5g9j.jpg",
+    "/uploads/panel-1786977968635-fmjn.jpg"
+  ],
+  "cosmeticCategory": "cremas",
+  "rating": 4.5,
+  "crueltyFree": true,
+  "slug": "body-splash"
+}

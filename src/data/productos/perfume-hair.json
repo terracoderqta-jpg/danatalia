@@ -1,0 +1,13 @@
+{
+  "name": "Perfume Hair",
+  "image": "/uploads/panel-1786977899942-dpro.jpg",
+  "images": [
+    "/uploads/panel-1786977917561-lhpq.jpg",
+    "/uploads/panel-1786977917566-pte7.jpg",
+    "/uploads/panel-1786977917570-z9hw.jpg",
+    "/uploads/panel-1786977917577-nl4r.jpg"
+  ],
+  "cosmeticCategory": "perfumes",
+  "crueltyFree": false,
+  "slug": "perfume-hair"
+}
