@@ -2,21 +2,21 @@
   {
     "name": "María González",
     "type": "Cliente Minorista",
-    "text": "Los cosméticos de Dana Talía son increíbles. El sérum de vitamina C me cambió la piel. El despacho súper rápido.",
+    "text": "Los cosméticos de Dana Talía son increíbles. El despacho súper rápido.",
     "rating": 5,
     "avatar": "MG"
   },
   {
     "name": "Luciana Fernández",
-    "type": "Revendedora Mayorista",
-    "text": "Empecé con una inversión de $80.000 y en el primer mes ya había triplicado mi ganancia. La capacitación es excellentísima.",
+    "type": "Cliente Minorista",
+    "text": "Holaaaa bombonazaaaaa. Rico no riquísimo el perfume por Dios Tenias razón me lo puse ayer y hoy sigue en mi cuerpo, en mi ropa y en mi cama. Exquisita y exótica esta fragancia, amé este parfumeeeeee🥰🥰🥰🥰",
     "rating": 5,
     "avatar": "LF"
   },
   {
     "name": "Carolina Ruiz",
     "type": "Cliente Minorista",
-    "text": "La bruma floral es mi favorita. Todos me preguntan a qué huelo. Los productos son de primera calidad.",
+    "text": "Pasión floral es mi favorita. Todos me preguntan a qué huelo. Los productos son de primera calidad.",
     "rating": 5,
     "avatar": "CR"
   },
@@ -30,7 +30,7 @@
   {
     "name": "Camila Herrera",
     "type": "Cliente Minorista",
-    "text": "Compré el kit skincare y mi piel quedó increíble. El precio es muy bueno para la calidad que tiene.",
+    "text": "El precio es muy bueno para la buena calidad que tiene.",
     "rating": 4,
     "avatar": "CH"
   },
