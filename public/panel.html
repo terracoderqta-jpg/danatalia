@@ -847,7 +847,7 @@ function updateAuthUI() {
         else if (type === "number") vals[name] = el.value.trim();
         else if (type === "select") vals[name] = el.value;
         else if (type === "gallery") { try { vals[name] = JSON.parse(el.value || "[]"); } catch { vals[name] = []; } }
-        else if (type === "image" || type === "text" || type === "textarea") vals[name] = el.value.trim();
+        else if (type === "image" || type === "video" || type === "text" || type === "textarea") vals[name] = el.value.trim();
       });
       const btn = document.getElementById("save-btn");
       btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Guardando…';
